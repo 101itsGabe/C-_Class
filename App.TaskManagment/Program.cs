@@ -173,12 +173,47 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     }
 
-                    /*
+                    
                     //Remove a student from a course
                     else if (choiceInt == 7)
+                    {
+                        Course curCourse = new Course();
+                        int codeInt = 0;
+                        Console.WriteLine("Which Student would you like to remove?: ");
+                        var studentString = Console.ReadLine() ?? string.Empty; ;
+                        Console.WriteLine("Enter the class code: ");
+                        if (int.TryParse(Console.ReadLine(), out int courseCode))
+                        {
+                            codeInt = courseCode;
+                        }
 
+                        foreach (Course c in courseList)
+                        {
+                            if(codeInt == c.classCode)
+                            {
+                                curCourse = c;
+                                break;
+                            }
+                        }
+
+
+                        foreach(Person p in curCourse.roster)
+                        {
+                            if(studentString == p.Name)
+                            {
+                                curCourse.roster.Remove(p);
+                                break;
+                            }
+                        }
+
+                    }
+
+                    /*
                     //Search for a course
                     else if (choiceInt == 8)
+                    {
+
+                    }
 
                     //List all courses
                     else if (choiceInt == 9)

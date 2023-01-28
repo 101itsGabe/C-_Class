@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 //Fully Qualified Name (FQN)
 using Library.TaskManagement.Models;
 
@@ -15,6 +16,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             //IF it is null everything will EXPLODE!!!
 
             List<Item> taskList = new List<Item>();
+            List<Course> courseList = new List<Course>();
+            List<Person> personList = new List<Person>();
 
             while (cont)
             {
@@ -34,7 +37,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 Console.WriteLine("13. Update a courses information");
                 Console.WriteLine("14. Update a student information");
                 Console.WriteLine("15. Create an assignment and add it to the list for a course");
-
                 Console.WriteLine("16. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
@@ -101,13 +103,77 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     //Create a course
                     else if (choiceInt == 4)
+                    {
+                        var newCourse = new Course();
+                        Console.WriteLine("Course Name: ");
+                        newCourse.Name = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Course Code: ");
+                        var code = Console.ReadLine();
+                        if(int.TryParse(code, out int codeInt))
+                        {
+                            newCourse.classCode = codeInt;
+                        }
+                        Console.WriteLine("Course Description: ");
+                        newCourse.Description = Console.ReadLine() ?? string.Empty;
+                        courseList.Add(newCourse);
+                    }
 
                     //Create a Student
                     else if (choiceInt == 5)
+                    {
+                        var newPerson = new Person();
+                        Console.WriteLine("Person Name: ");
+                        newPerson.Name = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Person Classification: ");
+                        newPerson.classification = Console.ReadLine() ?? string.Empty;
+                        personList.Add(newPerson);
+                    }
 
                     //Add a student to a course
                     else if (choiceInt == 6)
+                    {
+                        Person curPerson = new Person();
+                        int codeInt = 0;
+                        Console.WriteLine("Which Student would you like to add?: ");
+                        var studentString = Console.ReadLine() ?? string.Empty; ;
+                        Console.WriteLine("Enter the class code: ");
+                        if(int.TryParse(Console.ReadLine(),out int courseCode))
+                        {
+                            codeInt = courseCode;
+                        }
 
+                        
+                        foreach (Person p in personList)
+                        {
+                            if(p.Name.Contains(studentString,StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                curPerson = p;
+                                break;
+                            }
+                        }
+                        if(curPerson == null)
+                            Console.WriteLine("Sorry we couldnt find " + studentString);
+
+                      
+                        foreach (Course c in courseList)
+                        {
+                            if(c.classCode == codeInt)
+                            {
+                                if (curPerson != null)
+                                {
+                                    Console.WriteLine("CurPerson Name:  " + curPerson.Name);
+                                    c.roster.Add(curPerson);
+                                    Console.WriteLine("Successfully added " + curPerson.Name + " to " + c.Name);
+                                }
+                            }
+                        }
+                        
+                        if (codeInt == 0)
+                            Console.WriteLine("Could not find Course with code: " + codeInt);
+
+                    }
+
+                    /*
                     //Remove a student from a course
                     else if (choiceInt == 7)
 
@@ -134,6 +200,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     //Create an assignment and add it to the courses assignment
                     else if (choiceInt == 15)
+                    */
 
                     else if (choiceInt == 16)
                     {

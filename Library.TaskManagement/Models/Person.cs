@@ -10,5 +10,6 @@ namespace Library.TaskManagement.Models
     {
         public string classification { get; set; }
         public List<string> grades { get; set; }
+        public List<Course> courses { get; set; }
     }
 }

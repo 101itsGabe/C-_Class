@@ -51,7 +51,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         var response = Console.ReadLine() ?? string.Empty;
                         //If there is a Y character that has an accent mark it will still be Y
                         //and ignores capitals
-                        if(response.Equals("Y",StringComparison.InvariantCultureIgnoreCase))
+                        if (response.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
                         {
                             isToDo = false;
                         }
@@ -70,7 +70,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             newAppointment.Start = DateTime.Now;
                             newAppointment.End = DateTime.Now.AddHours(1);
                             taskList.Add(newAppointment);
-                        }   
+                        }
                         Console.WriteLine("Enter a name: ");
                         newTask.Name = Console.ReadLine() ?? string.Empty;
 
@@ -88,14 +88,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     //Search for tasks
                     else if (choiceInt == 3)
-                    {                        
+                    {
                         Console.WriteLine("Enter the seacrh term: ");
                         var query = Console.ReadLine();
 
                         var FilteredTasks = taskList
-                            .Where(t => 
+                            .Where(t =>
                             ((t is Appointment) || ((t is ToDo) && (t as ToDo).IsComplete)) &&
-                            t.Name.Contains(query,StringComparison.InvariantCultureIgnoreCase)
+                            t.Name.Contains(query, StringComparison.InvariantCultureIgnoreCase)
                             || t.Description.Contains(query, StringComparison.InvariantCultureIgnoreCase)
                             );
 
@@ -108,11 +108,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         Console.WriteLine("Course Name: ");
                         newCourse.Name = Console.ReadLine() ?? string.Empty;
                         Console.WriteLine("Course Code: ");
-                        var code = Console.ReadLine();
-                        if(int.TryParse(code, out int codeInt))
-                        {
-                            newCourse.classCode = codeInt;
-                        }
+                        var code = Console.ReadLine() ?? string.Empty;
+                        newCourse.classCode = code;
+
                         Console.WriteLine("Course Description: ");
                         newCourse.Description = Console.ReadLine() ?? string.Empty;
                         courseList.Add(newCourse);
@@ -133,63 +131,55 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     else if (choiceInt == 6)
                     {
                         Person curPerson = new Person();
-                        int codeInt = 0;
                         Console.WriteLine("Which Student would you like to add?: ");
                         var studentString = Console.ReadLine() ?? string.Empty; ;
                         Console.WriteLine("Enter the class code: ");
-                        if(int.TryParse(Console.ReadLine(),out int courseCode))
-                        {
-                            codeInt = courseCode;
-                        }
+                        var courseCode = Console.ReadLine() ?? string.Empty;
 
-                        
                         foreach (Person p in personList)
                         {
-                            if(p.Name.Contains(studentString,StringComparison.InvariantCultureIgnoreCase))
+                            if (p.Name.Contains(studentString, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 curPerson = p;
                                 break;
                             }
                         }
-                        if(curPerson == null)
+                        if (curPerson == null)
                             Console.WriteLine("Sorry we couldnt find " + studentString);
 
-                      
+
                         foreach (Course c in courseList)
                         {
-                            if(c.classCode == codeInt)
+                            if (c.classCode == courseCode)
                             {
                                 if (curPerson != null)
                                 {
+                                    c.roster = new List<Person>();
                                     Console.WriteLine("CurPerson Name:  " + curPerson.Name);
                                     c.roster.Add(curPerson);
                                     Console.WriteLine("Successfully added " + curPerson.Name + " to " + c.Name);
                                 }
                             }
                         }
-                        
-                        if (codeInt == 0)
-                            Console.WriteLine("Could not find Course with code: " + codeInt);
+
+                        if (courseCode == "0")
+                            Console.WriteLine("Could not find Course with code: " + courseCode);
 
                     }
 
-                    
+
                     //Remove a student from a course
                     else if (choiceInt == 7)
                     {
                         Course curCourse = new Course();
-                        int codeInt = 0;
                         Console.WriteLine("Which Student would you like to remove?: ");
                         var studentString = Console.ReadLine() ?? string.Empty; ;
                         Console.WriteLine("Enter the class code: ");
-                        if (int.TryParse(Console.ReadLine(), out int courseCode))
-                        {
-                            codeInt = courseCode;
-                        }
+                        var courseCode = Console.ReadLine() ?? string.Empty;
 
                         foreach (Course c in courseList)
                         {
-                            if(codeInt == c.classCode)
+                            if (courseCode == c.classCode)
                             {
                                 curCourse = c;
                                 break;
@@ -197,9 +187,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         }
 
 
-                        foreach(Person p in curCourse.roster)
+                        foreach (Person p in curCourse.roster)
                         {
-                            if(studentString == p.Name)
+                            if (studentString == p.Name)
                             {
                                 curCourse.roster.Remove(p);
                                 break;
@@ -208,39 +198,245 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     }
 
-                    /*
+
                     //Search for a course
                     else if (choiceInt == 8)
                     {
+                        Console.WriteLine("Enter a class code: ");
+                        var classCode = Console.ReadLine() ?? string.Empty;
 
+                        foreach (Course c in courseList)
+                        {
+                            if (classCode == c.classCode)
+                            {
+                                Console.WriteLine("Class: " + c.Name);
+                                Console.WriteLine("Class Code: " + c.classCode);
+                                Console.WriteLine("Description: " + c.Description);
+                                break;
+                            }
+                        }
                     }
 
                     //List all courses
                     else if (choiceInt == 9)
+                    {
+                        Console.WriteLine("All Courses: ");
+                        if (courseList.Count() == 0)
+                        {
+                            Console.WriteLine("There are no courses yet.");
+                        }
+                        else
+                        {
+                            foreach (Course c in courseList)
+                            {
+                                Console.WriteLine("Couse: " + c.Name);
+                                Console.WriteLine("Class Code: " + c.classCode);
+                                Console.WriteLine("Description: " + c.Description);
+                                Console.WriteLine("\n");
+                            }
+                            Console.WriteLine("\n");
+                        }
+                    }
+
 
                     //Search for a student
                     else if (choiceInt == 10)
+                    {
+                        Console.WriteLine("Enter a Students name: ");
+                        var name = Console.ReadLine() ?? string.Empty;
+
+                        foreach (Person p in personList)
+                        {
+                            if (name.Equals(p.Name))
+                            {
+                                Console.WriteLine("Class: " + p.Name);
+                                Console.WriteLine("Classification: " + p.classification);
+                                break;
+                            }
+                        }
+                    }
 
                     //List all students
                     else if (choiceInt == 11)
+                    {
+                        Console.WriteLine("All studemts: ");
+                        if (personList.Count() == 0)
+                        {
+                            Console.WriteLine("There are no students yet.");
+                        }
+                        else
+                        {
+                            foreach (Person c in personList)
+                            {
+                                Console.WriteLine("Couse: " + c.Name);
+                                Console.WriteLine("Class Code: " + c.classification + "\n");
+
+                            }
+                            Console.WriteLine("\n");
+                        }
+                    }
+
 
                     //List all courses a student is taking
                     else if (choiceInt == 12)
+                    {
+                        Console.WriteLine("Enter the students name: ");
+                        var name = Console.ReadLine();
+                        foreach (Person p in personList)
+                        {
+                            if (name == p.Name)
+                            {
+                                foreach (Course c in p.courses)
+                                {
+                                    Console.WriteLine(c.Display);
+                                }
+                                break;
+                            }
+                        }
+                    }
 
                     //Updtae course information
                     else if (choiceInt == 13)
+                    {
+                        Console.WriteLine("Enter the course code you would like to update: ");
+                        var code = Console.ReadLine();
+                        Course curCourse = null;
+
+                        foreach (Course c in courseList)
+                        {
+                            if (c.classCode == code)
+                            {
+                                curCourse = c;
+                                break;
+                            }
+                        }
+
+                        Console.WriteLine("What would you like to update?");
+                        Console.WriteLine("Name - N");
+                        Console.WriteLine("Description - D");
+                        Console.WriteLine("Course Code - C");
+                        var ch = Console.ReadLine();
+                        bool valid = false;
+
+                        if (curCourse != null)
+                        {
+                            while (!valid)
+                            {
+                                switch (ch)
+                                {
+                                    case "C":
+                                        Console.WriteLine("Enter the new Code you want to give to the course: ");
+                                        curCourse.classCode = Console.ReadLine() ?? string.Empty;
+                                        break;
+
+                                    case "D":
+                                        Console.WriteLine("Enter the new description you would like to give to the course: ");
+                                        curCourse.Description = Console.ReadLine() ?? string.Empty;
+                                        break;
+
+                                    case "N":
+                                        Console.WriteLine("Enter the new name you would like to give the class: ");
+                                        curCourse.Name = Console.ReadLine() ?? string.Empty;
+                                        break;
+
+
+
+                                    default:
+                                        valid = false;
+                                        break;
+
+
+                                }
+                            }
+                        }
+                        else
+                            Console.WriteLine("Sorry, there is no class with the code: " + code);
+                    }
 
                     //Update a students information
                     else if (choiceInt == 14)
+                    {
+                        Console.WriteLine("Enter the name of the student you would like to update: ");
+                        var name = Console.ReadLine();
+                        Person curPerson = null;
+
+                        foreach (Person p in personList)
+                        {
+                            if (p.Name == name)
+                            {
+                                curPerson = p;
+                                break;
+                            }
+                        }
+
+                        Console.WriteLine("What would you like to update?");
+                        Console.WriteLine("Name - N");
+                        Console.WriteLine("Classification - C");
+                        var ch = Console.ReadLine();
+                        bool valid = false;
+
+                        if (curPerson != null)
+                        {
+                            while (!valid)
+                            {
+                                switch (ch)
+                                {
+                                    case "C":
+                                        Console.WriteLine("Enter the new Code you want to give to the course: ");
+                                        curPerson.classification = Console.ReadLine() ?? string.Empty;
+                                        break;
+
+                                    case "N":
+                                        Console.WriteLine("Enter the new name you would like to give the person: ");
+                                        curPerson.Name = Console.ReadLine() ?? string.Empty;
+                                        break;
+
+
+
+                                    default:
+                                        valid = false;
+                                        break;
+
+
+                                }
+                            }
+                        }
+                        else
+                            Console.WriteLine("SOrry, there is no class with the code: " + name);
+                    
+                    }
 
                     //Create an assignment and add it to the courses assignment
                     else if (choiceInt == 15)
-                    */
+                    {
+                        Console.WriteLine("Enter the class code you would like to add the assignment to: ");
+                        var code = Console.ReadLine() ?? string.Empty;
+
+                        Assignment newAssignment = new Assignment();
+                        Console.WriteLine("Enter the name of the new assignment");
+                        newAssignment.Name = Console.ReadLine() ?? string.Empty;
+
+                        Console.WriteLine("Enter the description of the new assignment");
+                        newAssignment.Description = Console.ReadLine() ?? string.Empty;
+
+                        Console.WriteLine("Enter the total points the assignment will be worth: ");
+                        var tp = Console.ReadLine() ?? string.Empty;
+                        if(int.TryParse(tp, out var value)) 
+                        {
+                            newAssignment.totalPoints = value;
+                        }
+
+                        Console.WriteLine("Enter the due date of the assignment: ");
+                        newAssignment.dueDate = DateOnly.Parse(Console.ReadLine() ?? string.Empty);
+
+                    }
+                                
 
                     else if (choiceInt == 16)
-                    {
-                        cont = false;
-                    }
+                            {
+                                cont = false;
+                            }
+                                           
                 }
             }
         }

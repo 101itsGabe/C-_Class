@@ -1,12 +1,15 @@
-﻿namespace Library.TaskManagement.Models
+﻿using System.Reflection;
+using System;
+
+namespace Objects.Models
 {
-    public class Course : Item
+    public class Course: Item
     {
-        public Course() 
+        public Course()
         {
             roster = new List<Person>();
             assignments = new List<Assignment>();
-            modules= new List<Module>();
+            modules = new List<Module>();
         }
         public string classCode { get; set; }
         public List<Person> roster { get; set; }

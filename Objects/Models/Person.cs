@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.TaskManagement.Models
+namespace Objects.Models
 {
     public class Person : Item
     {
-        public Person() 
+        public Person()
         {
             courses = new List<Course>();
             grades = new List<string>();

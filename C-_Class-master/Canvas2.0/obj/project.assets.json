@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "Objects/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Objects.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Objects.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Objects/1.0.0": {
+      "type": "project",
+      "path": "../Objects/Objects.csproj",
+      "msbuildProject": "../Objects/Objects.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "Objects >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/gabe/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/gabe/Desktop/C# Folder/C-_Class-master/Canvas2.0/Canvas2.0.csproj",
+      "projectName": "Canvas2.0",
+      "projectPath": "/Users/gabe/Desktop/C# Folder/C-_Class-master/Canvas2.0/Canvas2.0.csproj",
+      "packagesPath": "/Users/gabe/.nuget/packages/",
+      "outputPath": "/Users/gabe/Desktop/C# Folder/C-_Class-master/Canvas2.0/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/gabe/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "/usr/local/share/dotnet/library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "/Users/gabe/Desktop/C# Folder/C-_Class-master/Objects/Objects.csproj": {
+              "projectPath": "/Users/gabe/Desktop/C# Folder/C-_Class-master/Objects/Objects.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

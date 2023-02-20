@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj": {}
+    "C:\\Users\\manng\\Desktop\\C# Class\\CANVASAPP\\C-_Class-master\\Objects\\Objects.csproj": {}
   },
   "projects": {
-    "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj": {
+    "C:\\Users\\manng\\Desktop\\C# Class\\CANVASAPP\\C-_Class-master\\Objects\\Objects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj",
+        "projectUniqueName": "C:\\Users\\manng\\Desktop\\C# Class\\CANVASAPP\\C-_Class-master\\Objects\\Objects.csproj",
         "projectName": "Objects",
-        "projectPath": "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj",
+        "projectPath": "C:\\Users\\manng\\Desktop\\C# Class\\CANVASAPP\\C-_Class-master\\Objects\\Objects.csproj",
         "packagesPath": "C:\\Users\\manng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\obj\\",
+        "outputPath": "C:\\Users\\manng\\Desktop\\C# Class\\CANVASAPP\\C-_Class-master\\Objects\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

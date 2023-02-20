@@ -10,14 +10,25 @@ namespace MyApp
 	{
         private StudentService ss = new StudentService();
 
-        public void CreateStudentRecord()
+        public void AddOrUpdateStudent(Person? p = null)
 		{
-            var newPerson = new Person();
-            Console.WriteLine("Person Name: ");
-            newPerson.Name = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Person Classification: ");
-            newPerson.classification = Console.ReadLine() ?? string.Empty;
-            ss.Add(newPerson);
+            Console.WriteLine("Person's Name: ");
+            var n = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine($"{n}'s classification: ");
+            var c = Console.ReadLine() ?? string.Empty;
+
+            bool isCreate = false;
+            if (p == null)
+            {
+                isCreate = true;
+                p = new Person();
+            }
+                
+            p.Name = n;
+            p.classification = c;
+
+            if(isCreate)
+                ss.Add(p);
         }
 
         public void ListStudents()
@@ -33,7 +44,20 @@ namespace MyApp
             ss.Search(n).ToList().ForEach(Console.WriteLine);   //Your not trying to assign anything so it is ok for now
         }
 
+        public void UpdateStudentRecord()
+        {
+            Console.WriteLine("Enter the student: ");
+            var n = Console.ReadLine() ?? string.Empty;
 
+            var curStudent = ss.studentList.FirstOrDefault(s => s.Name.ToUpper().Contains(n.ToUpper()));
+
+            if(curStudent == null)
+            {
+                AddOrUpdateStudent(curStudent);
+            }
+
+
+        }
 
 		public StudentHelper()
 		{

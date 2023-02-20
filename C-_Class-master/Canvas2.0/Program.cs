@@ -51,7 +51,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     //Create a Student
                     else if (choiceInt == 2)
                     {
-                        StudHelp.CreateStudentRecord();
+                        StudHelp.AddOrUpdateStudent();
                     }
 
                     //Add a student to a course

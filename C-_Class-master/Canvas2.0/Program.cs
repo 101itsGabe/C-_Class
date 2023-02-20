@@ -171,22 +171,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     //List all courses
                     else if (choiceInt == 6)
                     {
-                        Console.WriteLine("All Courses: ");
-                        if (courseList.Count() == 0)
-                        {
-                            Console.WriteLine("There are no courses yet.");
-                        }
-                        else
-                        {
-                            foreach (Course c in courseList)
-                            {
-                                Console.WriteLine("Couse: " + c.Name);
-                                Console.WriteLine("Class Code: " + c.classCode);
-                                Console.WriteLine("Description: " + c.Description);
-                                Console.WriteLine("\n");
-                            }
-                            Console.WriteLine("\n");
-                        }
+                        CourseHelp.ListCourses();
                     }
 
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
-
+using Canvas2._0.Helpers;
 using Objects.Models;
 
 namespace MyApp // Note: actual namespace depends on the project name.
@@ -17,6 +17,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             List<Course> courseList = new List<Course>();
             var StudHelp = new StudentHelper();
+            var CourseHelp = new CourseHelper();
 
             while (cont)
             {
@@ -44,16 +45,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     //Create a course
                     if (choiceInt == 1)
                     {
-                        var newCourse = new Course();
-                        Console.WriteLine("Course Name: ");
-                        newCourse.Name = Console.ReadLine() ?? string.Empty;
-                        Console.WriteLine("Course Code: ");
-                        var code = Console.ReadLine() ?? string.Empty;
-                        newCourse.classCode = code;
-
-                        Console.WriteLine("Course Description: ");
-                        newCourse.Description = Console.ReadLine() ?? string.Empty;
-                        courseList.Add(newCourse);
+                        CourseHelp.CreateCourseRecord();
                     }
 
                     //Create a Student

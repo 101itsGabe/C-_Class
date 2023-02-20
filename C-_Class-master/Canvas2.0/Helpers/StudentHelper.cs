@@ -2,6 +2,8 @@
 using Objects.Models;
 using Objects.Services;
 
+//This is for interaction with the console NOT for application
+
 namespace MyApp
 {
 	public class StudentHelper
@@ -28,7 +30,7 @@ namespace MyApp
             Console.WriteLine("Enter a name");
             var n = Console.ReadLine() ?? string.Empty;
 
-            ss.Search(n).ToList().ForEach(Console.WriteLine);   //Your no trying to assign anything so it is ok for now
+            ss.Search(n).ToList().ForEach(Console.WriteLine);   //Your not trying to assign anything so it is ok for now
         }
 
 

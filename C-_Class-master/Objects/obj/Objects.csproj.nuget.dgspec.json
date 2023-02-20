@@ -1,26 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gabe/Desktop/C# Folder/C-_Class-master/Objects/Objects.csproj": {}
+    "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj": {}
   },
   "projects": {
-    "/Users/gabe/Desktop/C# Folder/C-_Class-master/Objects/Objects.csproj": {
+    "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabe/Desktop/C# Folder/C-_Class-master/Objects/Objects.csproj",
+        "projectUniqueName": "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj",
         "projectName": "Objects",
-        "projectPath": "/Users/gabe/Desktop/C# Folder/C-_Class-master/Objects/Objects.csproj",
-        "packagesPath": "/Users/gabe/.nuget/packages/",
-        "outputPath": "/Users/gabe/Desktop/C# Folder/C-_Class-master/Objects/obj/",
+        "projectPath": "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\Objects.csproj",
+        "packagesPath": "C:\\Users\\manng\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\manng\\Source\\Repos\\C-_Class\\C-_Class-master\\Objects\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/gabe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\manng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -54,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -12,6 +12,13 @@ namespace Objects.Services
         {
             courseList.Add(c);
         }
+
+        public IEnumerable<Course> Search(string n)
+        {
+            return courseList.Where(s => s.Name.ToUpper().Contains(n.ToUpper()));
+        }
+
+
     }
 }
 

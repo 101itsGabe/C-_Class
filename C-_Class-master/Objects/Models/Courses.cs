@@ -24,7 +24,7 @@ namespace Objects.Models
 
         public override string ToString()
         {
-            return $"{Name} - {classCode} \n {Description}";
+            return $"{Name} - {classCode} \n {Description} \n";
         }
 
     }

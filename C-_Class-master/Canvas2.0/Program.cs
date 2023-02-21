@@ -45,7 +45,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     //Create a course
                     if (choiceInt == 1)
                     {
-                        CourseHelp.CreateCourseRecord();
+                        CourseHelp.AddOrUpdateCourse();
                     }
 
                     //Create a Student
@@ -57,48 +57,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     //Add a student to a course
                     else if (choiceInt == 3)
                     {
-                        Person curPerson = new Person();
-                        Console.WriteLine("Which Student would you like to add?: ");
-                        var studentString = Console.ReadLine() ?? string.Empty; ;
-                        Console.WriteLine("Enter the class code: ");
-                        var courseCode = Console.ReadLine() ?? string.Empty;
-
-                        foreach (Person p in personList)
-                        {
-                            if (p.Name.Contains(studentString, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                curPerson = p;
-                                break;
-                            }
-                        }
-                        if (curPerson == null)
-                            Console.WriteLine("Sorry we couldnt find " + studentString);
-
-
-                        bool found = false;
-                        foreach (Course c in courseList)
-                        {
-                            if (c.classCode == courseCode)
-                            {
-                                if (curPerson != null)
-                                {
-                                    Console.WriteLine("CurPerson Name:  " + curPerson.Name);
-                                    c.roster.Add(curPerson);
-                                    Console.WriteLine("Successfully added " + curPerson.Name + " to " + c.Name);
-                                    curPerson.courses.Add(c);
-                                    found = true;
-                                    break;
-                                }
-                            }
-
-                        }
-
-                        if (!found)
-                            Console.WriteLine("Could not find Course with code: " + courseCode);
+                        CourseHelp.AddStudentToRoster();
 
                     }
 
 
+                    /*
                     //Remove a student from a course
                     else if (choiceInt == 4)
                     {
@@ -167,6 +131,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
 
                     }
+                    */
 
                     //List all courses
                     else if (choiceInt == 6)
@@ -187,7 +152,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         StudHelp.ListStudents();
                     }
 
-
+                    
                     //List all courses a student is taking
                     else if (choiceInt == 9)
                     {
@@ -209,120 +174,13 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     //Updtae course information
                     else if (choiceInt == 10)
                     {
-                        Console.WriteLine("Enter the course code you would like to update: ");
-                        var code = Console.ReadLine();
-                        Course curCourse = null;
-
-                        foreach (Course c in courseList)
-                        {
-                            if (c.classCode == code)
-                            {
-                                curCourse = c;
-                                break;
-                            }
-                        }
-
-                        Console.WriteLine("What would you like to update?");
-                        Console.WriteLine("Name - N");
-                        Console.WriteLine("Description - D");
-                        Console.WriteLine("Course Code - C");
-                        var ch = Console.ReadLine();
-                        bool valid = false;
-
-                        if (curCourse != null)
-                        {
-                            while (!valid)
-                            {
-                                switch (ch)
-                                {
-                                    case "C":
-                                        Console.WriteLine("Enter the new Code you want to give to the course: ");
-                                        curCourse.classCode = Console.ReadLine() ?? string.Empty;
-                                        valid = true;
-                                        break;
-
-                                    case "D":
-                                        Console.WriteLine("Enter the new description you would like to give to the course: ");
-                                        curCourse.Description = Console.ReadLine() ?? string.Empty;
-                                        valid = true;
-                                        break;
-
-                                    case "N":
-                                        Console.WriteLine("Enter the new name you would like to give the class: ");
-                                        curCourse.Name = Console.ReadLine() ?? string.Empty;
-                                        valid = true;
-                                        break;
-
-
-
-                                    default:
-                                        valid = false;
-                                        break;
-
-
-                                }
-                            }
-                        }
-                        else
-                            Console.WriteLine("Sorry, there is no class with the code: " + code);
+                        CourseHelp.AddOrUpdateCourse();
                     }
 
                     //Update a students information
                     else if (choiceInt == 11)
                     {
-                        Console.WriteLine("Enter the name of the student you would like to update: ");
-                        var name = Console.ReadLine();
-                        Person curPerson = null;
-
-                        foreach (Person p in personList)
-                        {
-                            if (p.Name == name)
-                            {
-                                curPerson = p;
-                                break;
-                            }
-                        }
-
-                        if (curPerson == null)
-                        {
-                            Console.WriteLine("Sorry " + name + "not found");
-                        }
-
-                        else
-                        {
-                            Console.WriteLine("What would you like to update?");
-                            Console.WriteLine("Name - N");
-                            Console.WriteLine("Classification - C");
-                            var ch = Console.ReadLine();
-                            bool valid = false;
-
-                            while (!valid)
-                            {
-                                switch (ch)
-                                {
-                                    case "C":
-                                        Console.WriteLine("Enter the new Code you want to give to the course: ");
-                                        curPerson.classification = Console.ReadLine() ?? string.Empty;
-                                        valid = true;
-                                        break;
-
-                                    case "N":
-                                        Console.WriteLine("Enter the new name you would like to give the person: ");
-                                        curPerson.Name = Console.ReadLine() ?? string.Empty;
-                                        valid = true;
-                                        break;
-
-
-
-                                    default:
-                                        valid = false;
-                                        break;
-
-
-                                }
-                            }
-                        }
-                       
+                        StudHelp.AddOrUpdateStudent();
                     }
 
                     //Create an assignment and add it to the courses assignment
@@ -360,6 +218,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     {
                         cont = false;
                     }
+                    */
 
                 }
             }

@@ -59,6 +59,14 @@ namespace MyApp
 
         }
 
+        public Person GetStudnet(string n)
+        {
+            if (ss.studentList != null)
+                return ss.studentList.FirstOrDefault(s => s.Name.ToUpper().Equals(n.ToUpper()));
+            else
+                return null;
+        }
+
 		public StudentHelper()
 		{
 

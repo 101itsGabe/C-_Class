@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using Canvas2._0.Helpers;
 using Objects.Models;
+using Objects.Services;
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
@@ -16,8 +17,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
             //IF it is null everything will EXPLODE!!!
 
             List<Course> courseList = new List<Course>();
-            var StudHelp = new StudentHelper();
-            var CourseHelp = new CourseHelper();
+            var stdsrvc = new StudentService();
+            var StudHelp = new StudentHelper(stdsrvc);
+            var CourseHelp = new CourseHelper(stdsrvc);
 
             while (cont)
             {
@@ -40,7 +42,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                 if (int.TryParse(choice, out int choiceInt))
                 {
-   
+
 
                     //Create a course
                     if (choiceInt == 1)
@@ -95,43 +97,15 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
 
                     }
-
+                        */
 
                     //Search for a course
                     else if (choiceInt == 5)
                     {
-                        Console.WriteLine("Enter a class code: ");
-                        var curCode = Console.ReadLine() ?? string.Empty;
-
-                        foreach (Course c in courseList)
-                        {
-                            if (curCode == c.classCode)
-                            {
-                                Console.WriteLine("\nClass: " + c.Name);
-                                Console.WriteLine("Class Code: " + c.classCode);
-                                Console.WriteLine("Description: " + c.Description);
-                                Console.WriteLine("\nStudents in this class: ");
-
-                                Console.WriteLine(c.ShowRoster());
-
-                                Console.WriteLine("\n");
-                                Console.WriteLine("Assignments:");
-                                foreach (Assignment a in c.assignments)
-                                {
-                                    Console.WriteLine("\n");
-                                    Console.WriteLine(a.Name);
-                                    Console.WriteLine(a.Description);
-                                    Console.WriteLine(a.totalPoints);
-                                    Console.WriteLine(a.dueDate);
-                                    Console.WriteLine("\n");
-                                }
-                                break;
-                            }
-                        }
-
-
+                        CourseHelp.SearchCourse();
                     }
-                    */
+
+                 
 
                     //List all courses
                     else if (choiceInt == 6)
@@ -152,7 +126,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         StudHelp.ListStudents();
                     }
 
-                    
+                    /*
                     //List all courses a student is taking
                     else if (choiceInt == 9)
                     {
@@ -213,12 +187,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     }
 
-
+                    */
                     else if (choiceInt == 13)
                     {
                         cont = false;
                     }
-                    */
+                    
 
                 }
             }

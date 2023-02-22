@@ -8,7 +8,12 @@ namespace MyApp
 {
 	public class StudentHelper
 	{
-        private StudentService ss = new StudentService();
+        private StudentService ss;
+
+        public StudentHelper(StudentService s)
+        {
+            ss = s;
+        }
 
         public void AddOrUpdateStudent(Person? p = null)
 		{
@@ -67,10 +72,6 @@ namespace MyApp
                 return null;
         }
 
-		public StudentHelper()
-		{
-
-		}
 	}
 }
 

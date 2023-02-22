@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Intrinsics.X86;
 using MyApp;
 using Objects.Models;
 using Objects.Services;
@@ -8,7 +9,11 @@ namespace Canvas2._0.Helpers
 	public class CourseHelper
     {
         private CourseService cs = new CourseService();
-        private StudentHelper sh = new StudentHelper();
+        private StudentService sh;
+        public CourseHelper(StudentService s)
+        {
+            sh = s;
+        }
 
         public void AddOrUpdateCourse(Course? course = null)
 		{
@@ -17,18 +22,53 @@ namespace Canvas2._0.Helpers
             Console.WriteLine("Class Code: ");
             var c = Console.ReadLine() ?? string.Empty;
 
-            bool isCreate = false;
-            if (course == null)
+            Console.WriteLine("Which Students should be enrolled in this course? 'Q' to quit: ");
+            var roster = new List<Person>();
+            bool continueAdding = true;
+            
+            
+
+            while (continueAdding)
             {
-                isCreate = true;
-                course = new Course();
+                sh.Students.Where(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())).ToList().ForEach(Console.WriteLine);
+
+                var studName = "Q";
+                if(sh.Students.Any(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())))
+                {
+                    studName = Console.ReadLine() ?? string.Empty;
+                }
+
+                if (studName.Equals("Q") || !sh.Students.Any(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())))
+                {
+                    continueAdding = false;
+                }
+                else
+                {
+                    var curStudent = sh.Students.FirstOrDefault(s => s.Name.ToUpper().Contains(studName.ToUpper()));
+                    if(curStudent != null && !roster.Contains(curStudent)) 
+                    {
+                        roster.Add(curStudent);
+                    }
+                }
             }
+
+                bool isCreate = false;
+                if (course == null)
+                {
+                    isCreate = true;
+                    course = new Course();
+                }
 
             course.Name = n;
             course.classCode = c;
+            course.Roster = new List<Person>();
+            course.Roster.AddRange( roster );
 
-            if (isCreate)
-                cs.Add(course);
+
+
+                if (isCreate)
+                    cs.Add(course);
+            
         }
 
         public void ListCourses()
@@ -38,33 +78,23 @@ namespace Canvas2._0.Helpers
 
         public void AddStudentToRoster()
         {
-            Console.WriteLine("Enter the name of the student you want to add: ");
-            var n = Console.ReadLine() ?? string.Empty;
-            var curStudent = sh.GetStudnet(n);
-            if (curStudent == null)
-                Console.Write($"No student with the name: {n}");
-            else
-            {
+            
+        }
 
-                Console.WriteLine("Enter the course code: ");
-                var c = Console.ReadLine() ?? string.Empty;
-                var curCourse = cs.courseList.FirstOrDefault(s => s.Name.ToUpper().Contains(c.ToUpper()));
-                if (curCourse != null)
-                {
-                    curCourse.roster.Add(curStudent);
-                    curStudent.courses.Add(curCourse);
-                }
-                else
-                    Console.WriteLine($"Not a course with the code: {c}");
-            }
+        public void SearchCourse()
+        {
+            Console.WriteLine("Enter the class code: ");
+            var n = Console.ReadLine() ?? string.Empty;
+
+            cs.Search(n).ToList().ForEach(Console.WriteLine);   //Your not trying to assign anything so it is ok for now
         }
 
         public void UpdateCourseRecord()
         {
-            Console.WriteLine("Enter the student: ");
+            Console.WriteLine("Enter the course code: ");
             var n = Console.ReadLine() ?? string.Empty;
 
-            var curCourse = cs.courseList.FirstOrDefault(s => s.Name.ToUpper().Contains(n.ToUpper()));
+            var curCourse = cs.courseList.FirstOrDefault(s => s.classCode.ToUpper().Contains(n.ToUpper()));
 
             if (curCourse == null)
             {

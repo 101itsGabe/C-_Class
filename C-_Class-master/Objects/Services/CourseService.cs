@@ -15,7 +15,7 @@ namespace Objects.Services
 
         public IEnumerable<Course> Search(string n)
         {
-            return courseList.Where(s => s.Name.ToUpper().Contains(n.ToUpper()));
+            return courseList.Where(s => s.classCode.ToUpper().Contains(n.ToUpper()));
         }
 
 

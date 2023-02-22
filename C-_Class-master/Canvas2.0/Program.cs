@@ -26,17 +26,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 Console.WriteLine("Choose an option: ");
                 Console.WriteLine("1. Create a Course");
                 Console.WriteLine("2. Create a Student");
-                Console.WriteLine("3. Add a student to a course");
-                Console.WriteLine("4. Remove a student to a course");
-                Console.WriteLine("5. Search for a course");
-                Console.WriteLine("6. List all courses");
-                Console.WriteLine("7. Search for a student");
-                Console.WriteLine("8. List all students");
-                Console.WriteLine("9. List all courses a student is taking");
-                Console.WriteLine("10. Update a courses information");
-                Console.WriteLine("11. Update a student information");
-                Console.WriteLine("12. Create an assignment and add it to the list for a course");
-                Console.WriteLine("13. Exit");
+                Console.WriteLine("3. Remove a student to a course");
+                Console.WriteLine("4. Search for a course");
+                Console.WriteLine("5. List all courses");
+                Console.WriteLine("6. Search for a student");
+                Console.WriteLine("7. List all students");
+                Console.WriteLine("8. List all courses a student is taking");
+                Console.WriteLine("9. Update a courses information");
+                Console.WriteLine("10. Update a student information");
+                Console.WriteLine("11. Create an assignment and add it to the list for a course");
+                Console.WriteLine("12. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
 
@@ -56,51 +55,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         StudHelp.AddOrUpdateStudent();
                     }
 
-                    //Add a student to a course
+                    
+                    //Remove a student from a course
                     else if (choiceInt == 3)
                     {
-                        CourseHelp.AddStudentToRoster();
-
+                        CourseHelp.RemoveStudentFromCourse();
                     }
-
-
-                    /*
-                    //Remove a student from a course
-                    else if (choiceInt == 4)
-                    {
-                        Course curCourse = new Course();
-                        Console.WriteLine("\nWhich Student would you like to remove?: ");
-                        var studentString = Console.ReadLine() ?? string.Empty; ;
-                        Console.WriteLine("\nEnter the class code: ");
-                        var courseCode = Console.ReadLine() ?? string.Empty;
-
-                        foreach (Course c in courseList)
-                        {
-                            if (courseCode == c.classCode)
-                            {
-                                curCourse = c;
-                                break;
-                            }
-                        }
-
-
-                        foreach (Person p in curCourse.roster)
-                        {
-                            if (studentString == p.Name)
-                            {
-                                curCourse.roster.Remove(p);
-                                p.courses.Remove(curCourse);
-                                break;
-                            }
-                        }
-
-
-
-                    }
-                        */
+                        
 
                     //Search for a course
-                    else if (choiceInt == 5)
+                    else if (choiceInt == 4)
                     {
                         CourseHelp.SearchCourse();
                     }
@@ -108,27 +72,27 @@ namespace MyApp // Note: actual namespace depends on the project name.
                  
 
                     //List all courses
-                    else if (choiceInt == 6)
+                    else if (choiceInt == 5)
                     {
                         CourseHelp.ListCourses();
                     }
 
 
                     //Search for a student
-                    else if (choiceInt == 7)
+                    else if (choiceInt == 6)
                     {
                         StudHelp.SearchStudents();
                     }
 
                     //List all students
-                    else if (choiceInt == 8)
+                    else if (choiceInt == 7)
                     {
                         StudHelp.ListStudents();
                     }
 
                     /*
                     //List all courses a student is taking
-                    else if (choiceInt == 9)
+                    else if (choiceInt == 8)
                     {
                         Console.WriteLine("Enter the students name: ");
                         var name = Console.ReadLine();
@@ -144,21 +108,21 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             }
                         }
                     }
-
+                    */
                     //Updtae course information
-                    else if (choiceInt == 10)
+                    else if (choiceInt == 9)
                     {
                         CourseHelp.AddOrUpdateCourse();
                     }
 
                     //Update a students information
-                    else if (choiceInt == 11)
+                    else if (choiceInt == 10)
                     {
                         StudHelp.AddOrUpdateStudent();
                     }
-
+                    /*
                     //Create an assignment and add it to the courses assignment
-                    else if (choiceInt == 12)
+                    else if (choiceInt == 11)
                     {
                         Console.WriteLine("Enter the class code you would like to add the assignment to: ");
                         var code = Console.ReadLine() ?? string.Empty;
@@ -188,7 +152,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
 
                     */
-                    else if (choiceInt == 13)
+                    else if (choiceInt == 12)
                     {
                         cont = false;
                     }

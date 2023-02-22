@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata;
 using System.Runtime.Intrinsics.X86;
 using MyApp;
 using Objects.Models;
@@ -102,6 +103,40 @@ namespace Canvas2._0.Helpers
             }
             
 
+        }
+
+        public void RemoveStudentFromCourse()
+        {
+            Console.WriteLine("Enter class code: ");
+            var c = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.courseList.FirstOrDefault(s => s.classCode.Contains(c));
+            if (curCourse == null)
+                Console.WriteLine($"{c} not found");
+            else
+            {
+                bool isRemoving = true;
+                while(isRemoving)
+                { 
+                    curCourse.Roster.ToList().ForEach(Console.WriteLine);
+                    Console.WriteLine("Enter the student name you would like to remove 'Q' to quit: ");
+                    var n = Console.ReadLine() ?? string.Empty;
+
+                    if(n == "Q")
+                    {
+                        isRemoving = false;
+                    }
+
+                    else
+                    {
+                        var curStudent = sh.Students.FirstOrDefault(s => s.Name.ToUpper().Contains(n.ToUpper()));
+                        if (curStudent == null) { Console.WriteLine("Student not found"); }
+                        else
+                        {
+                            curCourse.Roster.Remove(curStudent);
+                        }
+                    }
+                }
+            }
 
         }
     }

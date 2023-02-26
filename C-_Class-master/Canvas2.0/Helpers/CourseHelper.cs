@@ -23,6 +23,8 @@ namespace Canvas2._0.Helpers
             var n = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Class Code: ");
             var c = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter a Description: ");
+            var desc = Console.ReadLine() ?? string.Empty;
 
             Console.WriteLine("Which Students should be enrolled in this course? 'Q' to quit: ");
             var roster = new List<Person>();
@@ -56,17 +58,58 @@ namespace Canvas2._0.Helpers
                 }
             }
 
-                bool isCreate = false;
-                if (course == null)
+            Console.WriteLine("Would you like top add assigments? Y N: ");
+            var ar = Console.ReadLine() ?? "N";
+            var assign = new List<Assignment>();
+            if(ar.Equals("Y",StringComparison.InvariantCultureIgnoreCase))
+            { 
+                continueAdding = true;
+                while(continueAdding)
                 {
-                    isCreate = true;
-                    course = new Course();
+                    //Name
+                    Console.WriteLine("Name: ");
+                    var aname = Console.ReadLine() ?? string.Empty;
+                    //Description
+                    Console.WriteLine("Description: ");
+                    var adesc = Console.ReadLine() ?? string.Empty;
+                    //TotalPoints
+                    Console.WriteLine("Total Points: ");
+                    var tp = decimal.Parse(Console.ReadLine() ?? "100");
+                    //DueDate
+                    Console.WriteLine("Due Date: ");
+                    var dd = DateOnly.Parse(Console.ReadLine() ?? "01/01/1900");
+
+                    assign.Add(new Assignment
+                    {
+                        Name = aname,
+                        Description = adesc,
+                        totalPoints = tp,
+                        dueDate = dd
+                    }) ;
+
+                    Console.WriteLine("Add more assigments? Y N:");
+                    ar = Console.ReadLine() ?? "N";
+                    if(ar.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        continueAdding = false;
+                    }
                 }
+            }
+
+            bool isCreate = false;
+            if (course == null)
+            {
+                isCreate = true;
+                course = new Course();
+            }
 
             course.Name = n;
             course.classCode = c;
+            course.Description = desc;
             course.Roster = new List<Person>();
             course.Roster.AddRange( roster );
+            course.Assignments = new List<Assignment>();
+            course.Assignments.AddRange( assign );
 
 
 

@@ -16,10 +16,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
             //Beacuse you dont control it you cant verify if its null
             //IF it is null everything will EXPLODE!!!
 
-            List<Course> courseList = new List<Course>();
-            var stdsrvc = new StudentService();
-            var StudHelp = new StudentHelper(stdsrvc);
-            var CourseHelp = new CourseHelper(stdsrvc);
+            //List<Course> courseList = new List<Course>();
+            var StudHelp = new StudentHelper();
+            var CourseHelp = new CourseHelper();
 
             while (cont)
             {
@@ -30,12 +29,10 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 Console.WriteLine("4. Search for a course");
                 Console.WriteLine("5. List all courses");
                 Console.WriteLine("6. Search for a student");
-                Console.WriteLine("7. List all students");
-                Console.WriteLine("8. List all courses a student is taking");
-                Console.WriteLine("9. Update a courses information");
-                Console.WriteLine("10. Update a student information");
-                Console.WriteLine("11. Create an assignment and add it to the list for a course");
-                Console.WriteLine("12. Exit");
+                Console.WriteLine("7. List  all Students");
+                Console.WriteLine("8. Update Course Info");
+                Console.WriteLine("9. Update a student Info");
+                Console.WriteLine("10. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
 
@@ -90,33 +87,15 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         StudHelp.ListStudents();
                     }
 
-                    /*
-                    //List all courses a student is taking
-                    else if (choiceInt == 8)
-                    {
-                        Console.WriteLine("Enter the students name: ");
-                        var name = Console.ReadLine();
-                        foreach (Person p in personList)
-                        {
-                            if (name == p.Name)
-                            {
-                                foreach (Course c in p.courses)
-                                {
-                                    Console.WriteLine(c.Display);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                    */
+                    
                     //Updtae course information
-                    else if (choiceInt == 9)
+                    else if (choiceInt == 8)
                     {
                         CourseHelp.AddOrUpdateCourse();
                     }
 
                     //Update a students information
-                    else if (choiceInt == 10)
+                    else if (choiceInt == 9)
                     {
                         StudHelp.AddOrUpdateStudent();
                     }
@@ -152,7 +131,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
 
                     */
-                    else if (choiceInt == 12)
+                    else if (choiceInt == 10)
                     {
                         cont = false;
                     }

@@ -9,20 +9,20 @@ namespace Objects.Models
     public class Person : Item
     {
        
-        public string classification { get; set; }
-        public List<string> grades { get; set; }
-        public List<Course> courses { get; set; }
+        public string Classification { get; set; }
+        public List<string> Grades { get; set; }
+        public List<Course> Courses { get; set; }
 
         public Person()
         {
-            classification = string.Empty;
-            courses = new List<Course>();
-            grades = new List<string>();
+            Classification = string.Empty;
+            Courses = new List<Course>();
+            Grades = new List<string>();
         }
 
         public override string ToString()
         {
-            return $"{Name} - {classification}";
+            return $"{Name} - {Classification}";
         }
     }
 }

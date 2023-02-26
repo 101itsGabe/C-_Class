@@ -9,11 +9,12 @@ namespace Canvas2._0.Helpers
 {
 	public class CourseHelper
     {
-        private CourseService cs = new CourseService();
+        private CourseService cs;
         private StudentService sh;
-        public CourseHelper(StudentService s)
+        public CourseHelper()
         {
-            sh = s;
+            sh = StudentService.Current;
+            cs = CourseService.Current;
         }
 
         public void AddOrUpdateCourse(Course? course = null)
@@ -49,6 +50,8 @@ namespace Canvas2._0.Helpers
                     if(curStudent != null && !roster.Contains(curStudent)) 
                     {
                         roster.Add(curStudent);
+                        if(course != null)
+                            curStudent.Courses.Add(course);
                     }
                 }
             }
@@ -77,10 +80,7 @@ namespace Canvas2._0.Helpers
             cs.courseList.ForEach(Console.WriteLine);
         }
 
-        public void AddStudentToRoster()
-        {
-            
-        }
+
 
         public void SearchCourse()
         {

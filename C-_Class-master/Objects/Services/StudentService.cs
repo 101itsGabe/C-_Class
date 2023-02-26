@@ -5,7 +5,25 @@ namespace Objects.Services
 {
 	public class StudentService
 	{
-		public List<Person> studentList { get; set; } = new List<Person>();
+		public List<Person> studentList;
+		private static StudentService? _instance;
+
+		private StudentService()
+		{
+			studentList = new List<Person>();
+		}
+
+		public static StudentService Current
+		{
+			get 
+			{
+				if(_instance == null)
+				{
+					_instance = new StudentService();
+				}
+				return _instance;
+			}
+		}
 
 		public void Add(Person s)
 		{

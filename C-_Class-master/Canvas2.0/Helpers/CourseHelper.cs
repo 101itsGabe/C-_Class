@@ -118,25 +118,33 @@ namespace Canvas2._0.Helpers
             
         }
 
-        public void ListCourses()
+
+
+
+        public void SearchCourse(string? query = null)
         {
-            cs.courseList.ForEach(Console.WriteLine);
-        }
+            if (string.IsNullOrEmpty(query))
+            {
+                cs.courseList.ForEach(Console.WriteLine);
+                   //Your not trying to assign anything so it is ok for now
+            }        
+            else { cs.Search(query).ToList().ForEach(Console.WriteLine); }
 
+            Console.WriteLine("Select a course: ");
+            var code = Console.ReadLine() ?? string.Empty;
 
-
-        public void SearchCourse()
-        {
-            Console.WriteLine("Enter the class code: ");
-            var n = Console.ReadLine() ?? string.Empty;
-
-            cs.Search(n).ToList().ForEach(Console.WriteLine);   //Your not trying to assign anything so it is ok for now
+            var curCourse = cs.courseList.FirstOrDefault(c => c.classCode.Equals(code,StringComparison.InvariantCultureIgnoreCase));
+            if(curCourse != null ) 
+            {
+                Console.WriteLine(curCourse.DetailDisplay);
+            }
         }
 
         public void UpdateCourseRecord()
         {
             Console.WriteLine("Enter the course code: ");
             var n = Console.ReadLine() ?? string.Empty;
+            SearchCourse();
 
             var curCourse = cs.courseList.FirstOrDefault(s => s.classCode.ToUpper().Contains(n.ToUpper()));
 

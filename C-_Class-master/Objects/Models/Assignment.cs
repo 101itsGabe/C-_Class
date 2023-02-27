@@ -15,7 +15,7 @@ namespace Objects.Models
 
         public override string ToString()
         {
-            return $"{Name} - Due: {dueDate}";
+            return $"{Name} - {dueDate}";
         }
     }
 

@@ -63,16 +63,19 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     //Search for a course
                     else if (choiceInt == 4)
                     {
-                        CourseHelp.SearchCourse();
+                        Console.WriteLine("Enter the class code: ");
+                        var n = Console.ReadLine() ?? string.Empty;
+                        CourseHelp.SearchCourse(n);
                     }
 
                  
-
+                    
                     //List all courses
                     else if (choiceInt == 5)
                     {
-                        CourseHelp.ListCourses();
+                        CourseHelp.SearchCourse();
                     }
+                    
 
 
                     //Search for a student

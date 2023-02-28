@@ -82,9 +82,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
         static void ShowCourseMenu(CourseHelper CourseHelp)
         {
             Console.WriteLine("1. Create a Course");            //Course
-            Console.WriteLine("4. Search for a course");        //Course
-            Console.WriteLine("5. List all courses");           //Course
-            Console.WriteLine("8. Update Course Info");         //Course
+            Console.WriteLine("2. Search for a course");        //Course
+            Console.WriteLine("3. List all courses");           //Course
+            Console.WriteLine("4. Update Course Info");         //Course
 
             var input = Console.ReadLine() ?? string.Empty;
             if (int.TryParse(input, out int choiceInt))

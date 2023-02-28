@@ -5,12 +5,12 @@ namespace Objects.Services
 {
 	public class StudentService
 	{
-		public List<Person> studentList;
+		public List<Student> studentList;
 		private static StudentService? _instance;
 
 		private StudentService()
 		{
-			studentList = new List<Person>();
+			studentList = new List<Student>();
 		}
 
 		public static StudentService Current
@@ -25,17 +25,17 @@ namespace Objects.Services
 			}
 		}
 
-		public void Add(Person s)
+		public void Add(Student s)
 		{
 			studentList.Add(s);
 		}
 
-		public List<Person> Students
+		public List<Student> Students
 		{
 			get { return studentList; }
 		}
 
-		public IEnumerable<Person> Search(string n)
+		public IEnumerable<Student> Search(string n)
 		{
 			return studentList.Where(s => s.Name.ToUpper().Contains(n.ToUpper()));
 		}

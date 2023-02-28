@@ -17,8 +17,10 @@ namespace MyApp
             cs = CourseService.Current;
         }
 
-        public void AddOrUpdateStudent(Person? p = null)
+        public void AddOrUpdateStudent(Student? p = null)
 		{
+            Console.WriteLine("Persons ID: ");
+            var PersonId = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Person's Name: ");
             var n = Console.ReadLine() ?? string.Empty;
             Console.WriteLine($"Entera a num for {n}'s classification: ");
@@ -27,52 +29,40 @@ namespace MyApp
             Console.WriteLine("3: Junior");
             Console.WriteLine("4: Senior");
             var c = Console.ReadLine() ?? string.Empty;
-            string year;
-            switch(c)
-            {
-                case "1":
-                    year = "Freshman";
-                    break;
-                case "2":
-                    year = "Sophmore;";
-                    break;
-                case "3":
-                    year = "Junior";
-                    break;
-                case "4":
-                    year = "Senior";
-                    break;
-
-                default:
-                    year = "";
-                    break;
-            }
 
            
             bool isCreate = false;
             if (p == null)
             {
                 isCreate = true;
-                p = new Person();
+                p = new Student();
             }
                 
             p.Name = n;
-            p.Classification = year;
+            switch (c)
+            {
+                case "1":
+                    p.Classification = PersonClassification.Freshamn;
+                    break;
+                case "2":
+                    p.Classification = PersonClassification.Sophmore;
+                    break;
+                case "3":
+                    p.Classification = PersonClassification.Junior;
+                    break;
+                case "4":
+                    p.Classification = PersonClassification.Senior;
+                    break;
+            }
 
-            if(isCreate)
+
+            if (isCreate)
                 ss.Add(p);
         }
 
         public void ListStudents()
         {
             ss.Students.ForEach(Console.WriteLine);
-
-            Console.WriteLine("Enter a student: ");
-            var n = Console.ReadLine() ?? string.Empty;
-
-            Console.WriteLine("Stduent Course List:");
-            cs.courseList.Where(c => c.Roster.Any(s => s.Name == n)).ToList().ForEach(Console.WriteLine);
-            
         }
 
         public void SearchStudents()

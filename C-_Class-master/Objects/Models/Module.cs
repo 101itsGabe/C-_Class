@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Objects.Models
 {
-    public class AssignmentItem : ContentItem
+    public class Module : Item
     {
-        public List<Assignment> assignments= new List<Assignment>();
+
     }
 }

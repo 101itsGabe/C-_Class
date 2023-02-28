@@ -8,5 +8,6 @@ namespace Objects.Models
 {
     public class PageItem : ContentItem
     {
+        public string? HTMLBody;
     }
 }

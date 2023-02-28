@@ -8,6 +8,6 @@ namespace Objects.Models
 {
     public class FileItem : ContentItem
     {
-        public string? contentPath { get; set; }
+        public string? FilePath { get; set; }
     }
 }

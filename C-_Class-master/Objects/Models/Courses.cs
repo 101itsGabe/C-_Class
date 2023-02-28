@@ -6,7 +6,7 @@ namespace Objects.Models
     public class Course : Item
     {
         public string classCode { get; set; }
-        public List<Person> Roster { get; set; }
+        public List<Student> Roster { get; set; }
 
         public List<Assignment> Assignments { get; set; }
 
@@ -17,7 +17,7 @@ namespace Objects.Models
             classCode = string.Empty;
             Name = string.Empty;
             Description = string.Empty;
-            Roster = new List<Person>();
+            Roster = new List<Student>();
             Assignments = new List<Assignment>();
             Modules = new List<Module>();
         }

@@ -27,7 +27,7 @@ namespace Canvas2._0.Helpers
             var desc = Console.ReadLine() ?? string.Empty;
 
             Console.WriteLine("Which Students should be enrolled in this course? 'Q' to quit: ");
-            var roster = new List<Person>();
+            var roster = new List<Student>();
             bool continueAdding = true;
             
             
@@ -46,16 +46,7 @@ namespace Canvas2._0.Helpers
                 {
                     continueAdding = false;
                 }
-                else
-                {
-                    var curStudent = sh.Students.FirstOrDefault(s => s.Name.ToUpper().Contains(studName.ToUpper()));
-                    if(curStudent != null && !roster.Contains(curStudent)) 
-                    {
-                        roster.Add(curStudent);
-                        if(course != null)
-                            curStudent.Courses.Add(course);
-                    }
-                }
+                
             }
 
             Console.WriteLine("Would you like top add assigments? Y N: ");
@@ -106,7 +97,7 @@ namespace Canvas2._0.Helpers
             course.Name = n;
             course.classCode = c;
             course.Description = desc;
-            course.Roster = new List<Person>();
+            course.Roster = new List<Student>();
             course.Roster.AddRange( roster );
             course.Assignments = new List<Assignment>();
             course.Assignments.AddRange( assign );

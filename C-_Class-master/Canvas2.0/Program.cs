@@ -22,127 +22,110 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
             while (cont)
             {
-                Console.WriteLine("Choose an option: ");
-                Console.WriteLine("1. Create a Course");
-                Console.WriteLine("2. Create a Student");
-                Console.WriteLine("3. Remove a student to a course");
-                Console.WriteLine("4. Search for a course");
-                Console.WriteLine("5. List all courses");
-                Console.WriteLine("6. Search for a student");
-                Console.WriteLine("7. List  all Students");
-                Console.WriteLine("8. Update Course Info");
-                Console.WriteLine("9. Update a student Info");
-                Console.WriteLine("10. Exit");
+                Console.WriteLine("1. Maintain Students");
+                Console.WriteLine("2. Maintain Courses");
+                Console.WriteLine("3. Exit");                      //Sys
 
                 string choice = Console.ReadLine() ?? string.Empty;
 
                 if (int.TryParse(choice, out int choiceInt))
                 {
-
-
-                    //Create a course
                     if (choiceInt == 1)
-                    {
-                        CourseHelp.AddOrUpdateCourse();
-                    }
-
-                    //Create a Student
+                        ShowStudentMenu(StudHelp);
                     else if (choiceInt == 2)
-                    {
-                        StudHelp.AddOrUpdateStudent();
-                    }
-
-                    
-                    //Remove a student from a course
+                        ShowCourseMenu(CourseHelp);
                     else if (choiceInt == 3)
-                    {
-                        CourseHelp.RemoveStudentFromCourse();
-                    }
-                        
-
-                    //Search for a course
-                    else if (choiceInt == 4)
-                    {
-                        Console.WriteLine("Enter the class code: ");
-                        var n = Console.ReadLine() ?? string.Empty;
-                        CourseHelp.SearchCourse(n);
-                    }
-
-                 
-                    
-                    //List all courses
-                    else if (choiceInt == 5)
-                    {
-                        CourseHelp.SearchCourse();
-                    }
-                    
-
-
-                    //Search for a student
-                    else if (choiceInt == 6)
-                    {
-                        StudHelp.SearchStudents();
-                    }
-
-                    //List all students
-                    else if (choiceInt == 7)
-                    {
-                        StudHelp.ListStudents();
-                    }
-
-                    
-                    //Updtae course information
-                    else if (choiceInt == 8)
-                    {
-                        CourseHelp.AddOrUpdateCourse();
-                    }
-
-                    //Update a students information
-                    else if (choiceInt == 9)
-                    {
-                        StudHelp.AddOrUpdateStudent();
-                    }
-                    /*
-                    //Create an assignment and add it to the courses assignment
-                    else if (choiceInt == 11)
-                    {
-                        Console.WriteLine("Enter the class code you would like to add the assignment to: ");
-                        var code = Console.ReadLine() ?? string.Empty;
-
-                        Assignment newAssignment = new Assignment();
-                        Console.WriteLine("Enter the name of the new assignment");
-                        newAssignment.Name = Console.ReadLine() ?? string.Empty;
-
-                        Console.WriteLine("Enter the description of the new assignment");
-                        newAssignment.Description = Console.ReadLine() ?? string.Empty;
-
-                        Console.WriteLine("Enter the total points the assignment will be worth: ");
-                        var tp = Console.ReadLine() ?? string.Empty;
-                        if (int.TryParse(tp, out var value))
-                        {
-                            newAssignment.totalPoints = value;
-                        }
-
-                        Console.WriteLine("Enter the due date of the assignment: ");
-                        newAssignment.dueDate = DateOnly.Parse(Console.ReadLine() ?? string.Empty);
-
-                        foreach (Course c in courseList)
-                        {
-                            c.assignments.Add(newAssignment);
-                        }
-
-                    }
-
-                    */
-                    else if (choiceInt == 10)
-                    {
                         cont = false;
-                    }
                     
 
                 }
             }
         }
+
+        static void ShowStudentMenu(StudentHelper StudHelp)
+        {
+            Console.WriteLine("1. Create a Student");           //Student
+            Console.WriteLine("2. Remove a student to a course");
+            Console.WriteLine("3. Search for a student");       //Student
+            Console.WriteLine("4. List  all Students");         //Student
+            Console.WriteLine("5. Update a student Info");      //Student
+
+            var input = Console.ReadLine() ?? string.Empty;
+            if (int.TryParse(input, out int choiceInt))
+            {
+                 //Create a Student
+                if (choiceInt == 1)
+                {
+                    StudHelp.AddOrUpdateStudent();
+                }
+
+                //Search for a student
+                else if (choiceInt == 3)
+                {
+                    StudHelp.SearchStudents();
+                }
+
+                //List all students
+                else if (choiceInt == 4)
+                {
+                    StudHelp.ListStudents();
+                }
+
+                //Update a students information
+                else if (choiceInt == 9)
+                {
+                    StudHelp.AddOrUpdateStudent();
+                }
+            }
+        }
+
+        static void ShowCourseMenu(CourseHelper CourseHelp)
+        {
+            Console.WriteLine("1. Create a Course");            //Course
+            Console.WriteLine("4. Search for a course");        //Course
+            Console.WriteLine("5. List all courses");           //Course
+            Console.WriteLine("8. Update Course Info");         //Course
+
+            var input = Console.ReadLine() ?? string.Empty;
+            if (int.TryParse(input, out int choiceInt))
+            {
+                //Create a course
+                if (choiceInt == 1)
+                {
+                    CourseHelp.AddOrUpdateCourse();
+                }
+
+                //Remove a student from a course
+                else if (choiceInt == 2)
+                {
+                    CourseHelp.RemoveStudentFromCourse();
+                }
+
+
+                //Search for a course
+                else if (choiceInt == 3)
+                {
+                    Console.WriteLine("Enter the class code: ");
+                    var n = Console.ReadLine() ?? string.Empty;
+                    CourseHelp.SearchCourse(n);
+                }
+
+                //List all courses
+                else if (choiceInt == 4)
+                {
+                    CourseHelp.SearchCourse();
+                }
+
+                //Updtae course information
+                else if (choiceInt == 5)
+                {
+                    CourseHelp.AddOrUpdateCourse();
+                }
+
+            }
+        }
     }
+
+ 
 }
 

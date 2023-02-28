@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Objects.Models
 {
-    public class ContentItem : Item
+    public class FileItem : ContentItem
     {
-        
+        public string? contentPath { get; set; }
     }
 }

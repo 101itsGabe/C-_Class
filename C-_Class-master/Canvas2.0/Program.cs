@@ -29,6 +29,11 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 newStudent.Classification = PersonClassification.Freshman;
                 StudHelp.addStudent(newStudent);
             }
+            var gabe = new Student();
+            gabe.Id = 6;
+            gabe.Name = "Gabe";
+            gabe.Classification= PersonClassification.Senior;
+            StudHelp.addStudent(gabe);
 
             while (cont)
             {
@@ -116,9 +121,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 //Search for a course
                 else if (choiceInt == 2)
                 {
-                    Console.WriteLine("Enter the class code: ");
-                    var n = Console.ReadLine() ?? string.Empty;
-                    CourseHelp.SearchCourse(n);
+                    
+                    CourseHelp.SearchCourse();
                 }
 
                 //List all courses

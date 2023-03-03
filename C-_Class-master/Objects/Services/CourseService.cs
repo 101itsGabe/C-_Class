@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Objects.Models;
 
 //This is for access to the list that CourseHelper will use
@@ -61,6 +62,13 @@ namespace Objects.Services
             var curAssign = assign.FirstOrDefault(a => a.Id == aId);
             curAssign.earnedPoints = grade;
 
+        }
+
+        public AssignmentGroup GetAssignmentGroup(string classCode, string groupName)
+        {
+            var curCourse = GetCourse(classCode);
+            var curGroup = curCourse.AssignmentGroups.FirstOrDefault(g => g.Name.ToUpper() == groupName.ToUpper());
+            return curGroup;
         }
     }
 }

@@ -81,9 +81,12 @@ namespace Objects.Services
         {
 
             Student curStudent = GetStudent(sn);
+            if (curStudent != null)
+            {
 
-            if (!curStudent.Grades.TryGetValue(ID, out List<Assignment>? assign))
-                return null;
+                if (!curStudent.Grades.TryGetValue(ID, out List<Assignment>? assign))
+                    return null;
+            }
 
             return assign.Select(a => a.earnedPoints);
         }

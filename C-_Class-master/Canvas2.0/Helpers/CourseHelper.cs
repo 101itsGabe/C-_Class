@@ -75,6 +75,7 @@ namespace Canvas2._0.Helpers
             {
                 var roster = new List<Student>();
                 var assign = new List<Assignment>();
+                var assignmentgroup = new List<AssignmentGroup>();
 
                 Console.WriteLine("Which Students should be enrolled in this course? 'Q' to quit: ");
                 bool continueAdding = true;
@@ -90,6 +91,7 @@ namespace Canvas2._0.Helpers
                     {
                         studName = Console.ReadLine() ?? string.Empty;
                         roster.Add(sh.Students.FirstOrDefault(s => s.Name.ToUpper() == studName.ToUpper()));
+                        Console.WriteLine('\n');
                     }
 
                     if (studName.Equals("Q") || !sh.Students.Any(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())))
@@ -99,7 +101,33 @@ namespace Canvas2._0.Helpers
 
                 }
 
-                Console.WriteLine("Would you like top add assigments? Y N: ");
+                Console.WriteLine("Woudl you like to Add Assignment Groups? Y N");
+                var ag = Console.ReadLine() ?? string.Empty;
+                if (ag.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continueAdding = true;
+                    while (continueAdding)
+                    {
+                        
+                        Console.WriteLine("Assignment Group Name: ");
+                        var aName = Console.ReadLine() ?? string.Empty;
+                        
+                        Console.WriteLine("Add more assigments groups? Y N:");
+                        ag = Console.ReadLine() ?? "N";
+                        if (ag.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            continueAdding = false;
+                        }
+
+                        assignmentgroup.Add(new AssignmentGroup{ Name = aName });
+
+
+
+                        
+                    }
+                }
+
+                Console.WriteLine("Would you like to add assigments? Y N: ");
                 var ar = Console.ReadLine() ?? "N";
                 if (ar.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -126,19 +154,31 @@ namespace Canvas2._0.Helpers
                         Console.WriteLine("Due Date: ");
                         var dd = DateOnly.Parse(Console.ReadLine() ?? "01/01/1900");
 
-                        assign.Add(new Assignment
+                        var curAssign = new Assignment
                         {
                             Name = aname,
                             Description = adesc,
                             totalPoints = tp,
                             dueDate = dd,
                             Id = aInt
-                        });
+                        };
+
+                        assign.Add(curAssign);
+
+                        Console.WriteLine("Which Group would you like to add this Assignment to?");
+                        assignmentgroup.ForEach(a => Console.WriteLine(a.Name));
+
+                        ar = Console.ReadLine() ?? string.Empty;
+                        var curGroup = assignmentgroup.FirstOrDefault(a => a.Name.ToUpper() == ag.ToUpper()); ;
+                        if (curGroup != null)
+                        {
+                            curGroup.AddAssignment(curAssign);
+                        }
 
 
                         Console.WriteLine("Add more assigments? Y N:");
                         ar = Console.ReadLine() ?? "N";
-                        if (ar.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                        if (ag.Equals("N", StringComparison.InvariantCultureIgnoreCase))
                         {
                             continueAdding = false;
                         }
@@ -149,6 +189,8 @@ namespace Canvas2._0.Helpers
                 course.Roster.AddRange(roster);
                 course.Assignments = new List<Assignment>();
                 course.Assignments.AddRange(assign);
+                course.AssignmentGroups= new List<AssignmentGroup>();
+                course.AssignmentGroups.AddRange(assignmentgroup);
                 if(!course.Roster.Any())
                     Console.WriteLine("AHHHHH");
                 foreach(var s in course.Roster)
@@ -168,22 +210,24 @@ namespace Canvas2._0.Helpers
 
 
 
-        public void SearchCourse(string? query = null)
-        {
-            if (string.IsNullOrEmpty(query))
-            {
-                cs.courseList.ForEach(Console.WriteLine);
-                   //Your not trying to assign anything so it is ok for now
-            }        
-            else { cs.Search(query).ToList().ForEach(Console.WriteLine); }
+        public void SearchCourse()
+        { 
 
             Console.WriteLine("Select a course: ");
             var code = Console.ReadLine() ?? string.Empty;
 
             var curCourse = cs.courseList.FirstOrDefault(c => c.classCode.Equals(code,StringComparison.InvariantCultureIgnoreCase));
+
             if(curCourse != null ) 
             {
-                Console.WriteLine(curCourse.DetailDisplay);
+                Console.WriteLine($"{curCourse.Name}");
+                Console.WriteLine($"{curCourse.classCode}");
+                Console.WriteLine("Roster:");
+                curCourse.Roster.ForEach(Console.WriteLine);
+                Console.WriteLine("Assignment Groups");
+                if (!curCourse.AssignmentGroups.Any()) { Console.WriteLine("AHHHH"); }
+                curCourse.AssignmentGroups.ForEach(a => Console.WriteLine(a.Name));
+                //Console.WriteLine(curCourse.DetailDisplay);
             }
         }
 
@@ -302,6 +346,8 @@ namespace Canvas2._0.Helpers
             decimal.TryParse(g, out decimal grade);
             cs.giveGrade(cc, n, assignID, grade);
         }
+
+
     }
 }
 

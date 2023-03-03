@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System;
+using System.Linq;
 
 namespace Objects.Models
 {
@@ -12,6 +13,10 @@ namespace Objects.Models
 
         public List<Module> Modules { get; set; }
 
+        public List<AssignmentGroup> AssignmentGroups { get; set; }
+
+
+
         public int creditHours {get; set; }
 
         public Course()
@@ -22,6 +27,8 @@ namespace Objects.Models
             Roster = new List<Student>();
             Assignments = new List<Assignment>();
             Modules = new List<Module>();
+            AssignmentGroups = new List<AssignmentGroup>();
+
         }
 
         public override string ToString()
@@ -34,7 +41,7 @@ namespace Objects.Models
             get
             {
                 return $"{ToString()}\n{Description}" +
-                       $"\n\nRoster:\n{string.Join("\n", Roster.Select(s => null != s.ToString()).ToArray())} \n\n" +
+                       $"\n\nRoster:\n{string.Join("\n", Roster.Select(s => s.ToString()).ToArray())} \n\n" +
                        $"Assignments:\n{string.Join("\n", Assignments.Select(a => a.ToString()).ToArray())}";
             }
         }
@@ -66,6 +73,21 @@ namespace Objects.Models
             if (m != null)
                 Modules.Remove(m);
 
+        }
+
+        public void CreateAssignmentGroup(string n)
+        {
+            var curGroup = new AssignmentGroup();
+            curGroup.Name = n;
+            AssignmentGroups.Add(curGroup);
+        }
+
+        public void AddAssignmentToGroup(string n, int aId)
+        {
+            var curGroup = AssignmentGroups.FirstOrDefault(g => g.Name.ToUpper() == n.ToUpper());
+            var curAssignment = Assignments.FirstOrDefault(a => a.Id == aId);
+            if (curGroup != null && curAssignment != null)
+                curGroup.AddAssignment(curAssignment);
         }
     }
 }

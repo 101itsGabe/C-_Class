@@ -10,6 +10,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
+
             bool cont = true;
 
             //Having this list to null is VERY BAD
@@ -19,6 +20,15 @@ namespace MyApp // Note: actual namespace depends on the project name.
             //List<Course> courseList = new List<Course>();
             var StudHelp = new StudentHelper();
             var CourseHelp = new CourseHelper();
+
+            for(int i = 0; i < 5; i++) 
+            {
+                var newStudent = new Student();
+                newStudent.Id = i + 1;
+                newStudent.Name = $"S{i + 1}";
+                newStudent.Classification = PersonClassification.Freshman;
+                StudHelp.addStudent(newStudent);
+            }
 
             while (cont)
             {
@@ -49,6 +59,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("3. Search for a student");       //Student
             Console.WriteLine("4. List  all Students");         //Student
             Console.WriteLine("5. Update a student Info");      //Student
+            Console.WriteLine("6. Show a student grade");
 
             var input = Console.ReadLine() ?? string.Empty;
             if (int.TryParse(input, out int choiceInt))
@@ -72,9 +83,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 }
 
                 //Update a students information
-                else if (choiceInt == 9)
+                else if (choiceInt == 5)
                 {
                     StudHelp.AddOrUpdateStudent();
+                }
+
+                else if(choiceInt == 6)
+                {
+                    StudHelp.ShowGrades();
                 }
             }
         }
@@ -84,7 +100,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("1. Create a Course");            //Course
             Console.WriteLine("2. Search for a course");        //Course
             Console.WriteLine("3. List all courses");           //Course
-            Console.WriteLine("4. Update Course Info");         //Course
+            Console.WriteLine("4. Update Course Info");         //Course\
+            Console.WriteLine("5. Give a grade");
 
             var input = Console.ReadLine() ?? string.Empty;
             if (int.TryParse(input, out int choiceInt))
@@ -95,15 +112,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     CourseHelp.AddOrUpdateCourse();
                 }
 
-                //Remove a student from a course
-                else if (choiceInt == 2)
-                {
-                    CourseHelp.RemoveStudentFromCourse();
-                }
-
 
                 //Search for a course
-                else if (choiceInt == 3)
+                else if (choiceInt == 2)
                 {
                     Console.WriteLine("Enter the class code: ");
                     var n = Console.ReadLine() ?? string.Empty;
@@ -111,15 +122,20 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 }
 
                 //List all courses
-                else if (choiceInt == 4)
+                else if (choiceInt == 3)
                 {
                     CourseHelp.SearchCourse();
                 }
 
                 //Updtae course information
-                else if (choiceInt == 5)
+                else if (choiceInt == 4)
                 {
                     CourseHelp.AddOrUpdateCourse();
+                }
+
+                else if (choiceInt == 5)
+                {
+                    CourseHelp.GiveGrade();
                 }
 
             }

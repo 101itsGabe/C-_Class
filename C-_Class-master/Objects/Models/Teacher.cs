@@ -8,5 +8,10 @@ namespace Objects.Models
 {
     public class Teacher : Person
     {
+        public string classCode { get; set; }
+        public void giveGrade()
+        {
+           
+        }
     }
 }

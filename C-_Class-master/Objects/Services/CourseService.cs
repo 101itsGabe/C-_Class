@@ -9,6 +9,14 @@ namespace Objects.Services
 		public List<Course> courseList;//doesnt have getter or setter
         private static CourseService? _instance;
 
+        public IEnumerable<Assignment> Assignments
+        {
+            get
+            {
+                return courseList.SelectMany(c => c.Assignments);
+            }
+        }
+
         public static CourseService Current
         {
             get
@@ -35,7 +43,25 @@ namespace Objects.Services
             return courseList.Where(s => s.classCode.ToUpper().Contains(n.ToUpper()));
         }
 
+        public Course? GetCourse(string id)
+        {
+            return courseList.FirstOrDefault(c => c.classCode == id);
+        }
 
+        public Assignment? GetAssignment(Course c, int aId)
+        {
+            return c.Assignments.FirstOrDefault(a => a.Id == aId);
+        }
+
+        public void giveGrade(string courseId, string studentName, int aId, decimal grade)
+        {
+            var curCourse = GetCourse(courseId);
+            var s = curCourse.Roster.FirstOrDefault(s => s.Name.ToUpper() == studentName.ToUpper());
+            s.Grades.TryGetValue(courseId, out List<Assignment>? assign);
+            var curAssign = assign.FirstOrDefault(a => a.Id == aId);
+            curAssign.earnedPoints = grade;
+
+        }
     }
 }
 

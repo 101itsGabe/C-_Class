@@ -12,6 +12,8 @@ namespace Objects.Models
 
         public List<Module> Modules { get; set; }
 
+        public int creditHours {get; set; }
+
         public Course()
         {
             classCode = string.Empty;
@@ -24,7 +26,7 @@ namespace Objects.Models
 
         public override string ToString()
         {
-            return $"{Name} - {classCode} \n {Description}";
+            return $"{Name} - {classCode} \n{Description}";
         }
 
         public string DetailDisplay
@@ -32,9 +34,38 @@ namespace Objects.Models
             get
             {
                 return $"{ToString()}\n{Description}" +
-                       $"\n\nRoster:\n{string.Join("\n", Roster.Select(s => s.ToString()).ToArray())} \n\n" +
+                       $"\n\nRoster:\n{string.Join("\n", Roster.Select(s => null != s.ToString()).ToArray())} \n\n" +
                        $"Assignments:\n{string.Join("\n", Assignments.Select(a => a.ToString()).ToArray())}";
             }
+        }
+
+        public void CreateModule()
+        {
+            var m = new Module();
+            Console.WriteLine("Enter Module Name: ");
+            m.Name = Console.ReadLine() ?? string.Empty;
+            Modules.Add(m);
+        }
+
+        public Module? GetModule(string n)
+        {
+            return Modules.FirstOrDefault(m => m.Name.ToUpper() == n.ToUpper());
+        }
+
+        public void UpdateModle (string n)
+        {
+            var m = GetModule(n);
+            Console.WriteLine("Enter New Module Name: ");
+            if(m != null)
+                m.Name = Console.ReadLine() ?? string.Empty;
+        }
+
+        public void DeleteModule(string n)
+        {
+            var m = GetModule(n);
+            if (m != null)
+                Modules.Remove(m);
+
         }
     }
 }

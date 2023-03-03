@@ -17,6 +17,11 @@ namespace MyApp
             cs = CourseService.Current;
         }
 
+        public void addStudent(Student student)
+        {
+            ss.Add(student);
+        }
+
         public void AddOrUpdateStudent(Student? p = null)
 		{
             Console.WriteLine("Persons ID: ");
@@ -34,6 +39,7 @@ namespace MyApp
             bool isCreate = false;
             if (p == null)
             {
+                Console.WriteLine("CREATING THE STUDENT");
                 isCreate = true;
                 p = new Student();
             }
@@ -42,7 +48,7 @@ namespace MyApp
             switch (c)
             {
                 case "1":
-                    p.Classification = PersonClassification.Freshamn;
+                    p.Classification = PersonClassification.Freshman;
                     break;
                 case "2":
                     p.Classification = PersonClassification.Sophmore;
@@ -55,6 +61,9 @@ namespace MyApp
                     break;
             }
 
+            p.Name = n;
+            if(int.TryParse(PersonId,out int pId))
+                p.Id = pId;
 
             if (isCreate)
                 ss.Add(p);
@@ -69,8 +78,8 @@ namespace MyApp
         {
             Console.WriteLine("Enter a name");
             var n = Console.ReadLine() ?? string.Empty;
-
-            ss.Search(n).ToList().ForEach(Console.WriteLine);   //Your not trying to assign anything so it is ok for now
+            
+            ss.Seacrh(n).ToList().ForEach(Console.WriteLine);   //Your not trying to assign anything so it is ok for now
             Console.WriteLine("\nStduent Course List:");
             cs.courseList.Where(c => c.Roster.Any(s => s.Name == n)).ToList().ForEach(Console.WriteLine);
         }
@@ -90,23 +99,45 @@ namespace MyApp
 
         }
 
-        /*
-        public void ListStudentCourses()
+        public void AddSubmission()
         {
-            Console.WriteLine("Enter the student: ");
-            var n = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Student Name: ");
+            string n = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Class Code: ");
+            string cc = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Assignment ID: ");
+            string aId = Console.ReadLine() ?? string.Empty;
+            if(!int.TryParse(aId,out int assignID))
+                return;
+            
+            var curCourse = cs.GetCourse(cc);
+            var curStudent = ss.GetStudent(n);
+            if(curCourse == null) 
+            {
+                Console.WriteLine("Sorry no course with that code");
+                    return;
+            }
+            if (curStudent == null)
+            {
+                Console.WriteLine("Sorry no student with that name");
+                return;
+            }
 
-            var curStudent = ss.studentList.FirstOrDefault(s => s.Name.ToUpper().Contains(n.ToUpper()));
-            if(curStudent == null)
-            {
-                Console.WriteLine("Student Not Found");
-            }
-            else
-            {
-                curStudent.Courses.ForEach(Console.WriteLine);
-            }
+            Console.WriteLine("Submission ID:");
+            var sID = Console.ReadLine() ?? string.Empty;
+            if (int.TryParse(sID, out int id))
+                ss.AddSubmission(id, n, cc, assignID);
+
         }
-        */
+
+        public void ShowGrades()
+        {
+            Console.WriteLine("Student Name: ");
+            string n = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Class Code: ");
+            string cc = Console.ReadLine() ?? string.Empty;
+            ss.GetGrades(n, cc).ToList().ForEach(Console.WriteLine);
+        }
 
         
 

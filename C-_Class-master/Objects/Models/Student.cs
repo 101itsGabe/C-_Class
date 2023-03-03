@@ -8,24 +8,28 @@ namespace Objects.Models
 {
     public class Student : Person
     {
-        public Dictionary<int,double> Grades { get; set; }
         public PersonClassification Classification { get; set; }
+        public List<Submission> Submissions { get; set; }
+        public Dictionary<string, List<Assignment>> Grades { get; set; }
+
+        public int Id { get; set; }
 
         public Student() 
         {
-            Grades = new Dictionary<int, double>();
+            Grades = new Dictionary<string, List<Assignment>>();
+            Submissions = new List<Submission>();
         }
 
         public override string ToString()
         {
-            return $"{Name} - {Classification}";
+            return $"[{Id}] {Name} - {Classification}";
         }
     }
 }
 
 public enum PersonClassification
 {
-    Freshamn = 0,
+    Freshman = 0,
     Sophmore = 1,
     Junior = 2,
     Senior = 3

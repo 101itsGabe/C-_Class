@@ -35,6 +35,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             gabe.Classification= PersonClassification.Senior;
             StudHelp.addStudent(gabe);
 
+            
+            
             while (cont)
             {
                 Console.WriteLine("1. Maintain Students");
@@ -65,6 +67,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("4. List  all Students");         //Student
             Console.WriteLine("5. Update a student Info");      //Student
             Console.WriteLine("6. Show a student grade");
+            Console.WriteLine("7. Show all course grades");
+            Console.WriteLine("8. Show GPA");
 
             var input = Console.ReadLine() ?? string.Empty;
             if (int.TryParse(input, out int choiceInt))
@@ -96,6 +100,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 else if(choiceInt == 6)
                 {
                     StudHelp.ShowGrades();
+                }
+
+                else if (choiceInt == 7) 
+                {
+                    StudHelp.ShowAllCourseGrades();
+                }
+
+                else if(choiceInt == 8) 
+                {
+                    StudHelp.ShowGPA();
                 }
             }
         }

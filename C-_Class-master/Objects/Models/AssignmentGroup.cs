@@ -9,23 +9,25 @@ namespace Objects.Models
     public class AssignmentGroup : Item
     {
 
-        public List<Assignment> assignmentGroup;
-        public int weight { get; set; }
+        public List<Assignment> Assignments;
+        public decimal weight { get; set; }
+        public decimal curPoints { get; set; }
+        public decimal totalPoints { get; set; }
 
         public AssignmentGroup() 
         { 
-            assignmentGroup = new List<Assignment>(); 
+            Assignments = new List<Assignment>(); 
         }
 
 
         public void AddAssignment(Assignment a) 
         { 
-            assignmentGroup.Add(a); 
+            Assignments.Add(a); 
         }
 
         public void RemoveAssignment(Assignment a) 
         { 
-            assignmentGroup.Remove(a); 
+            Assignments.Remove(a); 
         }
     }
 }

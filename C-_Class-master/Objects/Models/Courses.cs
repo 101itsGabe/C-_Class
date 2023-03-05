@@ -15,8 +15,6 @@ namespace Objects.Models
 
         public List<AssignmentGroup> AssignmentGroups { get; set; }
 
-
-
         public int creditHours {get; set; }
 
         public Course()

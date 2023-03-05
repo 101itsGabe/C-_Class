@@ -9,6 +9,7 @@ namespace Objects.Services
 	{
 		public List<Course> courseList;//doesnt have getter or setter
         private static CourseService? _instance;
+        //private static StudentService? _studentService;
 
         public IEnumerable<Assignment> Assignments
         {
@@ -33,6 +34,7 @@ namespace Objects.Services
         private CourseService()
         {
             courseList= new List<Course>();
+            //_studentService = StudentService.Current;
         }
         public void Add(Course c)
         {
@@ -61,7 +63,7 @@ namespace Objects.Services
             s.Grades.TryGetValue(courseId, out List<Assignment>? assign);
             var curAssign = assign.FirstOrDefault(a => a.Id == aId);
             curAssign.earnedPoints = grade;
-
+            
         }
 
         public AssignmentGroup GetAssignmentGroup(string classCode, string groupName)
@@ -70,6 +72,8 @@ namespace Objects.Services
             var curGroup = curCourse.AssignmentGroups.FirstOrDefault(g => g.Name.ToUpper() == groupName.ToUpper());
             return curGroup;
         }
+
+        
     }
 }
 

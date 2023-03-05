@@ -11,6 +11,8 @@ namespace Objects.Models
         public PersonClassification Classification { get; set; }
         public List<Submission> Submissions { get; set; }
         public Dictionary<string, List<Assignment>> Grades { get; set; }
+        public Dictionary <string, decimal> CourseGrade { get; set; }
+        public List<Course> Courses { get; set; }
 
         public int Id { get; set; }
 
@@ -18,12 +20,21 @@ namespace Objects.Models
         {
             Grades = new Dictionary<string, List<Assignment>>();
             Submissions = new List<Submission>();
+            Courses = new List<Course>();
+            CourseGrade= new Dictionary<string, decimal>();
         }
 
         public override string ToString()
         {
             return $"[{Id}] {Name} - {Classification}";
         }
+
+        /*
+        public int CalulateGradePerClass()
+        {
+
+        }
+        */
     }
 }
 
@@ -34,4 +45,6 @@ public enum PersonClassification
     Junior = 2,
     Senior = 3
 }
+
+
 

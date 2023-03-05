@@ -13,6 +13,8 @@ namespace Objects.Models
 
         public DateOnly dueDate { get; set; }
 
+        public string AssignedGroup { get; set; }
+
         public int Id { get; set; }
 
 

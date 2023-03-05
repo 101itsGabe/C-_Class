@@ -77,20 +77,61 @@ namespace Objects.Services
             }
         }
 
-        public IEnumerable<decimal> GetGrades(string sn, string ID)
+        public IEnumerable<Assignment> GetAssignment(string sn, string ID)
         {
 
             Student curStudent = GetStudent(sn);
-            if (curStudent != null)
-            {
+            curStudent.Grades.TryGetValue(ID, out List<Assignment>? assign);
 
-                if (!curStudent.Grades.TryGetValue(ID, out List<Assignment>? assign))
-                    return null;
-            }
-
-            return assign.Select(a => a.earnedPoints);
+            return assign.Select(a => a);
         }
 
+        public void AddCourseGrade(string sn, string cCode, decimal grade)
+        {
+            Student curStudent = GetStudent(sn);
+            if(curStudent != null) 
+                curStudent.CourseGrade.Add(cCode, grade);
+        }
+
+        public void UpdateCourseGrade(string sn, string cCode, decimal grade)
+        {
+            Student curStudent = GetStudent(sn);
+            if (curStudent != null)
+            {
+                if (curStudent.CourseGrade.ContainsKey(cCode))
+                    curStudent.CourseGrade[cCode] = grade;
+            }
+        }
+
+        public decimal CalculateGrade(string sn, string cc)
+        {
+            var curStudent = GetStudent(sn);
+            var curCourse = _cs.GetCourse(cc);
+            List<decimal> tempGrade = new List<decimal>();
+            decimal grade = 0;
+            decimal classGrade = 0;
+            if (!curStudent.Grades.TryGetValue(cc, out List<Assignment> curList))
+                    Console.WriteLine("Not Working");
+
+            foreach(var g in curCourse.AssignmentGroups)
+            {
+                grade = 0;
+                foreach(var a in g.Assignments) 
+                {
+                    var curAssign = curList.FirstOrDefault(assignment=> assignment.Id == a.Id);
+                    if(curAssign != null ) 
+                     grade += curAssign.earnedPoints;
+                }
+                classGrade = (grade/g.totalPoints) * 100;
+                tempGrade.Add(classGrade * (g.weight/100));
+            }
+
+            decimal finalGrade = 0;
+
+            tempGrade.ForEach(g => finalGrade += g);
+
+            return finalGrade;
+        }
 
 
     }

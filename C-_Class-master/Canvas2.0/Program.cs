@@ -142,7 +142,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 //List all courses
                 else if (choiceInt == 3)
                 {
-                    CourseHelp.SearchCourse();
+                    CourseHelp.ListAllCourses();
                 }
 
                 //Updtae course information

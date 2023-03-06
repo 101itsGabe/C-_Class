@@ -12,10 +12,12 @@ namespace Canvas2._0.Helpers
     {
         private CourseService cs;
         private StudentService sh;
+        private ListNavigator<Course> courseNavigator;
         public CourseHelper()
         {
             sh = StudentService.Current;
             cs = CourseService.Current;
+            courseNavigator = new ListNavigator<Course>(cs.courseList);
         }
 
         public void AddOrUpdateCourse(Course? course = null)
@@ -266,7 +268,53 @@ namespace Canvas2._0.Helpers
 
             if (isCreate)
                 cs.Add(course);
-            
+
+        }
+
+
+        public void NavigateCourses()
+        {
+            bool keepPaging = true;
+            while (keepPaging)
+            {
+                foreach (var pair in courseNavigator.GetCurrentPage())
+                {
+                    Console.WriteLine($"{pair.Key}. {pair.Value}");
+                }
+
+                if (courseNavigator.HasPreviousPage)
+                {
+                    Console.WriteLine("P. Previous Page");
+                }
+
+                if (courseNavigator.HasNextPage)
+                {
+                    Console.WriteLine("N. Next Page");
+                }
+
+                Console.WriteLine("Make a Selection");
+                var selectionChoice = Console.ReadLine();
+                if ((selectionChoice?.Equals("P", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                   || (selectionChoice?.Equals("N", StringComparison.InvariantCultureIgnoreCase) ?? false))
+                {
+                    //Navigate Through Pages
+                    if (selectionChoice.Equals("P", StringComparison.InvariantCultureIgnoreCase))
+                        courseNavigator.GoBackward();
+                    else if (selectionChoice.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                        courseNavigator.GoForward();
+                }
+                else
+                {
+                    Console.WriteLine("Select a Student");
+                    var curStud = Console.ReadLine() ?? string.Empty;
+                    keepPaging = false;
+                }
+            }
+        }
+
+        public void ListAllCourses()
+        {
+            NavigateCourses();
         }
 
 

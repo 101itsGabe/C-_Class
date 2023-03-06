@@ -6,22 +6,26 @@ using System.Threading.Tasks;
 
 namespace Objects.Models
 {
-    public class Person : Item
+    public class Person : Item 
     {
        
         public List<string> Grades { get; set; }
 
-        public int ID { get; set; }
+        private static int lastId = 0;
 
-
+        public int Id
+        {
+            get; private set;
+        }
         public Person()
         {
             Name = string.Empty;
+            Id = ++lastId;
         }
 
         public override string ToString()
         {
-            return $"[{ID}] - {Name}";
+            return $"[{Id}] {Name}";
         }
     }
 }

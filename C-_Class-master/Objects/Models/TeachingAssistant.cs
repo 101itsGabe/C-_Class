@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Objects.Models
 {
-    public class TeachingAssistant : Person
+    public class TeachingAssistant : Instructor
     {
-
+        public override string ToString()
+        {
+            return $"[{Id}] {Name} - TA";
+        }
     }
 }

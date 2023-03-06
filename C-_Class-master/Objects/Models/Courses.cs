@@ -7,7 +7,7 @@ namespace Objects.Models
     public class Course : Item
     {
         public string classCode { get; set; }
-        public List<Student> Roster { get; set; }
+        public List<Person> Roster { get; set; }
 
         public List<Assignment> Assignments { get; set; }
 
@@ -23,16 +23,17 @@ namespace Objects.Models
             classCode = string.Empty;
             Name = string.Empty;
             Description = string.Empty;
-            Roster = new List<Student>();
+            Roster = new List<Person>();
             Assignments = new List<Assignment>();
             Modules = new List<Module>();
             AssignmentGroups = new List<AssignmentGroup>();
+            Announcements = new List<Announcement>();
 
         }
 
         public override string ToString()
         {
-            return $"{Name} - {classCode} \n{Description}";
+            return $"{Name} - {classCode}";
         }
 
         public string DetailDisplay

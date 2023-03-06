@@ -10,13 +10,13 @@ namespace MyApp
     {
         private StudentService ss;
         private CourseService cs;
-        private ListNavigator<Student> studentNavigator;
+        private ListNavigator<Person> studentNavigator;
 
         public StudentHelper()
         {
             ss = StudentService.Current;
             cs = CourseService.Current;
-            studentNavigator = new ListNavigator<Student>(ss.studentList);
+            studentNavigator = new ListNavigator<Person>(ss.personList);
         }
 
         public void addStudent(Student student)
@@ -24,51 +24,93 @@ namespace MyApp
             ss.Add(student);
         }
 
-        public void AddOrUpdateStudent(Student? p = null)
+        public void AddOrUpdatePerson(Person? p = null)
         {
-            //Console.WriteLine("Persons ID: ");
-            //var PersonId = Console.ReadLine() ?? string.Empty;
+            
             Console.WriteLine("Person's Name: ");
             var n = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine($"Entera a num for {n}'s classification: ");
-            Console.WriteLine("1: Frehsman");
-            Console.WriteLine("2: Sophmore");
-            Console.WriteLine("3: Junior");
-            Console.WriteLine("4: Senior");
-            var c = Console.ReadLine() ?? string.Empty;
-
-
+            Console.WriteLine("Select One:");
+            Console.WriteLine("(S)tudent:");
+            Console.WriteLine("(T)A:");
+            Console.WriteLine("(I)nstructor:");
+            var pChoice = Console.ReadLine() ?? string.Empty;
             bool isCreate = false;
-            if (p == null)
+
+            if (pChoice.Equals("S", StringComparison.InvariantCultureIgnoreCase))
             {
-                Console.WriteLine("CREATING THE STUDENT");
-                isCreate = true;
-                p = new Student();
+                
+                Console.WriteLine($"Entera a num for {n}'s classification: ");
+                Console.WriteLine("1: Frehsman");
+                Console.WriteLine("2: Sophmore");
+                Console.WriteLine("3: Junior");
+                Console.WriteLine("4: Senior");
+                var c = Console.ReadLine() ?? string.Empty;
+
+
+
+                Student s;
+                if (p == null)
+                {
+                    isCreate = true;
+                    s = new Student();
+                }
+                else
+                    s = (Student)p;
+
+
+                switch (c)
+                {
+                    case "1":
+                        s.Classification = PersonClassification.Freshman;
+                        break;
+                    case "2":
+                        s.Classification = PersonClassification.Sophmore;
+                        break;
+                    case "3":
+                        s.Classification = PersonClassification.Junior;
+                        break;
+                    case "4":
+                        s.Classification = PersonClassification.Senior;
+                        break;
+                }
+                s.Name = n;
+                p = s;
+                
             }
 
-            p.Name = n;
-            switch (c)
+            else if (pChoice.Equals("T", StringComparison.InvariantCultureIgnoreCase))
             {
-                case "1":
-                    p.Classification = PersonClassification.Freshman;
-                    break;
-                case "2":
-                    p.Classification = PersonClassification.Sophmore;
-                    break;
-                case "3":
-                    p.Classification = PersonClassification.Junior;
-                    break;
-                case "4":
-                    p.Classification = PersonClassification.Senior;
-                    break;
+                TeachingAssistant t;
+                if(p == null)
+                {
+                    isCreate= true;
+                    t = new TeachingAssistant();
+                }
+                else
+                    t = (TeachingAssistant)p;
+
+                t.Name = n;
+                p = t;
             }
 
-            p.Name = n;
-            //if (int.TryParse(PersonId, out int pId))
-            //    p.Id = pId;
+            else if (pChoice.Equals("I", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Instructor i;
+                if (p == null)
+                {
+                    isCreate = true;
+                    i = new Instructor();
+                }
+                else
+                    i = (Instructor)p;
+
+                i.Name = n;
+                p = i;
+            }
 
             if (isCreate)
                 ss.Add(p);
+
         }
 
         public void NavigateStudents()
@@ -78,7 +120,7 @@ namespace MyApp
             {
                 foreach (var pair in studentNavigator.GetCurrentPage())
                 {
-                    Console.WriteLine($"{pair.Key}. {pair.Value}");
+                   Console.WriteLine($"{pair.Key}. {pair.Value}");
                 }
 
                 if (studentNavigator.HasPreviousPage)
@@ -131,11 +173,11 @@ namespace MyApp
             Console.WriteLine("Enter the student: ");
             var n = Console.ReadLine() ?? string.Empty;
 
-            var curStudent = ss.studentList.FirstOrDefault(s => s.Name.ToUpper().Contains(n.ToUpper()));
+            var curStudent = ss.GetStudent(n);
 
             if (curStudent == null)
             {
-                AddOrUpdateStudent(curStudent);
+                AddOrUpdatePerson(curStudent);
             }
 
 
@@ -174,16 +216,16 @@ namespace MyApp
 
         public void ShowGrades()
         {
-            ss.studentList.ForEach(Console.WriteLine);
+            ss.personList.ForEach(Console.WriteLine);
             Console.WriteLine("Student Name: ");
             string n = Console.ReadLine() ?? string.Empty;
-            cs.courseList.ForEach(delegate (Course c)
+            cs.courseList.ForEach((Action<Course>)delegate (Course c)
             {
-                c.Roster.ForEach(delegate (Student s)
+                c.Roster.ForEach((Action<Person>)delegate (Person s)
                 {
                     if (s != null)
                     {
-                        if (s.Name.ToUpper() == n.ToUpper())
+                        if (s.Name.ToUpper() == n.ToUpper() && s.GetType() == typeof(Student))
                         {
                             Console.WriteLine($"{c.classCode}");
                         }
@@ -197,7 +239,7 @@ namespace MyApp
         }
         public void ShowAllCourseGrades()
         {
-            ss.studentList.ForEach(Console.WriteLine);
+            ss.personList.ForEach(Console.WriteLine);
             Console.WriteLine("Student Name: ");
             string n = Console.ReadLine() ?? string.Empty;
             var curStudent = ss.GetStudent(n);
@@ -235,7 +277,7 @@ namespace MyApp
 
         public void ShowGPA()
         {
-            ss.studentList.ForEach(Console.WriteLine);
+            ss.personList.ForEach(Console.WriteLine);
             Console.WriteLine("Student Name: ");
             string n = Console.ReadLine() ?? string.Empty;
             var curStudent = ss.GetStudent(n);
@@ -278,7 +320,7 @@ namespace MyApp
 
             temp.ForEach(g => gpa += g);
 
-            Console.WriteLine($"GPA: {Math.Round((decimal)(gpa / totalUnits),2)}");
+            Console.WriteLine($"GPA: {Math.Round((decimal)(gpa / totalUnits),4)}");
 
 
         }

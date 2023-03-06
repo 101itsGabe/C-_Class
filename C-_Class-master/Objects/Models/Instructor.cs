@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace Objects.Models
 {
-    public class Teacher : Person
+    public class Instructor : Person
     {
         public string classCode { get; set; }
         public void giveGrade()
         {
            
+        }
+        public override string ToString()
+        {
+            return $"[{Id}] {Name} - Instructor";
         }
     }
 }

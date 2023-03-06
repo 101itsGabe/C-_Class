@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Metadata;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
 using MyApp;
@@ -24,21 +25,28 @@ namespace Canvas2._0.Helpers
 		{
 
             bool isCreate = false;
-            if (course == null)
+            
+                var choice = "Y";
+            if (cs.courseList.Any())
+            {
+                Console.WriteLine("Do you want to update a couse? Y N");
+                choice = Console.ReadLine() ?? "N";
+                if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    cs.courseList.ForEach(Console.WriteLine);
+                }
+                else
+                {
+                    choice = "Y";
+                    isCreate= true;
+                    course = new Course();
+                }
+            }
+            else
             {
                 isCreate = true;
                 course = new Course();
             }
-
-            var choice = "Y";
-            if (!isCreate)
-            {
-                Console.WriteLine("Do you want to update the couse code? Y N");
-                choice = Console.ReadLine() ?? "N";
-            }
-            else
-                choice = "Y";
-
             if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
             {
                 bool redo = true;
@@ -46,6 +54,7 @@ namespace Canvas2._0.Helpers
                 {
                     Console.WriteLine("Class Code: ");
                     var cc = Console.ReadLine() ?? string.Empty;
+                    
                     if (!cs.courseList.Any())
                     {
                         course.classCode = cc;
@@ -53,14 +62,23 @@ namespace Canvas2._0.Helpers
                     }
                     else
                     {
-
-                        if (cs.courseList.FindIndex(c => c.classCode == cc) == -1)
+                       
+                        if (cs.courseList.FindIndex(c => c.classCode == cc) == -1 && isCreate)
                         {
                             course.classCode = cc;
                             redo = false;
                         }
+                        else if(cs.courseList.FindIndex(c => c.classCode == cc) >= 0 && !isCreate)
+                        {
+                            course = cs.GetCourse(cc);
+                            course.classCode = cc;
+                            redo = false;
+                        }
                         else
-                            Console.WriteLine("Sorry a class with that code exsists try again...");
+                        {
+                            Console.WriteLine("A Class with that code already exists...");
+                        }
+                        
 
                     }
                 }
@@ -68,6 +86,22 @@ namespace Canvas2._0.Helpers
 
                 
             }
+
+            
+            if (!isCreate)
+            {
+                Console.WriteLine("Do you want to update the couse code? Y N");
+                choice = Console.ReadLine() ?? "N";
+                if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("Course Code: ");
+                    course.classCode = Console.ReadLine() ?? string.Empty;
+                }
+                else
+                    choice = "Y";
+            }
+
+            
 
             if (!isCreate)
             {
@@ -97,6 +131,14 @@ namespace Canvas2._0.Helpers
                 course.Description = Console.ReadLine() ?? string.Empty;
             }
 
+            if (!isCreate)
+            {
+                Console.WriteLine("Do you want to update the credit hours? Y N");
+                choice = Console.ReadLine() ?? "N";
+            }
+            else
+                choice = "Y";
+
             if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
             {
                 Console.WriteLine("Credit Hours: ");
@@ -107,30 +149,37 @@ namespace Canvas2._0.Helpers
 
 
 
-                if (isCreate)
+            if (isCreate)
             {
-                var roster = new List<Student>();
+                var roster = new List<Person>();
                 var assign = new List<Assignment>();
                 var assignmentgroup = new List<AssignmentGroup>();
 
-                Console.WriteLine("Which Students should be enrolled in this course? 'Q' to quit: ");
+                Console.WriteLine("Which People should be enrolled in this course? 'Q' to quit: ");
                 bool continueAdding = true;
 
 
 
                 while (continueAdding)
                 {
-                    sh.Students.Where(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())).ToList().ForEach(Console.WriteLine);
+                    foreach(var p in sh.personList)
+                    {
+                        if (!roster.Contains(p))
+                        {
+                            Console.WriteLine(p);
+                        }
+                    }
 
                     var studName = "Q";
-                    if (sh.Students.Any(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())))
+                    if (sh.personList.Any(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())))
                     {
                         studName = Console.ReadLine() ?? string.Empty;
-                        roster.Add(sh.Students.FirstOrDefault(s => s.Name.ToUpper() == studName.ToUpper()));
+                        var curStudent = sh.People.FirstOrDefault(p => p.Name.ToUpper() == studName.ToUpper());
+                        roster.Add(curStudent);
                         Console.WriteLine('\n');
                     }
 
-                    if (studName.Equals("Q") || !sh.Students.Any(s => !roster.Any(sn => s.Name.ToUpper() == sn.Name.ToUpper())))
+                    if (studName.Equals("Q") || !sh.personList.Any())
                     {
                         continueAdding = false;
                     }
@@ -193,13 +242,8 @@ namespace Canvas2._0.Helpers
                     continueAdding = true;
                     while (continueAdding)
                     {
-                        //ID
-                        Console.WriteLine("ID: ");
-                        var aId = Console.ReadLine() ?? string.Empty;
-                        if (!int.TryParse(aId, out int aInt))
-                        {
-                            Console.WriteLine("Couldnt Hack it");
-                        }
+                        
+                        
                         //Name
                         Console.WriteLine("Name: ");
                         var aname = Console.ReadLine() ?? string.Empty;
@@ -219,7 +263,7 @@ namespace Canvas2._0.Helpers
                             Description = adesc,
                             totalPoints = tp,
                             dueDate = dd,
-                            Id = aInt,
+                            
                         };
 
                         assign.Add(curAssign);
@@ -234,13 +278,11 @@ namespace Canvas2._0.Helpers
                             curAssign.AssignedGroup = curGroup.Name;
                             curGroup.AddAssignment(curAssign);
                             curGroup.totalPoints += curAssign.totalPoints;
-                            Console.WriteLine(curGroup.totalPoints.ToString());
                         }
 
 
                         Console.WriteLine("Add more assigments? Y N:");
                         ar = Console.ReadLine() ?? "N";
-                        Console.WriteLine(ar);
                         if (ar.Equals("N", StringComparison.InvariantCultureIgnoreCase))
                         {
                             continueAdding = false;
@@ -248,23 +290,26 @@ namespace Canvas2._0.Helpers
                     }
                 }
 
-                course.Roster = new List<Student>();
+                course.Roster = new List<Person>();
                 course.Roster.AddRange(roster);
                 course.Assignments = new List<Assignment>();
                 course.Assignments.AddRange(assign);
                 course.AssignmentGroups= new List<AssignmentGroup>();
                 course.AssignmentGroups.AddRange(assignmentgroup);
 
-                foreach(var s in course.Roster)
+                foreach(var p in course.Roster)
                 {
-                    if(s != null)
-                        s.Grades.Add(course.classCode, course.Assignments);
+                    if (p != null && p.GetType() == typeof(Student))
+                    {
+                        var curStudent =  (Student)p;
+                        curStudent.Grades.Add(course.classCode, course.Assignments);
+                    }
                 };
 
                 
 
             }
-
+            
 
             if (isCreate)
                 cs.Add(course);
@@ -341,21 +386,7 @@ namespace Canvas2._0.Helpers
             }
         }
 
-        public void UpdateCourseRecord()
-        {
-            Console.WriteLine("Enter the course code: ");
-            var n = Console.ReadLine() ?? string.Empty;
-            SearchCourse();
-
-            var curCourse = cs.courseList.FirstOrDefault(s => s.classCode.ToUpper().Contains(n.ToUpper()));
-
-            if (curCourse == null)
-            {
-                    AddOrUpdateCourse(curCourse);
-            }
-            
-
-        }
+        
 
         public void RemoveStudentFromCourse()
         {
@@ -380,7 +411,7 @@ namespace Canvas2._0.Helpers
 
                     else
                     {
-                        var curStudent = sh.Students.FirstOrDefault(s => s.Name.ToUpper().Contains(n.ToUpper()));
+                        var curStudent = sh.GetStudent(n);
                         if (curStudent == null) { Console.WriteLine("Student not found"); }
                         else
                         {
@@ -444,11 +475,22 @@ namespace Canvas2._0.Helpers
 
         public void GiveGrade()
         {
+            Console.WriteLine("Courses: ");
             cs.courseList.ForEach(c => Console.WriteLine(c.classCode));
             Console.WriteLine("Class Code:");
             var cc = Console.ReadLine() ?? string.Empty;
             var curCourse = cs.GetCourse(cc);
-            curCourse.Roster.ForEach(Console.WriteLine);
+            if (curCourse == null)
+                return;
+            
+            foreach (var p in curCourse.Roster)
+            {
+                if (p != null)
+                {
+                    if (p.GetType() == typeof(Student))
+                        Console.WriteLine(p.ToString());
+                }
+            }
             Console.WriteLine("Student Name: ");
             var n = Console.ReadLine() ?? string.Empty;
             curCourse.Assignments.ForEach(a => Console.WriteLine($"{a.Name} - {a.Id}"));
@@ -456,7 +498,8 @@ namespace Canvas2._0.Helpers
             var aId = Console.ReadLine() ?? string.Empty;
             int.TryParse(aId, out int assignID);
             var cAssign = curCourse.Assignments.FirstOrDefault(a => a.Id == assignID);
-            Console.WriteLine($"Total Points: {cAssign.totalPoints}");
+            if (cAssign != null)
+                Console.WriteLine($"Total Points: {cAssign.totalPoints}");
             Console.WriteLine("Enter the grade (decimcal):");
             var g = Console.ReadLine() ?? string.Empty;
             decimal.TryParse(g, out decimal grade);
@@ -467,6 +510,7 @@ namespace Canvas2._0.Helpers
 
         public void CreateAnnouncement()
         {
+            
             cs.courseList.ForEach(cs=> Console.WriteLine(cs.classCode));
             Console.WriteLine("Class Code");
             var cCode = Console.ReadLine() ?? string.Empty;
@@ -502,6 +546,31 @@ namespace Canvas2._0.Helpers
             Console.WriteLine("Select an Announcement: ");
             var aName = Console.ReadLine() ?? string.Empty;
             cs.DeleteAnnouncement(cCode, aName);
+        }
+
+        public void UpdateAnnouncement()
+        {
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.GetCourse(cCode);
+            curCourse.Announcements.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Which Announcement would you like to update?:");
+            var aName = Console.ReadLine() ?? string.Empty;
+            var curAnnouncement = curCourse.Announcements.FirstOrDefault(a => a.Name == aName);
+            Console.WriteLine("Announcement Name: ");
+            aName = Console.ReadLine() ?? string.Empty;
+            curAnnouncement.Name = aName;
+            Console.WriteLine("Do you want to update the descipriton? Y N");
+            var choice = Console.ReadLine() ?? string.Empty;
+            if (choice == "Y")
+            {
+                Console.WriteLine("Announcement Description: ");
+                var aDesc = Console.ReadLine() ?? string.Empty;
+                cs.CreateAndUpdateAnnouncement(cCode, aName, aDesc);
+            }
+            else
+                cs.CreateAndUpdateAnnouncement(cCode, aName, curAnnouncement.Description);
         }
 
 

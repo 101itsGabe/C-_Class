@@ -48,7 +48,7 @@ namespace Objects.Services
 
         public Course? GetCourse(string id)
         {
-            return courseList.FirstOrDefault(c => c.classCode == id);
+            return courseList.FirstOrDefault(c => c.classCode.ToUpper() == id.ToUpper());
         }
 
         public Assignment? GetAssignment(Course c, int aId)
@@ -59,10 +59,17 @@ namespace Objects.Services
         public void giveGrade(string courseId, string studentName, int aId, decimal grade)
         {
             var curCourse = GetCourse(courseId);
-            var s = curCourse.Roster.FirstOrDefault(s => s.Name.ToUpper() == studentName.ToUpper());
-            s.Grades.TryGetValue(courseId, out List<Assignment>? assign);
-            var curAssign = assign.FirstOrDefault(a => a.Id == aId);
-            curAssign.earnedPoints = grade;
+            var curStudent = (Student)curCourse.Roster.FirstOrDefault(s => s.Name == studentName);
+            
+            if (curStudent != null)
+            {
+                curStudent.Grades.TryGetValue(courseId, out var ListAssign);
+                Console.WriteLine($"Current ID: {aId}");
+                ListAssign.ForEach(a => Console.WriteLine($"{a.Name} - {a.Id}"));
+                var curAss = ListAssign.FirstOrDefault(a => a.Id == aId);
+                curAss.earnedPoints = grade;
+                Console.WriteLine(curAss.earnedPoints);
+            }
             
         }
 
@@ -77,15 +84,17 @@ namespace Objects.Services
         {
             var curCourse = GetCourse(cCode);
             Announcement curAnn;
-            if (!curCourse.Announcements.Any(a => a.Name == n))
+            if (!curCourse.Announcements.Any() || curCourse.Assignments.FindIndex(a => a.Name == n) == -1)
                 curAnn = new Announcement();
             else
                 curAnn = curCourse.Announcements.FirstOrDefault(a => a.Name == n);
+            if (curAnn != null)
+            {
+                curAnn.Name = n;
+                curAnn.Description = d;
 
-            curAnn.Name = n;
-            curAnn.Description = d;
-
-            curCourse.Announcements.Add(curAnn);
+                curCourse.Announcements.Add(curAnn);
+            }
 
         }
 
@@ -96,6 +105,8 @@ namespace Objects.Services
             if(curAnnon!= null)
                 curCourse.Announcements.Remove(curAnnon);
         }
+
+
 
     }
 }

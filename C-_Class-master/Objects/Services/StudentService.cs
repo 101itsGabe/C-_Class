@@ -6,12 +6,12 @@ namespace Objects.Services
 	public class StudentService
 	{
         public static CourseService? _cs;
-		public List<Student> studentList;
+		public List<Person> personList;
 		private static StudentService? _instance;
 
 		private StudentService()
 		{
-			studentList = new List<Student>();
+			personList = new List<Person>();
             _cs = CourseService.Current;
 		}
 
@@ -27,43 +27,37 @@ namespace Objects.Services
 			}
 		}
 
-		public void Add(Student s)
+		public void Add(Person s)
 		{
-			studentList.Add(s);
+			personList.Add(s);
 		}
 
-		public List<Student> Students
+		public List<Person> People
 		{
-			get { return studentList; }
+			get { return personList; }
 		}
 
         public Student? GetStudent(string n)
         {
-            return Students.FirstOrDefault(c => c.Name == n);
+            return (Student)People.FirstOrDefault(c => c.Name == n);
         }
 
         public void RemoveStudent(string id)
         {
             var c = GetStudent(id);
             if (c != null)
-                Students.Remove(c);
+                People.Remove(c);
             else
                 Console.WriteLine("Student not Found");
         }
 
-        public IEnumerable<Student> Seacrh(string n)
+        public IEnumerable<Person> Seacrh(string n)
 		{
-			return studentList.Where(s => s.Name.ToUpper().Contains(n.ToUpper()));
+			return personList.Where(s => s.Name.ToUpper().Contains(n.ToUpper()));
 		}
 
 
-        public IEnumerable<Submission> Submissions
-        {
-            get
-            {
-                return Students.SelectMany(s => s.Submissions).Take(100);
-            }
-        }
+      
 
         public void AddSubmission(int id, string sname, string cc,int aId)
         {

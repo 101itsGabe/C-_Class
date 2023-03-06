@@ -15,7 +15,17 @@ namespace Objects.Models
 
         public string AssignedGroup { get; set; }
 
-        public int Id { get; set; }
+        private static int lastId = 0;
+
+        public int Id
+        {
+            get; private set;
+        }
+
+        public Assignment()
+        {
+            Id = ++lastId;
+        }
 
 
         public override string ToString()

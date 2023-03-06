@@ -39,7 +39,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             
             while (cont)
             {
-                Console.WriteLine("1. Maintain Students");
+                Console.WriteLine("1. Maintain People");
                 Console.WriteLine("2. Maintain Courses");
                 Console.WriteLine("3. Exit");                      //Sys
 
@@ -61,7 +61,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
         static void ShowStudentMenu(StudentHelper StudHelp)
         {
-            Console.WriteLine("1. Create a Student");           //Student
+            Console.WriteLine("1. Create a Person");           //Student
             Console.WriteLine("2. Remove a student to a course");
             Console.WriteLine("3. Search for a student");       //Student
             Console.WriteLine("4. List  all Students");         //Student
@@ -76,7 +76,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                  //Create a Student
                 if (choiceInt == 1)
                 {
-                    StudHelp.AddOrUpdateStudent();
+                    StudHelp.AddOrUpdatePerson();
                 }
 
                 //Search for a student
@@ -94,7 +94,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 //Update a students information
                 else if (choiceInt == 5)
                 {
-                    StudHelp.AddOrUpdateStudent();
+                    StudHelp.AddOrUpdatePerson();
                 }
 
                 else if(choiceInt == 6)
@@ -121,6 +121,13 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("3. List all courses");           //Course
             Console.WriteLine("4. Update Course Info");         //Course\
             Console.WriteLine("5. Give a grade");
+            Console.WriteLine("6. Create an Announcment");
+            Console.WriteLine("7. Update an Announcment");
+            Console.WriteLine("8. Delete an Announcment");
+            Console.WriteLine("9. Show an Announcment");
+
+
+           
 
             var input = Console.ReadLine() ?? string.Empty;
             if (int.TryParse(input, out int choiceInt))
@@ -154,6 +161,22 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 else if (choiceInt == 5)
                 {
                     CourseHelp.GiveGrade();
+                }
+                else if(choiceInt== 6) 
+                {
+                    CourseHelp.CreateAnnouncement();
+                }
+                else if (choiceInt == 7)
+                {
+                    CourseHelp.UpdateAnnouncement();
+                }
+                else if (choiceInt == 8)
+                {
+                    CourseHelp.DeleteAnnouncement();
+                }
+                else if (choiceInt == 9)
+                {
+                    CourseHelp.ShowAnnouncement();
                 }
 
             }

@@ -14,11 +14,6 @@ namespace Objects.Models
         public Dictionary <string, decimal> CourseGrade { get; set; }
         public List<Course> Courses { get; set; }
 
-        private static int lastId = 0;
-        public int Id 
-        {
-            get; private set; 
-        }
 
         public Student() 
         {
@@ -26,7 +21,7 @@ namespace Objects.Models
             Submissions = new List<Submission>();
             Courses = new List<Course>();
             CourseGrade= new Dictionary<string, decimal>();
-            Id = ++lastId;
+            
         }
 
         public override string ToString()

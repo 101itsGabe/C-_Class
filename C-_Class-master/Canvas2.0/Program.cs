@@ -24,13 +24,13 @@ namespace MyApp // Note: actual namespace depends on the project name.
             for(int i = 0; i < 5; i++) 
             {
                 var newStudent = new Student();
-                newStudent.Id = i + 1;
+                //newStudent.Id = i + 1;
                 newStudent.Name = $"S{i + 1}";
                 newStudent.Classification = PersonClassification.Freshman;
                 StudHelp.addStudent(newStudent);
             }
             var gabe = new Student();
-            gabe.Id = 6;
+            //gabe.Id = 6;
             gabe.Name = "Gabe";
             gabe.Classification= PersonClassification.Senior;
             StudHelp.addStudent(gabe);

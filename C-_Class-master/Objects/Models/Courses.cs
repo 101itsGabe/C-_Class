@@ -15,6 +15,7 @@ namespace Objects.Models
 
         public List<AssignmentGroup> AssignmentGroups { get; set; }
 
+        public List<Announcement> Announcements { get; set; }
         public int creditHours {get; set; }
 
         public Course()
@@ -87,5 +88,9 @@ namespace Objects.Models
             if (curGroup != null && curAssignment != null)
                 curGroup.AddAssignment(curAssignment);
         }
+
+        
+
+        
     }
 }

@@ -26,8 +26,8 @@ namespace MyApp
 
         public void AddOrUpdateStudent(Student? p = null)
         {
-            Console.WriteLine("Persons ID: ");
-            var PersonId = Console.ReadLine() ?? string.Empty;
+            //Console.WriteLine("Persons ID: ");
+            //var PersonId = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Person's Name: ");
             var n = Console.ReadLine() ?? string.Empty;
             Console.WriteLine($"Entera a num for {n}'s classification: ");
@@ -64,8 +64,8 @@ namespace MyApp
             }
 
             p.Name = n;
-            if (int.TryParse(PersonId, out int pId))
-                p.Id = pId;
+            //if (int.TryParse(PersonId, out int pId))
+            //    p.Id = pId;
 
             if (isCreate)
                 ss.Add(p);

@@ -465,6 +465,44 @@ namespace Canvas2._0.Helpers
 
         }
 
+        public void CreateAnnouncement()
+        {
+            cs.courseList.ForEach(cs=> Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Announcement Name: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Announcement Description: ");
+            var aDesc = Console.ReadLine() ?? string.Empty;
+            cs.CreateAndUpdateAnnouncement(cCode,aName, aDesc);
+        }
+
+        public void ShowAnnouncement()
+        {
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.GetCourse(cCode);
+            if(curCourse != null) 
+                curCourse.Announcements.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Select an Announcement: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            var curAnnon =  curCourse.Announcements.FirstOrDefault(a => a.Name == aName);
+            Console.WriteLine(curAnnon.Description);
+        }
+
+        public void DeleteAnnouncement()
+        {
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.GetCourse(cCode);
+            if (curCourse != null)
+                curCourse.Announcements.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Select an Announcement: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            cs.DeleteAnnouncement(cCode, aName);
+        }
 
 
 

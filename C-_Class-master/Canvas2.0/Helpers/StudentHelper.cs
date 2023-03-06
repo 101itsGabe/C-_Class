@@ -10,11 +10,13 @@ namespace MyApp
     {
         private StudentService ss;
         private CourseService cs;
+        private ListNavigator<Student> studentNavigator;
 
         public StudentHelper()
         {
             ss = StudentService.Current;
             cs = CourseService.Current;
+            studentNavigator = new ListNavigator<Student>(ss.studentList);
         }
 
         public void addStudent(Student student)
@@ -69,9 +71,49 @@ namespace MyApp
                 ss.Add(p);
         }
 
+        public void NavigateStudents()
+        {
+            bool keepPaging = true;
+            while (keepPaging) 
+            {
+                foreach (var pair in studentNavigator.GetCurrentPage())
+                {
+                    Console.WriteLine($"{pair.Key}. {pair.Value}");
+                }
+
+                if (studentNavigator.HasPreviousPage)
+                {
+                    Console.WriteLine("P. Previous Page");
+                }
+
+                if (studentNavigator.HasNextPage)
+                {
+                    Console.WriteLine("N. Next Page");
+                }
+
+                Console.WriteLine("Make a Selection");
+                var selectionChoice = Console.ReadLine();
+                if ((selectionChoice?.Equals("P", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                   || (selectionChoice?.Equals("N", StringComparison.InvariantCultureIgnoreCase) ?? false))
+                {
+                    //Navigate Through Pages
+                    if (selectionChoice.Equals("P", StringComparison.InvariantCultureIgnoreCase))
+                        studentNavigator.GoBackward();
+                    else if (selectionChoice.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                        studentNavigator.GoForward();
+                }
+                else
+                {
+                    Console.WriteLine("Select a Student");
+                    var curStud = Console.ReadLine() ?? string.Empty;
+                    keepPaging = false;
+                }
+            }
+        }
+
         public void ListStudents()
         {
-            ss.Students.ForEach(Console.WriteLine);
+            NavigateStudents();
         }
 
         public void SearchStudents()

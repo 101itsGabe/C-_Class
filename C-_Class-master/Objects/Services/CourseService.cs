@@ -73,7 +73,30 @@ namespace Objects.Services
             return curGroup;
         }
 
-        
+        public void CreateAndUpdateAnnouncement(string cCode,string n, string d)
+        {
+            var curCourse = GetCourse(cCode);
+            Announcement curAnn;
+            if (!curCourse.Announcements.Any(a => a.Name == n))
+                curAnn = new Announcement();
+            else
+                curAnn = curCourse.Announcements.FirstOrDefault(a => a.Name == n);
+
+            curAnn.Name = n;
+            curAnn.Description = d;
+
+            curCourse.Announcements.Add(curAnn);
+
+        }
+
+        public void DeleteAnnouncement(string cCode, string n)
+        {
+            var curCourse = GetCourse(cCode);
+            var curAnnon = curCourse.Announcements.FirstOrDefault(a => a.Name == n);
+            if(curAnnon!= null)
+                curCourse.Announcements.Remove(curAnnon);
+        }
+
     }
 }
 

@@ -102,9 +102,37 @@ namespace Objects.Services
         {
             var curCourse = GetCourse(cCode);
             var curAnnon = curCourse.Announcements.FirstOrDefault(a => a.Name == n);
-            if(curAnnon!= null)
+            if (curAnnon != null)
                 curCourse.Announcements.Remove(curAnnon);
         }
+
+        public void CreateAndUpdateModule(string cCode, string n, string d)
+        {
+            var curCourse = GetCourse(cCode);
+            Module curMod;
+            if (!curCourse.Modules.Any() || curCourse.Assignments.FindIndex(a => a.Name == n) == -1)
+                curMod = new Module();
+            else
+                curMod = curCourse.Modules.FirstOrDefault(a => a.Name == n);
+            if (curMod != null)
+            {
+                curMod.Name = n;
+                curMod.Description = d;
+
+                curCourse.Modules.Add(curMod);
+            }
+
+        }
+
+        public void DeleteModule(string cCode, string n)
+        {
+            var curCourse = GetCourse(cCode);
+            var curMod = curCourse.Modules.FirstOrDefault(a => a.Name == n);
+            if (curMod != null)
+                curCourse.Modules.Remove(curMod);
+        }
+
+
 
 
 

@@ -573,7 +573,70 @@ namespace Canvas2._0.Helpers
                 cs.CreateAndUpdateAnnouncement(cCode, aName, curAnnouncement.Description);
         }
 
+        public void CreateModule()
+        {
 
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Announcement Name: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Announcement Description: ");
+            var aDesc = Console.ReadLine() ?? string.Empty;
+            cs.CreateAndUpdateModule(cCode, aName, aDesc);
+        }
+
+        public void DeleteModule()
+        {
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.GetCourse(cCode);
+            if (curCourse != null)
+                curCourse.Announcements.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Select an Announcement: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            cs.DeleteAnnouncement(cCode, aName);
+        }
+
+        public void UpdateModule()
+        {
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.GetCourse(cCode);
+            curCourse.Modules.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Which Module would you like to update?:");
+            var aName = Console.ReadLine() ?? string.Empty;
+            var curMod = curCourse.Modules.FirstOrDefault(a => a.Name == aName);
+            Console.WriteLine("Module Name: ");
+            aName = Console.ReadLine() ?? string.Empty;
+            curMod.Name = aName;
+            Console.WriteLine("Do you want to update the descipriton? Y N");
+            var choice = Console.ReadLine() ?? string.Empty;
+            if (choice == "Y")
+            {
+                Console.WriteLine("Module Description: ");
+                var aDesc = Console.ReadLine() ?? string.Empty;
+                cs.CreateAndUpdateAnnouncement(cCode, aName, aDesc);
+            }
+            else
+                cs.CreateAndUpdateAnnouncement(cCode, aName, curMod.Description);
+        }
+
+        public void ShowModule()
+        {
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.GetCourse(cCode);
+            if (curCourse != null)
+                curCourse.Modules.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Select an Announcement: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            var curAnnon = curCourse.Modules.FirstOrDefault(a => a.Name == aName);
+            Console.WriteLine(curAnnon.Description);
+        }
 
     }
 }

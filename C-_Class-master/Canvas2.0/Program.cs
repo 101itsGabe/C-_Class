@@ -125,9 +125,13 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("7. Update an Announcment");
             Console.WriteLine("8. Delete an Announcment");
             Console.WriteLine("9. Show an Announcment");
+            Console.WriteLine("10. Create a Module ");
+            Console.WriteLine("11. Update a Module");
+            Console.WriteLine("12. Delete a Module");
+            Console.WriteLine("13. Show a Module");
 
 
-           
+
 
             var input = Console.ReadLine() ?? string.Empty;
             if (int.TryParse(input, out int choiceInt))
@@ -177,6 +181,23 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 else if (choiceInt == 9)
                 {
                     CourseHelp.ShowAnnouncement();
+                }
+
+                else if (choiceInt == 10)
+                {
+                    CourseHelp.CreateModule();
+                }
+                else if (choiceInt == 11)
+                {
+                    CourseHelp.UpdateModule();
+                }
+                else if (choiceInt == 12)
+                {
+                    CourseHelp.DeleteModule();
+                }
+                else if (choiceInt == 13)
+                {
+                    CourseHelp.ShowModule();
                 }
 
             }

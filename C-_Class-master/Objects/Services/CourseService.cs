@@ -41,10 +41,12 @@ namespace Objects.Services
             courseList.Add(c);
         }
 
+        /*
         public IEnumerable<Course> Search(string n)
         {
             return courseList.Where(s => s.classCode.ToUpper().Contains(n.ToUpper()));
         }
+        */
 
         public Course? GetCourse(string id)
         {
@@ -56,35 +58,46 @@ namespace Objects.Services
             return c.Assignments.FirstOrDefault(a => a.Id == aId);
         }
 
+        /*
         public Module? GetModule(string ccode, string N) 
         {
             var curCourse = GetCourse(ccode);
             return curCourse.Modules.FirstOrDefault(m => m.Name.ToUpper() == N.ToUpper());
         }
+        */
+        
 
         public void giveGrade(string courseId, string studentName, int aId, decimal grade)
         {
             var curCourse = GetCourse(courseId);
-            var curStudent = (Student)curCourse.Roster.FirstOrDefault(s => s.Name == studentName);
-            
-            if (curStudent != null)
+            if (curCourse != null)
             {
-                curStudent.Grades.TryGetValue(courseId, out var ListAssign);
-                Console.WriteLine($"Current ID: {aId}");
-                ListAssign.ForEach(a => Console.WriteLine($"{a.Name} - {a.Id}"));
-                var curAss = ListAssign.FirstOrDefault(a => a.Id == aId);
-                curAss.earnedPoints = grade;
-                Console.WriteLine(curAss.earnedPoints);
+                var curStudent = (Student)curCourse.Roster.FirstOrDefault(s => s.Name == studentName);
+
+                if (curStudent != null)
+                {
+                    curStudent.Grades.TryGetValue(courseId, out var ListAssign);
+                    Console.WriteLine($"Current ID: {aId}");
+                    if (ListAssign != null)
+                    {
+                        ListAssign.ForEach(a => Console.WriteLine($"{a.Name} - {a.Id}"));
+                        var curAssign = ListAssign.FirstOrDefault(a => a.Id == aId);
+                        if (curAssign != null)
+                            curAssign.earnedPoints = grade;
+                    }
+                }
             }
             
         }
 
+        /*
         public AssignmentGroup GetAssignmentGroup(string classCode, string groupName)
         {
             var curCourse = GetCourse(classCode);
             var curGroup = curCourse.AssignmentGroups.FirstOrDefault(g => g.Name.ToUpper() == groupName.ToUpper());
             return curGroup;
         }
+        */
 
         public void CreateAndUpdateAnnouncement(string cCode,string n, string d)
         {

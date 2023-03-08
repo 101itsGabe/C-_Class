@@ -9,6 +9,10 @@ namespace Objects.Models
     public class Module : Item
     {
         public List<ContentItem> ContentItems { get; set; }
+        public Module() 
+        {
+            ContentItems = new List<ContentItem>();
+        }
 
     }
 }

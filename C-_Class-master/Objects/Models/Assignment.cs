@@ -30,7 +30,7 @@ namespace Objects.Models
 
         public override string ToString()
         {
-            return $"{Name} - {dueDate}";
+            return $"[{Id}] {Name} - {dueDate}";
         }
     }
 

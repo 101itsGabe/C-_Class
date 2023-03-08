@@ -157,6 +157,7 @@ namespace Canvas2._0.Helpers
                 var roster = new List<Person>();
                 var assign = new List<Assignment>();
                 var assignmentgroup = new List<AssignmentGroup>();
+                var moduleGroup = new List<Module>();
 
                 Console.WriteLine("Which People should be enrolled in this course? 'Q' to quit: ");
                 bool continueAdding = true;
@@ -188,6 +189,9 @@ namespace Canvas2._0.Helpers
                     }
 
                 }
+
+                course.Roster = new List<Person>();
+                course.Roster.AddRange(roster);
 
                 Console.WriteLine("Woudl you like to Add Assignment Groups? Y N");
                 var ag = Console.ReadLine() ?? string.Empty;
@@ -236,6 +240,9 @@ namespace Canvas2._0.Helpers
 
                         
                     }
+
+                    course.AssignmentGroups = new List<AssignmentGroup>();
+                    course.AssignmentGroups.AddRange(assignmentgroup);
                 }
 
                 Console.WriteLine("Would you like to add assigments? Y N: ");
@@ -291,6 +298,9 @@ namespace Canvas2._0.Helpers
                             continueAdding = false;
                         }
                     }
+
+                    course.Assignments = new List<Assignment>();
+                    course.Assignments.AddRange(assign);
                 }
 
                 Console.WriteLine("Would you like to add modules? Y N: ");
@@ -302,21 +312,20 @@ namespace Canvas2._0.Helpers
                     while (continueAdding)
                     {
                         if(course != null)
-                            course.Modules.Add(CreateModule(course));
+                            moduleGroup.Add(CreateModule(course));
                         Console.WriteLine("Add More Modules? Y N");
                         ar = Console.ReadLine() ?? "N";
                         if(ar.Equals("N"))
                             continueAdding= false;
                     }
 
+                    course.Modules= new List<Module>();
+                    course.Modules.AddRange(moduleGroup);
+
                 }
 
-                course.Roster = new List<Person>();
-                course.Roster.AddRange(roster);
-                course.Assignments = new List<Assignment>();
-                course.Assignments.AddRange(assign);
-                course.AssignmentGroups= new List<AssignmentGroup>();
-                course.AssignmentGroups.AddRange(assignmentgroup);
+                
+                
 
                 foreach(var p in course.Roster)
                 {
@@ -401,16 +410,43 @@ namespace Canvas2._0.Helpers
                 Console.WriteLine("Roster:");
                 curCourse.Roster.ForEach(Console.WriteLine);
                 Console.WriteLine("Assignment Groups");
-                if (!curCourse.AssignmentGroups.Any()) { Console.WriteLine("AHHHH"); }
                 curCourse.AssignmentGroups.ForEach(a => Console.WriteLine(a.Name));
+                Console.WriteLine("Modules");
+                curCourse.Modules.ForEach(m => Console.WriteLine(m.Name));
                 //Console.WriteLine(curCourse.DetailDisplay);
             }
         }
 
         
+        public void AddStudentToCourse()
+        {
+            cs.courseList.ForEach(c => Console.WriteLine(c.classCode));
+            Console.WriteLine("Enter class code: ");
+            var c = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.courseList.FirstOrDefault(s => s.classCode.Contains(c));
+            if (curCourse != null)
+            {
+                sh.personList.ForEach(a =>
+                {
+                    if (a.GetType() == typeof(Student) && !curCourse.Roster.Contains(a))
+                    {
+                        Console.WriteLine(a);
+                    }
+                });
+
+                Console.WriteLine("Enter the name of the student you would like to add:");
+                var name = Console.ReadLine() ?? string.Empty;
+                var curStudent = curCourse.Roster.FirstOrDefault(s => s.Name.ToUpper() == name.ToUpper());
+                if(curStudent != null) 
+                {
+                    curCourse.Roster.Add(curStudent);
+                }
+            }
+        }
 
         public void RemoveStudentFromCourse()
         {
+            cs.courseList.ForEach(c => Console.WriteLine(c.classCode));
             Console.WriteLine("Enter class code: ");
             var c = Console.ReadLine() ?? string.Empty;
             var curCourse = cs.courseList.FirstOrDefault(s => s.classCode.Contains(c));
@@ -668,12 +704,12 @@ namespace Canvas2._0.Helpers
 
         private AssignmentItem? CreateAssginmentItem(Course c)
         {
-            Console.WriteLine("Module Name: ");
+            Console.WriteLine("Assignment Item Name: ");
             var aName = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Module Description: ");
+            Console.WriteLine("Assignment Item Description: ");
             var mDesc = Console.ReadLine() ?? string.Empty;
-            c.Assignments.ForEach(a => Console.WriteLine(a.Name));
-            Console.WriteLine("Which Assignments should be added?");
+            c.Assignments.ForEach(a => Console.WriteLine(a));
+            Console.WriteLine("Which Assignments should be added? Enter ID:");
             var aId = int.Parse(Console.ReadLine() ?? "-1");
             if(aId >= 0)
             {
@@ -689,6 +725,7 @@ namespace Canvas2._0.Helpers
                 }
 
             }
+            //Course was null??
             return null;
         }
 
@@ -706,6 +743,16 @@ namespace Canvas2._0.Helpers
                 Name = aName,
                 Description = mDesc
             };
+        }
+
+        public void AddNewModule()
+        {
+            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
+            Console.WriteLine("Class Code");
+            var cCode = Console.ReadLine() ?? string.Empty;
+            var curCourse = cs.GetCourse(cCode);
+            if(curCourse != null)
+             curCourse.Modules.Add(CreateModule(curCourse));
         }
         public void DeleteModule()
         {
@@ -753,7 +800,7 @@ namespace Canvas2._0.Helpers
             var curCourse = cs.GetCourse(cCode);
             if (curCourse != null)
                 curCourse.Modules.ForEach(a => Console.WriteLine(a.Name));
-            Console.WriteLine("Select an Announcement: ");
+            Console.WriteLine("Select a Module: ");
             var aName = Console.ReadLine() ?? string.Empty;
             var curMod = curCourse.Modules.FirstOrDefault(a => a.Name == aName);
             if(curMod != null)

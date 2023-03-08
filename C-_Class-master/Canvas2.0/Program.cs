@@ -121,14 +121,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("3. List all courses");           //Course
             Console.WriteLine("4. Update Course Info");         //Course\
             Console.WriteLine("5. Give a grade");
-            Console.WriteLine("6. Create an Announcment");
-            Console.WriteLine("7. Update an Announcment");
-            Console.WriteLine("8. Delete an Announcment");
-            Console.WriteLine("9. Show an Announcment");
-            Console.WriteLine("10. Create a Module ");
-            Console.WriteLine("11. Update a Module");
-            Console.WriteLine("12. Delete a Module");
-            Console.WriteLine("13. Show a Module");
+            Console.WriteLine("6. Add a Student");
+            Console.WriteLine("7. Remove a Student");
+            Console.WriteLine("8. Create an Announcment");
+            Console.WriteLine("9. Update an Announcment");
+            Console.WriteLine("10. Delete an Announcment");
+            Console.WriteLine("11. Show an Announcment");
+            Console.WriteLine("12. Add a new Module ");
+            Console.WriteLine("13. Update a Module");
+            Console.WriteLine("14. Delete a Module");
+            Console.WriteLine("15. Show a Module");
 
 
 
@@ -166,33 +168,47 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 {
                     CourseHelp.GiveGrade();
                 }
-                else if(choiceInt== 6) 
+
+                else if(choiceInt == 6)
+                {
+                    CourseHelp.AddStudentToCourse();
+                }
+
+                else if(choiceInt == 7)
+                {
+                    CourseHelp.RemoveStudentFromCourse();
+                }
+                else if(choiceInt== 8) 
                 {
                     CourseHelp.CreateAnnouncement();
                 }
-                else if (choiceInt == 7)
+                else if (choiceInt == 9)
                 {
                     CourseHelp.UpdateAnnouncement();
                 }
-                else if (choiceInt == 8)
+                else if (choiceInt == 10)
                 {
                     CourseHelp.DeleteAnnouncement();
                 }
-                else if (choiceInt == 9)
+                else if (choiceInt == 11)
                 {
                     CourseHelp.ShowAnnouncement();
                 }
 
+                else if(choiceInt == 12)
+                {
+                    CourseHelp.AddNewModule();
+                }
                 
-                else if (choiceInt == 11)
+                else if (choiceInt == 13)
                 {
                     CourseHelp.UpdateModule();
                 }
-                else if (choiceInt == 12)
+                else if (choiceInt == 14)
                 {
                     CourseHelp.DeleteModule();
                 }
-                else if (choiceInt == 13)
+                else if (choiceInt == 15)
                 {
                     CourseHelp.ShowModule();
                 }

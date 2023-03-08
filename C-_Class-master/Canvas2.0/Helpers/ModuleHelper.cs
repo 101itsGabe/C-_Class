@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Objects.Models
+namespace Canvas2._0.Helpers
 {
-    public class Module : Item
+    public class ModuleHelper
     {
-        public List<ContentItem> ContentItems { get; set; }
 
     }
 }

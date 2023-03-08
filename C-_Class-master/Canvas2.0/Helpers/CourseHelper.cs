@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Net.WebSockets;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
+using System.Xml.Serialization;
 using MyApp;
 using Objects.Models;
 using Objects.Services;
@@ -290,6 +293,24 @@ namespace Canvas2._0.Helpers
                     }
                 }
 
+                Console.WriteLine("Would you like to add modules? Y N: ");
+                ar = Console.ReadLine() ?? "N";
+               
+                if (ar.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continueAdding = true;
+                    while (continueAdding)
+                    {
+                        if(course != null)
+                            course.Modules.Add(CreateModule(course));
+                        Console.WriteLine("Add More Modules? Y N");
+                        ar = Console.ReadLine() ?? "N";
+                        if(ar.Equals("N"))
+                            continueAdding= false;
+                    }
+
+                }
+
                 course.Roster = new List<Person>();
                 course.Roster.AddRange(roster);
                 course.Assignments = new List<Assignment>();
@@ -573,19 +594,119 @@ namespace Canvas2._0.Helpers
                 cs.CreateAndUpdateAnnouncement(cCode, aName, curAnnouncement.Description);
         }
 
-        public void CreateModule()
+        private Module CreateModule(Course c)
         {
 
-            cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
-            Console.WriteLine("Class Code");
-            var cCode = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Announcement Name: ");
+            
+            Console.WriteLine("Module Name: ");
             var aName = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Announcement Description: ");
-            var aDesc = Console.ReadLine() ?? string.Empty;
-            cs.CreateAndUpdateModule(cCode, aName, aDesc);
+            Console.WriteLine("Module Description: ");
+            var mDesc = Console.ReadLine() ?? string.Empty;
+            
+            var Module = new Module
+            {
+                Name = aName,
+                Description= mDesc
+            };
+
+            Console.WriteLine("Would you like to add content? Y N");
+            var choice = Console.ReadLine() ?? string.Empty;
+            while(choice.Equals("Y",StringComparison.InvariantCultureIgnoreCase))
+            {
+                Console.WriteLine("What type of content would you like to add?");
+                Console.WriteLine("1. Assignment");
+                Console.WriteLine("2. File");
+                Console.WriteLine("3. Page");
+                var contentChoice = int.Parse(Console.ReadLine() ?? "0");
+
+                switch(contentChoice) 
+                {
+                    case 1:
+                        var newAssignmentContent = CreateAssginmentItem(c);
+                        if(newAssignmentContent != null)
+                            Module.ContentItems.Add(newAssignmentContent);
+                        break;
+                    case 2:
+                        var newFileContent = CreateFileItem(c);
+                        if (newFileContent != null)
+                            Module.ContentItems.Add(newFileContent);
+                        break;
+
+                    case 3:
+                        var newPageContent = CreatePageItem(c);
+                        if (newPageContent != null)
+                            Module.ContentItems.Add(newPageContent);
+                        break;
+
+                    default:
+                        break;
+
+                }
+
+                Console.WriteLine("Would you like to add content? Y N");
+                choice = Console.ReadLine() ?? string.Empty;
+            }
+
+            return Module;
         }
 
+        private PageItem? CreatePageItem(Course c)
+        {
+            Console.WriteLine("Page Name: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Page Description: ");
+            var mDesc = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter a path to the file");
+            var HTMLstring = Console.ReadLine() ?? string.Empty;
+            return new PageItem
+            {
+                HTMLBody = HTMLstring,
+                Name = aName,
+                Description = mDesc
+            };
+        }
+
+        private AssignmentItem? CreateAssginmentItem(Course c)
+        {
+            Console.WriteLine("Module Name: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Module Description: ");
+            var mDesc = Console.ReadLine() ?? string.Empty;
+            c.Assignments.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Which Assignments should be added?");
+            var aId = int.Parse(Console.ReadLine() ?? "-1");
+            if(aId >= 0)
+            {
+                var curAssign = c.Assignments.FirstOrDefault(a => a.Id == aId);
+                if (curAssign != null)
+                {
+                    return new AssignmentItem()
+                    {
+                        Assignment = curAssign,
+                        Name = aName,
+                        Description = mDesc
+                    };
+                }
+
+            }
+            return null;
+        }
+
+        private FileItem? CreateFileItem(Course c)
+        {
+            Console.WriteLine("Module Name: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Module Description: ");
+            var mDesc = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter a path to the file");
+            var filePath = Console.ReadLine() ?? string.Empty;
+            return new FileItem
+            {
+                FilePath = filePath,
+                Name = aName,
+                Description = mDesc
+            };
+        }
         public void DeleteModule()
         {
             cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
@@ -593,10 +714,10 @@ namespace Canvas2._0.Helpers
             var cCode = Console.ReadLine() ?? string.Empty;
             var curCourse = cs.GetCourse(cCode);
             if (curCourse != null)
-                curCourse.Announcements.ForEach(a => Console.WriteLine(a.Name));
-            Console.WriteLine("Select an Announcement: ");
+                curCourse.Modules.ForEach(a => Console.WriteLine(a.Name));
+            Console.WriteLine("Select a Module: ");
             var aName = Console.ReadLine() ?? string.Empty;
-            cs.DeleteAnnouncement(cCode, aName);
+            cs.DeleteModule(cCode, aName);
         }
 
         public void UpdateModule()
@@ -618,10 +739,10 @@ namespace Canvas2._0.Helpers
             {
                 Console.WriteLine("Module Description: ");
                 var aDesc = Console.ReadLine() ?? string.Empty;
-                cs.CreateAndUpdateAnnouncement(cCode, aName, aDesc);
+                cs.CreateAndUpdateModule(cCode, aName);
             }
             else
-                cs.CreateAndUpdateAnnouncement(cCode, aName, curMod.Description);
+                cs.CreateAndUpdateModule(cCode, aName);
         }
 
         public void ShowModule()
@@ -634,9 +755,12 @@ namespace Canvas2._0.Helpers
                 curCourse.Modules.ForEach(a => Console.WriteLine(a.Name));
             Console.WriteLine("Select an Announcement: ");
             var aName = Console.ReadLine() ?? string.Empty;
-            var curAnnon = curCourse.Modules.FirstOrDefault(a => a.Name == aName);
-            Console.WriteLine(curAnnon.Description);
+            var curMod = curCourse.Modules.FirstOrDefault(a => a.Name == aName);
+            if(curMod != null)
+                curMod.ContentItems.ForEach(a => Console.WriteLine(a.Name));
+            
         }
+
 
     }
 }

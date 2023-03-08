@@ -56,6 +56,12 @@ namespace Objects.Services
             return c.Assignments.FirstOrDefault(a => a.Id == aId);
         }
 
+        public Module? GetModule(string ccode, string N) 
+        {
+            var curCourse = GetCourse(ccode);
+            return curCourse.Modules.FirstOrDefault(m => m.Name.ToUpper() == N.ToUpper());
+        }
+
         public void giveGrade(string courseId, string studentName, int aId, decimal grade)
         {
             var curCourse = GetCourse(courseId);
@@ -106,7 +112,7 @@ namespace Objects.Services
                 curCourse.Announcements.Remove(curAnnon);
         }
 
-        public void CreateAndUpdateModule(string cCode, string n, string d)
+        public void CreateAndUpdateModule(string cCode, string n)
         {
             var curCourse = GetCourse(cCode);
             Module curMod;
@@ -117,8 +123,6 @@ namespace Objects.Services
             if (curMod != null)
             {
                 curMod.Name = n;
-                curMod.Description = d;
-
                 curCourse.Modules.Add(curMod);
             }
 

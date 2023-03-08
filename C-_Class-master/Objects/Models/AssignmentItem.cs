@@ -8,6 +8,11 @@ namespace Objects.Models
 {
     public class AssignmentItem : ContentItem
     {
-        public List<Assignment> assignments= new List<Assignment>();
+        public Assignment Assignment;
+
+        public AssignmentItem() 
+        {
+            Assignment= new Assignment();
+        }
     }
 }

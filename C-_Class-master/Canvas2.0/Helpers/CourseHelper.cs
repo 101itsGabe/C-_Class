@@ -565,6 +565,8 @@ namespace Canvas2._0.Helpers
 
         }
 
+        //Announcements
+
         public void CreateAnnouncement()
         {
             
@@ -630,61 +632,7 @@ namespace Canvas2._0.Helpers
                 cs.CreateAndUpdateAnnouncement(cCode, aName, curAnnouncement.Description);
         }
 
-        private Module CreateModule(Course c)
-        {
-
-            
-            Console.WriteLine("Module Name: ");
-            var aName = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Module Description: ");
-            var mDesc = Console.ReadLine() ?? string.Empty;
-            
-            var Module = new Module
-            {
-                Name = aName,
-                Description= mDesc
-            };
-
-            Console.WriteLine("Would you like to add content? Y N");
-            var choice = Console.ReadLine() ?? string.Empty;
-            while(choice.Equals("Y",StringComparison.InvariantCultureIgnoreCase))
-            {
-                Console.WriteLine("What type of content would you like to add?");
-                Console.WriteLine("1. Assignment");
-                Console.WriteLine("2. File");
-                Console.WriteLine("3. Page");
-                var contentChoice = int.Parse(Console.ReadLine() ?? "0");
-
-                switch(contentChoice) 
-                {
-                    case 1:
-                        var newAssignmentContent = CreateAssginmentItem(c);
-                        if(newAssignmentContent != null)
-                            Module.ContentItems.Add(newAssignmentContent);
-                        break;
-                    case 2:
-                        var newFileContent = CreateFileItem(c);
-                        if (newFileContent != null)
-                            Module.ContentItems.Add(newFileContent);
-                        break;
-
-                    case 3:
-                        var newPageContent = CreatePageItem(c);
-                        if (newPageContent != null)
-                            Module.ContentItems.Add(newPageContent);
-                        break;
-
-                    default:
-                        break;
-
-                }
-
-                Console.WriteLine("Would you like to add content? Y N");
-                choice = Console.ReadLine() ?? string.Empty;
-            }
-
-            return Module;
-        }
+        //ContentItem
 
         private PageItem? CreatePageItem(Course c)
         {
@@ -745,6 +693,10 @@ namespace Canvas2._0.Helpers
             };
         }
 
+        
+
+
+        //Modules
         public void AddNewModule()
         {
             cs.courseList.ForEach(cs => Console.WriteLine(cs.classCode));
@@ -790,6 +742,61 @@ namespace Canvas2._0.Helpers
             }
             else
                 cs.CreateAndUpdateModule(cCode, aName);
+            Console.WriteLine("Would you like to add or remove content items? Y N");
+            choice = Console.ReadLine() ?? string.Empty;
+            if(choice.ToUpper() == "Y") 
+            {
+                curMod.ContentItems.ForEach(a => Console.WriteLine(a.Name));
+                Console.WriteLine("Enter the name of the item you want to remove or enter A to add: ");
+                choice = Console.ReadLine() ?? string.Empty;
+                if (choice.ToUpper() == "A")
+                {
+                    bool keepAdding = true;
+                    while (keepAdding)
+                    {
+                        Console.WriteLine("What type of content would you like to add?");
+                        Console.WriteLine("1. Assignment");
+                        Console.WriteLine("2. File");
+                        Console.WriteLine("3. Page");
+                        var contentChoice = int.Parse(Console.ReadLine() ?? "0");
+
+                        switch (contentChoice)
+                        {
+                            case 1:
+                                var newAssignmentContent = CreateAssginmentItem(curCourse);
+                                if (newAssignmentContent != null)
+                                    curMod.ContentItems.Add(newAssignmentContent);
+                                break;
+                            case 2:
+                                var newFileContent = CreateFileItem(curCourse);
+                                if (newFileContent != null)
+                                    curMod.ContentItems.Add(newFileContent);
+                                break;
+
+                            case 3:
+                                var newPageContent = CreatePageItem(curCourse);
+                                if (newPageContent != null)
+                                    curMod.ContentItems.Add(newPageContent);
+                                break;
+
+                            default:
+                                break;
+
+                        }
+
+                        Console.WriteLine("Would you like to add content? Y N");
+                        choice = Console.ReadLine() ?? string.Empty;
+                        if(choice.ToUpper() == "N")
+                            keepAdding = false;
+                    }
+                }
+                else
+                {
+                    var curContentItem = curMod.ContentItems.FirstOrDefault(c => c.Name.ToUpper() == choice.ToUpper());
+                    if(curContentItem!= null)
+                        curMod.ContentItems.Remove(curContentItem);
+                }
+            }
         }
 
         public void ShowModule()
@@ -808,6 +815,61 @@ namespace Canvas2._0.Helpers
             
         }
 
+        private Module CreateModule(Course c)
+        {
+
+            
+            Console.WriteLine("Module Name: ");
+            var aName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Module Description: ");
+            var mDesc = Console.ReadLine() ?? string.Empty;
+            
+            var Module = new Module
+            {
+                Name = aName,
+                Description= mDesc
+            };
+
+            Console.WriteLine("Would you like to add content? Y N");
+            var choice = Console.ReadLine() ?? string.Empty;
+            while(choice.Equals("Y",StringComparison.InvariantCultureIgnoreCase))
+            {
+                Console.WriteLine("What type of content would you like to add?");
+                Console.WriteLine("1. Assignment");
+                Console.WriteLine("2. File");
+                Console.WriteLine("3. Page");
+                var contentChoice = int.Parse(Console.ReadLine() ?? "0");
+
+                switch(contentChoice) 
+                {
+                    case 1:
+                        var newAssignmentContent = CreateAssginmentItem(c);
+                        if(newAssignmentContent != null)
+                            Module.ContentItems.Add(newAssignmentContent);
+                        break;
+                    case 2:
+                        var newFileContent = CreateFileItem(c);
+                        if (newFileContent != null)
+                            Module.ContentItems.Add(newFileContent);
+                        break;
+
+                    case 3:
+                        var newPageContent = CreatePageItem(c);
+                        if (newPageContent != null)
+                            Module.ContentItems.Add(newPageContent);
+                        break;
+
+                    default:
+                        break;
+
+                }
+
+                Console.WriteLine("Would you like to add content? Y N");
+                choice = Console.ReadLine() ?? string.Empty;
+            }
+
+            return Module;
+        }
 
     }
 }

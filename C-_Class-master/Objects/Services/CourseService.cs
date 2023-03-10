@@ -129,7 +129,7 @@ namespace Objects.Services
         {
             var curCourse = GetCourse(cCode);
             Module curMod;
-            if (!curCourse.Modules.Any() || curCourse.Assignments.FindIndex(a => a.Name == n) == -1)
+            if (!curCourse.Modules.Any() || curCourse.Modules.FindIndex(a => a.Name == n) == -1)
                 curMod = new Module();
             else
                 curMod = curCourse.Modules.FirstOrDefault(a => a.Name == n);

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata.Ecma335;
 using System.ComponentModel.DataAnnotations;
+using UWP.Canavs.Dialogs;
+using Windows.Devices.Display.Core;
 
 namespace UWP.Canavs.ViewModels
 {
@@ -40,7 +42,7 @@ namespace UWP.Canavs.ViewModels
 
         public void  SearchCourses()
         {
-            var searchResult = allCourses.Where(c => c.classCode.Contains(Query) || c.Name.Contains(Query)).ToList();
+            var searchResult = allCourses.Where(c => c.classCode.Contains(Query) || c.Name.ToUpper().Contains(Query.ToUpper())).ToList();
             Courses.Clear();
             
             foreach(var course in searchResult) 
@@ -48,6 +50,15 @@ namespace UWP.Canavs.ViewModels
                 Courses.Add(course);
             }    
            
+        }
+
+        public async void AddStudent()
+        {
+            var dialog = new StudentDialog();
+            if(dialog != null)
+                await dialog.ShowAsync();
+
+
         }
 
     }

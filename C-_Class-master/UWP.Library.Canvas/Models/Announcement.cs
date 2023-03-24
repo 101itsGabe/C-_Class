@@ -10,8 +10,10 @@ namespace Objects.Models
 {
     public class Announcement : Item
     {
+        
         public override string ToString()
         {
+           
             return $"{Description}";
 
         }

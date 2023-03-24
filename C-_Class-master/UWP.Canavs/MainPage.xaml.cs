@@ -26,12 +26,12 @@ namespace UWP.Canavs
 
         private void AddNew_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            (DataContext as MainViewModel).AddStudent();
+            (DataContext as MainViewModel).AddCourse();
         }
 
         private void Delete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
+            (DataContext as MainViewModel).RemoveCourse();
         }
 
         private void Update_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

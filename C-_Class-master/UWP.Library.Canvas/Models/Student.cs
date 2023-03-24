@@ -29,12 +29,7 @@ namespace Objects.Models
             return $"[{Id}] {Name} - {Classification}";
         }
 
-        /*
-        public int CalulateGradePerClass()
-        {
-
-        }
-        */
+        
     }
 }
 

@@ -10,6 +10,8 @@ using System.Reflection.Metadata.Ecma335;
 using System.ComponentModel.DataAnnotations;
 using UWP.Canavs.Dialogs;
 using Windows.Devices.Display.Core;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace UWP.Canavs.ViewModels
 {
@@ -17,6 +19,7 @@ namespace UWP.Canavs.ViewModels
     {
         public CourseService courseService;
         public string Query { get; set; }
+        public Course curCourse { get; set; }
 
         public MainViewModel() 
         {
@@ -30,14 +33,9 @@ namespace UWP.Canavs.ViewModels
 
         public ObservableCollection<Course> Courses
         {
-            get
-            {
-                return courses;
-            }
+            get{ return courses;  }
             private set
-            {
-                Courses = value;
-            }
+            { Courses = value; }
         }
 
         public void  SearchCourses()
@@ -52,13 +50,30 @@ namespace UWP.Canavs.ViewModels
            
         }
 
-        public async void AddStudent()
+        public async void AddCourse()
         {
-            var dialog = new StudentDialog();
+            var dialog = new CourseDialog(Courses);
             if(dialog != null)
                 await dialog.ShowAsync();
+            allCourses.Clear();
+            allCourses.AddRange(Courses);
+
+        }
 
 
+        public void RemoveCourse()
+        {
+                Courses.Remove(curCourse);
+                allCourses.Clear();
+                allCourses.AddRange(Courses);
+        }
+
+        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

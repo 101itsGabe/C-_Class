@@ -10,12 +10,19 @@ namespace Objects.Services
         public static CourseService _cs;
 		public List<Person> personList;
 		private static StudentService _instance;
+        private List<Person> persons;
 
-		private StudentService()
+		public StudentService()
 		{
 			personList = new List<Person>();
             _cs = CourseService.Current;
-		}
+            persons = new List<Person>();
+            for(int i = 0; i < 30; i++) 
+            {
+                persons.Add(new Student { Name = $"S{i + 1}", Classification=0 });
+            }
+            
+        }
 
 		public static StudentService Current
 		{
@@ -36,12 +43,12 @@ namespace Objects.Services
 
 		public List<Person> People
 		{
-			get { return personList; }
+			get { return persons; }
 		}
 
-        public Student GetStudent(string n)
+        public Person GetStudent(string n)
         {
-            return (Student)People.FirstOrDefault(c => c.Name == n);
+            return (Person)People.FirstOrDefault(c => c.Name == n);
         }
 
         public void RemoveStudent(string id)
@@ -66,7 +73,7 @@ namespace Objects.Services
         public IEnumerable<Assignment> GetAssignment(string sn, string ID)
         {
 
-            Student curStudent = GetStudent(sn);
+            Student curStudent = (Student)GetStudent(sn);
             curStudent.Grades.TryGetValue(ID, out List<Assignment> assign);
 
             return assign.Select(a => a);
@@ -74,14 +81,14 @@ namespace Objects.Services
 
         public void AddCourseGrade(string sn, string cCode, decimal grade)
         {
-            Student curStudent = GetStudent(sn);
+            Student curStudent = (Student)GetStudent(sn);
             if(curStudent != null) 
                 curStudent.CourseGrade.Add(cCode, grade);
         }
 
         public void UpdateCourseGrade(string sn, string cCode, decimal grade)
         {
-            Student curStudent = GetStudent(sn);
+            Student curStudent = (Student)GetStudent(sn);
             if (curStudent != null)
             {
                 if (curStudent.CourseGrade.ContainsKey(cCode))
@@ -91,7 +98,7 @@ namespace Objects.Services
 
         public decimal CalculateGrade(string sn, string cc)
         {
-            var curStudent = GetStudent(sn);
+            var curStudent = (Student)GetStudent(sn);
             var curCourse = _cs.GetCourse(cc);
             List<decimal> tempGrade = new List<decimal>();
             decimal grade = 0;

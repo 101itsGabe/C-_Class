@@ -10,6 +10,7 @@ namespace Objects.Services
 	public class CourseService
 	{
 		public List<Course> courseList;//doesnt have getter or setter
+        
         private static CourseService _instance;
         private List<Course> courses;
 

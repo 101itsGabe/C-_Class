@@ -15,10 +15,12 @@ namespace UWP.Canavs.ViewModels
     {
         public string Query { get; set; }
         public StudentService studentService;
+        public CourseService courseService;
         public Person person { get; set; }
         public ObservableCollection<Person> people;
         private List<Person> allPeople;
         public Person curPerson { get; set; }
+        
 
         public string Name
         {
@@ -32,10 +34,22 @@ namespace UWP.Canavs.ViewModels
 
         public StudentViewModel()
         {
-            studentService = new StudentService();
+            courseService = CourseService.Current;
+            studentService = StudentService.Current;
+            allPeople = studentService.People;
+            people = new ObservableCollection<Person>(studentService.People);
+            
+        }
+
+        /*public StudentViewModel(StudentService ss)
+        {
+            courseService = CourseService.Current;
+            studentService = StudentService.Current;
             allPeople = studentService.People;
             people = new ObservableCollection<Person>(studentService.People);
         }
+        */
+        
 
         public ObservableCollection<Person> People
         {

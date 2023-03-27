@@ -20,16 +20,17 @@ namespace UWP.Canavs.ViewModels
         public CourseService courseService;
         public string Query { get; set; }
         public Course curCourse { get; set; }
+        private List<Course> allCourses;
+        private ObservableCollection<Course> courses;
 
         public MainViewModel() 
         {
-            courseService = new CourseService();
+            courseService = CourseService.Current;
             allCourses = courseService.Courses;
             courses = new ObservableCollection<Course>(courseService.Courses);
         }
 
-        private List<Course> allCourses;
-        private ObservableCollection<Course> courses;
+       
 
         public ObservableCollection<Course> Courses
         {
@@ -70,11 +71,7 @@ namespace UWP.Canavs.ViewModels
 
         
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
 
     }
 }

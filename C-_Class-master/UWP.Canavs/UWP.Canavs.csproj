@@ -119,25 +119,41 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CurrentPersonPage.xaml.cs">
+    <Compile Include="Dialogs\AddAssignmentGroupDialog.xaml.cs">
+      <DependentUpon>AddAssignmentGroupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AddAssignmentGroupViewModel.cs" />
+    <Compile Include="ViewModels\AssignmentGroupViewModel.cs" />
+    <Compile Include="ViewModels\UpdateCourseViewModel.cs" />
+    <Compile Include="Xaml Pages\AssignmentGroupsPage.xaml.cs">
+      <DependentUpon>AssignmentGroupsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml Pages\UpdateCoursePage.xaml.cs">
+      <DependentUpon>UpdateCoursePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml Pages\CurrentPersonPage.xaml.cs">
       <DependentUpon>CurrentPersonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AddCourseStudentDialog.xaml.cs">
+      <DependentUpon>AddCourseStudentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\CourseDialog.xaml.cs">
       <DependentUpon>CourseDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Xaml Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartingPage.xaml.cs">
+    <Compile Include="Xaml Pages\StartingPage.xaml.cs">
       <DependentUpon>StartingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StudentView.xaml.cs">
+    <Compile Include="Xaml Pages\StudentView.xaml.cs">
       <DependentUpon>StudentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CurrentPersonModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +162,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\background.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -160,7 +177,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CurrentPersonPage.xaml">
+    <Page Include="Dialogs\AddAssignmentGroupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\AssignmentGroupsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\UpdateCoursePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\CurrentPersonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AddCourseStudentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,15 +201,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Xaml Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="StartingPage.xaml">
+    <Page Include="Xaml Pages\StartingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StudentView.xaml">
+    <Page Include="Xaml Pages\StudentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

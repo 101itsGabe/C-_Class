@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP.Canavs.Xaml_Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -29,12 +30,13 @@ namespace UWP.Canavs
 
         private void MainPage_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            this.Content = new MainPage();
         }
 
         private void StudentView_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(StudentView));
+            UpdateCoursePage ap;
+            this.Content = new StudentView();
         }
     }
 }

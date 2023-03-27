@@ -9,18 +9,21 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition/>
             <RowDefinition Height="18*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
                 <ColumnDefinition Width="15*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding Query, Mode=TwoWay}"></TextBox>
-            <Button Click="Seacrh_Click" Grid.Column="1" Content="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
+            <Button Click="Back_Click" Grid.Column="0" Content ="Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
+            <TextBox Grid.Column="1" Text="{Binding Query, Mode=TwoWay}"></TextBox>
+            <Button Click="Seacrh_Click" Grid.Column="2" Content="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
         </Grid>
 
         <ListBox Grid.Row="1"

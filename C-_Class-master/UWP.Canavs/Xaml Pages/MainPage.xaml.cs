@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 using UWP.Canavs.ViewModels;
 using System.Linq;
+using UWP.Canavs.Xaml_Pages;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -36,7 +37,13 @@ namespace UWP.Canavs
 
         private void Update_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            UpdateCourseViewModel ucp = new UpdateCourseViewModel((DataContext as MainViewModel).curCourse);
+            this.Content = new UpdateCoursePage(ucp);
+        }
 
+        private void Back_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            this.Content = new StartingPage();
         }
     }
 }

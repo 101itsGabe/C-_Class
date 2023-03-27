@@ -19,11 +19,14 @@ namespace Objects.Services
             persons = new List<Person>();
             for(int i = 0; i < 30; i++) 
             {
-                persons.Add(new Student { Name = $"S{i + 1}", Classification=0 });
+                persons.Add(new Student { Name = $"S{i + 1}", Classification=PersonClassification.Freshman });
             }
+
+            persons.Add(new Student { Name = "Gabe", Classification= PersonClassification.Senior });
             
         }
 
+        
 		public static StudentService Current
 		{
 			get 

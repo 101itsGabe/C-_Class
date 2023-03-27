@@ -34,5 +34,16 @@ namespace UWP.Canavs
             }
             DataContext= cpm;
         }
+
+        private void AddNew_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CurrentPersonModel).AddStudentCourse();
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+           
+            this.Content = new StudentView();
+        }
     }
 }

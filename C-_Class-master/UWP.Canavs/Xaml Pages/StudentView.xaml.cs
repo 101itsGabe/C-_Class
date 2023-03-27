@@ -33,6 +33,7 @@ namespace UWP.Canavs
             DataContext = new StudentViewModel();
         }
 
+
         private void Seacrh_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as StudentViewModel).SearchStudent();
@@ -55,6 +56,14 @@ namespace UWP.Canavs
             
         }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new StartingPage();
+        }
     }
 }

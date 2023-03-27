@@ -29,5 +29,10 @@ namespace Objects.Models
         { 
             Assignments.Remove(a); 
         }
+
+        public override string ToString()
+        {
+            return $"{Name} - {weight}%";
+        }
     }
 }

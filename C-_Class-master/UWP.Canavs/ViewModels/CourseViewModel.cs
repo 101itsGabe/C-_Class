@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP.Canavs.Dialogs;
 
 namespace UWP.Canavs.ViewModels
 {
@@ -37,6 +38,8 @@ namespace UWP.Canavs.ViewModels
         {
             courses.Add(course);
         }
+
+        
 
         
     }

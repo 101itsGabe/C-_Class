@@ -9,7 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-            <Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="..\Images\background.jpg" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>

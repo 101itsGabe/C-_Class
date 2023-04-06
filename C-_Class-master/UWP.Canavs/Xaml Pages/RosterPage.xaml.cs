@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UWP.Canavs.ViewModels;
-using UWP.Canavs.Xaml_Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -18,38 +17,34 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace UWP.Canavs
+namespace UWP.Canavs.Xaml_Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CurrentPersonPage : Page
+    public sealed partial class RosterPage : Page
     {
-        public CurrentPersonPage(CurrentPersonModel cpm)
+        public RosterPage(RosterViewModel r)
         {
             this.InitializeComponent();
-            if (cpm == null)
-            {
-                Person p = new Person(); 
-                cpm = new CurrentPersonModel(p);
-            }
-            DataContext= cpm;
+            DataContext = r;
         }
 
-        private void AddNew_Click(object sender, RoutedEventArgs e)
+        private void AddStudentToRoster_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as CurrentPersonModel).AddStudentCourse();
+            (DataContext as RosterViewModel).AddToRoster();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-           
-            this.Content = new StudentView();
+            UpdateCoursePage ucp = new UpdateCoursePage();
+            ucp.DataContext = new UpdateCourseViewModel((DataContext as RosterViewModel).curCourse);
+            this.Content = ucp;
         }
 
-        private void ViewGrades_Click(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new StudentGradesListPage((DataContext as CurrentPersonModel).curPerson, (DataContext as CurrentPersonModel).curCourse);
+
         }
     }
 }

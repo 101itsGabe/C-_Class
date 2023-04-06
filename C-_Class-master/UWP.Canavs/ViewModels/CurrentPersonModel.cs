@@ -20,6 +20,7 @@ namespace UWP.Canavs.ViewModels
         public List<Course> allCourses;
         public StudentService studentService;
         public CourseService courseService;
+        public Course curCourse { get; set; }
         public CurrentPersonModel(Person p)
         {
             studentService = StudentService.Current;
@@ -52,18 +53,20 @@ namespace UWP.Canavs.ViewModels
             {
                 StudentCourses.Add(c);
             }
-            OnPropertyChanged(nameof(StudentCourses));
+            //OnPropertyChanged(nameof(StudentCourses));
             var index = studentService.People.FindIndex(s => s.Id == curPerson.Id || s.Equals(curPerson));
             if(index >-1)
                 studentService.People[index] = curPerson;
             
         }
 
+        /*
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        */
 
 
     }

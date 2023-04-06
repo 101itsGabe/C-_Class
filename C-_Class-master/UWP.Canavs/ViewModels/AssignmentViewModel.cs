@@ -45,7 +45,7 @@ namespace UWP.Canavs.ViewModels
             var index = courseService.Courses.FindIndex(c => c.classCode == curCourse.classCode);
             courseService.Courses[index] = curCourse;
             
-        } 
+        }
 
 
     }

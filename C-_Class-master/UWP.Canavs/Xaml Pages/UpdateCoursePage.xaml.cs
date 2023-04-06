@@ -7,6 +7,7 @@ using UWP.Canavs.Dialogs;
 using UWP.Canavs.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Services.Maps;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -46,6 +47,18 @@ namespace UWP.Canavs.Xaml_Pages
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             this.Content = new MainPage();
+        }
+
+        private void Assignments_Click(object sender, RoutedEventArgs e)
+        {
+            AssignmentViewModel avm = new AssignmentViewModel((DataContext as UpdateCourseViewModel).curCourse);
+            this.Content = new AssignmentsPage(avm);
+        }
+
+        private void Roster_Click(object sender, RoutedEventArgs e)
+        {
+            RosterViewModel rvm = new RosterViewModel((DataContext as UpdateCourseViewModel).curCourse);
+            this.Content = new RosterPage(rvm);
         }
     }
 }

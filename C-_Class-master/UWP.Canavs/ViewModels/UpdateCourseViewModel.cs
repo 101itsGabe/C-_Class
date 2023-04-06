@@ -12,10 +12,12 @@ namespace UWP.Canavs.ViewModels
     {
         public Course curCourse;
         public ObservableCollection<AssignmentGroup> assignmentGroups;
+        public ObservableCollection<Assignment> assignments;
         public UpdateCourseViewModel(Course c)
         {
             curCourse = c;
             assignmentGroups = new ObservableCollection<AssignmentGroup>(c.AssignmentGroups);
+            assignments = new ObservableCollection<Assignment>(c.Assignments);
         }
     }
 }

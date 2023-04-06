@@ -119,14 +119,34 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddAssignmentDialog.xaml.cs">
+      <DependentUpon>AddAssignmentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AddAssignmentGroupDialog.xaml.cs">
       <DependentUpon>AddAssignmentGroupDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddStudentToRosterDialog.xaml.cs">
+      <DependentUpon>AddStudentToRosterDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AddAssignmentGroupViewModel.cs" />
+    <Compile Include="ViewModels\AddAssignmentViewModel.cs" />
+    <Compile Include="ViewModels\AddStudentToRosterViewModel.cs" />
     <Compile Include="ViewModels\AssignmentGroupViewModel.cs" />
+    <Compile Include="ViewModels\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\RosterViewModel.cs" />
+    <Compile Include="ViewModels\StudentGradesListViewModel.cs" />
     <Compile Include="ViewModels\UpdateCourseViewModel.cs" />
     <Compile Include="Xaml Pages\AssignmentGroupsPage.xaml.cs">
       <DependentUpon>AssignmentGroupsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml Pages\AssignmentsPage.xaml.cs">
+      <DependentUpon>AssignmentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml Pages\RosterPage.xaml.cs">
+      <DependentUpon>RosterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml Pages\StudentGradesListPage.xaml.cs">
+      <DependentUpon>StudentGradesListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xaml Pages\UpdateCoursePage.xaml.cs">
       <DependentUpon>UpdateCoursePage.xaml</DependentUpon>
@@ -177,11 +197,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AddAssignmentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\AddAssignmentGroupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\AddStudentToRosterDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Xaml Pages\AssignmentGroupsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\AssignmentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\RosterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\StudentGradesListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -18,8 +18,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" FontSize="30" Content="Assignment Groups" HorizontalAlignment="Stretch" Height="100" Click="AddAssignmentGroup_Click"></Button>
-        <Button Grid.Row="1" FontSize="30" Content="Assignments" HorizontalAlignment="Stretch" Height="100"></Button>
-        <Button Grid.Row="2" FontSize="30" Content="Roster" HorizontalAlignment="Stretch" Height="100"></Button>
+        <Button Grid.Row="1" FontSize="30" Content="Assignments" HorizontalAlignment="Stretch" Height="100" Click="Assignments_Click"></Button>
+        <Button Grid.Row="2" FontSize="30" Content="Roster" HorizontalAlignment="Stretch" Height="100" Click="Roster_Click"></Button>
         <Button Grid.Row="3" FontSize="30" Content="Grades" HorizontalAlignment="Stretch" Height="100"></Button>
         <Button Grid.Row="4" FontSize="30" Content="Announcements" HorizontalAlignment="Stretch" Height="100"></Button>
         <Button Grid.Row="5" FontSize="30" Content="Back" HorizontalAlignment="Stretch" Height="100" Click="Back_Click"></Button>

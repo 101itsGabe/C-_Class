@@ -125,11 +125,15 @@
     <Compile Include="Dialogs\AddAssignmentGroupDialog.xaml.cs">
       <DependentUpon>AddAssignmentGroupDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddPerson.xaml.cs">
+      <DependentUpon>AddPerson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AddStudentToRosterDialog.xaml.cs">
       <DependentUpon>AddStudentToRosterDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddAssignmentGroupViewModel.cs" />
     <Compile Include="ViewModels\AddAssignmentViewModel.cs" />
+    <Compile Include="ViewModels\AddPersonViewModel.cs" />
     <Compile Include="ViewModels\AddStudentToRosterViewModel.cs" />
     <Compile Include="ViewModels\AssignmentGroupViewModel.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
@@ -202,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\AddAssignmentGroupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AddPerson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

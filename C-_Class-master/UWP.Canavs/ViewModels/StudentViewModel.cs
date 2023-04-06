@@ -41,14 +41,6 @@ namespace UWP.Canavs.ViewModels
             
         }
 
-        /*public StudentViewModel(StudentService ss)
-        {
-            courseService = CourseService.Current;
-            studentService = StudentService.Current;
-            allPeople = studentService.People;
-            people = new ObservableCollection<Person>(studentService.People);
-        }
-        */
         
 
         public ObservableCollection<Person> People
@@ -63,6 +55,11 @@ namespace UWP.Canavs.ViewModels
             People.Clear();
             foreach (var person in search) 
             { People.Add(person); }
+        }
+
+        public async void AddPerson()
+        {
+            dialog
         }
 
        

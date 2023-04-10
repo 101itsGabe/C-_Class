@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Objects.Models;
 using Objects.Services;
+using UWP.Canavs.Dialogs;
 
 namespace UWP.Canavs.ViewModels
 {
@@ -59,7 +60,11 @@ namespace UWP.Canavs.ViewModels
 
         public async void AddPerson()
         {
-            dialog
+            var dialog = new AddPerson(People);
+            if (dialog != null)
+                await dialog.ShowAsync();
+            allPeople.Clear();
+            allPeople.AddRange(People);
         }
 
        

@@ -131,13 +131,19 @@
     <Compile Include="Dialogs\AddStudentToRosterDialog.xaml.cs">
       <DependentUpon>AddStudentToRosterDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\RosterViewDialog.xaml.cs">
+      <DependentUpon>RosterViewDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AddAssignmentGroupViewModel.cs" />
     <Compile Include="ViewModels\AddAssignmentViewModel.cs" />
     <Compile Include="ViewModels\AddPersonViewModel.cs" />
     <Compile Include="ViewModels\AddStudentToRosterViewModel.cs" />
     <Compile Include="ViewModels\AssignmentGroupViewModel.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\CourseGradingViewModel.cs" />
     <Compile Include="ViewModels\RosterViewModel.cs" />
+    <Compile Include="ViewModels\RosterViewViewModel.cs" />
+    <Compile Include="ViewModels\StaffViewGradesViewModel.cs" />
     <Compile Include="ViewModels\StudentGradesListViewModel.cs" />
     <Compile Include="ViewModels\UpdateCourseViewModel.cs" />
     <Compile Include="Xaml Pages\AssignmentGroupsPage.xaml.cs">
@@ -146,8 +152,14 @@
     <Compile Include="Xaml Pages\AssignmentsPage.xaml.cs">
       <DependentUpon>AssignmentsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml Pages\CourseGradingPage.xaml.cs">
+      <DependentUpon>CourseGradingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xaml Pages\RosterPage.xaml.cs">
       <DependentUpon>RosterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml Pages\StaffViewGrades.xaml.cs">
+      <DependentUpon>StaffViewGrades.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xaml Pages\StudentGradesListPage.xaml.cs">
       <DependentUpon>StudentGradesListPage.xaml</DependentUpon>
@@ -217,6 +229,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\RosterViewDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Xaml Pages\AssignmentGroupsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,7 +241,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Xaml Pages\CourseGradingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Xaml Pages\RosterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\StaffViewGrades.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

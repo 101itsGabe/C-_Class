@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Add A Person to List"
-    PrimaryButtonText="Button1"
-    SecondaryButtonText="Button2"
+    PrimaryButtonText="Add"
+    SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
 
@@ -38,12 +38,12 @@
                 <ColumnDefinition Width="0.75*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Type:"></TextBlock>
-            <RadioButton x:Name ="Frehsman" Grid.Column="1" Content="F" Checked="RadioButton_Checked"></RadioButton>
-            <RadioButton x:Name ="Sophmore" Grid.Column="2" Content="SP" Checked="RadioButton_Checked"></RadioButton>
-            <RadioButton x:Name ="Junior" Grid.Column="3" Content="J" Checked="RadioButton_Checked"></RadioButton>
-            <RadioButton x:Name ="Senior" Grid.Column="4" Content="S" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton x:Name ="F" Grid.Column="1" Content="F" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton x:Name ="SP" Grid.Column="2" Content="SP" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton x:Name ="J" Grid.Column="3" Content="J" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton x:Name ="S" Grid.Column="4" Content="S" Checked="RadioButton_Checked"></RadioButton>
             <RadioButton x:Name ="TA" Grid.Column="5" Content="TA" Checked="RadioButton_Checked"></RadioButton>
-            <RadioButton x:Name ="Instructor" Grid.Column="6" Content="IN" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton x:Name ="IN" Grid.Column="6" Content="IN" Checked="RadioButton_Checked"></RadioButton>
            
         </Grid>
     </Grid>

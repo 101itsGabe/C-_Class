@@ -41,7 +41,7 @@ namespace UWP.Canavs
 
         private void AddNew_Click(object sender, RoutedEventArgs e)
         {
-
+            (DataContext as StudentViewModel).AddPerson();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)

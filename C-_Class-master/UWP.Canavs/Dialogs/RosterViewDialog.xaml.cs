@@ -20,27 +20,22 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWP.Canavs.Dialogs
 {
-    public sealed partial class AddPerson : ContentDialog
+    public sealed partial class RosterViewDialog : ContentDialog
     {
-        public AddPerson(ObservableCollection<Person> p)
+        public Person currentPerson;
+        public RosterViewDialog(ObservableCollection<Person> p)
         {
             this.InitializeComponent();
-            DataContext = new AddPersonViewModel(p);
+            DataContext = new RosterViewViewModel(p);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            (DataContext as AddPersonViewModel).AddPerson();
+            currentPerson = (DataContext as RosterViewViewModel).curPerson;
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-        }
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            RadioButton rb = sender as RadioButton;
-            (DataContext as AddPersonViewModel).setPerson(rb.Name);
         }
     }
 }

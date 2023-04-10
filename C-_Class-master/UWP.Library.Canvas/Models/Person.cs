@@ -9,13 +9,11 @@ namespace Objects.Models
     public class Person : Item 
     {
        
-        public List<string> Grades { get; set; }
-
         private static int lastId = 0;
 
         public int Id
         {
-            get; private set;
+            get; protected set;
         }
         public Person()
         {

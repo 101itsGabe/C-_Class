@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP.Library.Canvas.Models;
 using Windows.ApplicationModel.Activation;
 
 namespace UWP.Canavs.ViewModels
@@ -25,7 +26,7 @@ namespace UWP.Canavs.ViewModels
         }
 
         public ObservableCollection<Person> AllPeople
-        { 
+        {
             get { return allPeople; }
             set { AllPeople = value; }
         }
@@ -33,8 +34,19 @@ namespace UWP.Canavs.ViewModels
         public void AddPerson()
         {
             curCourse.Roster.Add(curPerson);
-            if(curPerson is Student)
+            if (curPerson is Student)
+            {
                 (curPerson as Student).Courses.Add(curCourse);
+                (curPerson as Student).Grades.Add(curCourse.classCode, new List<Submission>());
+                foreach (var a in curCourse.Assignments)
+                {
+                    var sub = new Submission();
+                    sub.Assignment = a;
+                    if(!(curPerson as Student).Grades[curCourse.classCode].Any(s => s.Assignment.Id == sub.Assignment.Id))
+                        (curPerson as Student).Grades[curCourse.classCode].Add(sub);
+                }
+                
+            }
         }
     }
 }

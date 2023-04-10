@@ -52,6 +52,8 @@ namespace UWP.Canavs.ViewModels
             foreach(Course c in curPerson.Courses)
             {
                 StudentCourses.Add(c);
+                if(!c.Roster.Contains(curPerson))
+                    c.Roster.Add(curPerson);
             }
             //OnPropertyChanged(nameof(StudentCourses));
             var index = studentService.People.FindIndex(s => s.Id == curPerson.Id || s.Equals(curPerson));

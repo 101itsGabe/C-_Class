@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Objects.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using UWP.Canavs.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Services.Maps;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -15,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,6 +62,22 @@ namespace UWP.Canavs.Xaml_Pages
         {
             RosterViewModel rvm = new RosterViewModel((DataContext as UpdateCourseViewModel).curCourse);
             this.Content = new RosterPage(rvm);
+        }
+
+        private void Grades_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as UpdateCourseViewModel).GradesViewChoice();
+
+        }
+
+        private void ViewGradesPerson_Click(object sender, RoutedEventArgs e)
+        {
+            if ((DataContext as UpdateCourseViewModel).curPerson.GetType() == typeof(Student))
+              this.Content = new StudentGradesListPage((DataContext as UpdateCourseViewModel).curPerson, (DataContext as UpdateCourseViewModel).curCourse);
+            else if((DataContext as UpdateCourseViewModel).curPerson.GetType() == typeof(Instructor))
+            {
+                this.Content = new StaffViewGrades((DataContext as UpdateCourseViewModel).curCourse);
+            }
         }
     }
 }

@@ -19,16 +19,9 @@ namespace UWP.Canavs.ViewModels
         public StudentGradesListViewModel(Student s,Course c)
         {
             curStudent = s;
-            assignments= new ObservableCollection<Assignment>();
             curCourse = c;
-            if(curStudent.Grades.TryGetValue(curCourse.classCode, out List<Assignment> sal))
-            {
-                foreach(var a in sal) 
-                {
-                    assignments.Add(a);
-                }
-            }
-
+            assignments = new ObservableCollection<Assignment>(curCourse.Assignments);
+            
         }
 
         public ObservableCollection<Assignment> Assignments

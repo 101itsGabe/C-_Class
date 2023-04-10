@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Objects.Models;
 using Objects.Services;
+using UWP.Canavs.Dialogs;
 
 namespace UWP.Canavs.ViewModels
 {
@@ -41,14 +42,6 @@ namespace UWP.Canavs.ViewModels
             
         }
 
-        /*public StudentViewModel(StudentService ss)
-        {
-            courseService = CourseService.Current;
-            studentService = StudentService.Current;
-            allPeople = studentService.People;
-            people = new ObservableCollection<Person>(studentService.People);
-        }
-        */
         
 
         public ObservableCollection<Person> People
@@ -63,6 +56,15 @@ namespace UWP.Canavs.ViewModels
             People.Clear();
             foreach (var person in search) 
             { People.Add(person); }
+        }
+
+        public async void AddPerson()
+        {
+            var dialog = new AddPerson(People);
+            if (dialog != null)
+                await dialog.ShowAsync();
+            allPeople.Clear();
+            allPeople.AddRange(People);
         }
 
        

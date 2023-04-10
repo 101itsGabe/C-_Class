@@ -23,6 +23,7 @@ namespace Objects.Services
             }
 
             persons.Add(new Student { Name = "Gabe", Classification= PersonClassification.Senior });
+            persons.Add(new Instructor { Name = "Swiffer" });
             
         }
 
@@ -73,6 +74,7 @@ namespace Objects.Services
 
        
 
+        /*
         public IEnumerable<Assignment> GetAssignment(string sn, string ID)
         {
 
@@ -81,6 +83,7 @@ namespace Objects.Services
 
             return assign.Select(a => a);
         }
+        */
 
         public void AddCourseGrade(string sn, string cCode, decimal grade)
         {
@@ -99,6 +102,7 @@ namespace Objects.Services
             }
         }
 
+        /*
         public decimal CalculateGrade(string sn, string cc)
         {
             var curStudent = (Student)GetStudent(sn);
@@ -128,6 +132,7 @@ namespace Objects.Services
 
             return finalGrade;
         }
+        */
 
 
     }

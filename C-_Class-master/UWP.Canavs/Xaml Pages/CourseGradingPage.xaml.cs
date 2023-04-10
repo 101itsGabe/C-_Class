@@ -1,11 +1,8 @@
-﻿using Objects.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using UWP.Canavs.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,16 +20,11 @@ namespace UWP.Canavs.Xaml_Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class StudentGradesListPage : Page
+    public sealed partial class CourseGradingPage : Page
     {
-        public StudentGradesListPage(Person p,Course c)
+        public CourseGradingPage()
         {
             this.InitializeComponent();
-            if (p.GetType() == typeof(Student))
-                DataContext = new StudentGradesListViewModel(p as Student, c);
-
         }
-
-
     }
 }

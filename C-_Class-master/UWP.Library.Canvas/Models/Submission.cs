@@ -28,7 +28,11 @@ namespace UWP.Library.Canvas.Models
                     Grade = g;
             }
         }
-        
+        public string AssignmentName
+        { get { return Assignment.Name; } set { AssignmentName = Assignment.Name; } }
+
+        public string AssignmentTotalPoints
+        { get { return Assignment.totalPoints.ToString(); } set { AssignmentTotalPoints = Assignment.totalPoints.ToString(); } }
 
         public Submission()
         {

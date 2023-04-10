@@ -36,13 +36,24 @@ namespace Objects.Services
 
         public CourseService()
         {
-            courseList= new List<Course>();
+
+            var ag = new AssignmentGroup { Name = "HW", weight = 25};
+            var assignment = new Assignment { Name = "HW1", totalPoints = 100, AssignedGroup = ag.Name };
+            var assignment2 = new Assignment { Name = "HW2", totalPoints = 100, AssignedGroup = ag.Name };
+            ag.AddAssignment(assignment);
+            courseList = new List<Course>();
             courses = new List<Course>
             {
-               new Course {Name = "Data Structres", classCode = "COP3330", Description = "C++"},
+               new Course {Name = "Data Structres", classCode = "COP3330", Description = "C++" },
                new Course {Name = "Meow 101", classCode = "CAT2000", Description = "Swiffer"},
                new Course {Name = "Nesha", classCode = "NES5400", Description = "WEE"}
             };
+            foreach (var c in courses)
+            {
+                c.AssignmentGroups.Add(ag);
+                c.Assignments.Add(assignment);
+                c.Assignments.Add(assignment2);
+            }
         }
 
         public List<Course> Courses
@@ -69,6 +80,7 @@ namespace Objects.Services
 
         
 
+        /*
         public void giveGrade(string courseId, string studentName, int aId, decimal grade)
         {
             var curCourse = GetCourse(courseId);
@@ -91,6 +103,7 @@ namespace Objects.Services
             }
             
         }
+        */
 
 
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UWP.Canavs.Dialogs;
+using UWP.Library.Canvas.Models;
 
 namespace UWP.Canavs.ViewModels
 {
@@ -40,7 +41,15 @@ namespace UWP.Canavs.ViewModels
             curCourse.Assignments = assignments.ToList();
             foreach(var s in curCourse.Roster)
             {
-                (s as Student).Grades.Add(curCourse.classCode,assignments.ToList());
+                if (s.GetType() == typeof(Student))
+                {
+                    foreach (var a in curCourse.Assignments)
+                    {
+                        var sub = new Submission();
+                        sub.Assignment = a;
+                        (s as Student).Grades[curCourse.classCode].Add(sub);
+                  }
+                }
             }
             var index = courseService.Courses.FindIndex(c => c.classCode == curCourse.classCode);
             courseService.Courses[index] = curCourse;

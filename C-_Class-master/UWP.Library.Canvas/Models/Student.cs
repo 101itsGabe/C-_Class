@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UWP.Library.Canvas.Models;
 
@@ -38,6 +39,45 @@ namespace Objects.Models
             return $"[{Id}] {Name} - {Classification}";
         }
 
+        public decimal CalculateGrade(Course c)
+        {
+            Grades.TryGetValue(c.classCode, out List<Submission> subs);
+            decimal final = 0;
+            List<decimal> points = new List<decimal>();
+           
+
+            foreach(var g in c.AssignmentGroups)
+            {
+                decimal ep = 0;
+                decimal tp = 0;
+                string curGroup = string.Empty;
+                bool change;
+                foreach(var s in subs)
+                {
+                    change = false;
+                    if (g.Name == s.Assignment.AssignedGroup)
+                    {
+                        ep += s.Grade;
+                        curGroup= s.Assignment.AssignedGroup;
+                        change = true;
+                    }
+                    if (s.Assignment.AssignedGroup != curGroup && !change || subs.LastOrDefault() == s)
+                    {
+                         subs.ForEach(curSub => { if (curSub.Assignment.AssignedGroup == curGroup) { tp += curSub.Assignment.totalPoints; } });
+                        if(tp != 0)
+                         points.Add(((ep / tp) * (g.weight / 100)));
+                         change = false;
+                        curGroup = string.Empty;
+                    }
+                }
+               
+            }
+
+            points.ForEach(p => final += p);
+
+
+            return final * 100;
+        }
         
     }
 }

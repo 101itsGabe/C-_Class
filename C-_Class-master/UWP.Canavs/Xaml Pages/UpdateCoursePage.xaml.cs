@@ -72,12 +72,21 @@ namespace UWP.Canavs.Xaml_Pages
 
         private void ViewGradesPerson_Click(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as UpdateCourseViewModel).curPerson.GetType() == typeof(Student))
-              this.Content = new StudentGradesListPage((DataContext as UpdateCourseViewModel).curPerson, (DataContext as UpdateCourseViewModel).curCourse);
-            else if((DataContext as UpdateCourseViewModel).curPerson.GetType() == typeof(Instructor))
+            if ((DataContext as UpdateCourseViewModel).curPerson != null)
             {
-                this.Content = new StaffViewGrades((DataContext as UpdateCourseViewModel).curCourse);
+                if ((DataContext as UpdateCourseViewModel).curPerson.GetType() == typeof(Student))
+                    this.Content = new StudentGradesListPage((DataContext as UpdateCourseViewModel).curPerson, (DataContext as UpdateCourseViewModel).curCourse);
+                else if ((DataContext as UpdateCourseViewModel).curPerson.GetType() == typeof(Instructor) || (DataContext as UpdateCourseViewModel).curPerson.GetType() == typeof(TeachingAssistant))
+                {
+                    this.Content = new StaffViewGrades((DataContext as UpdateCourseViewModel).curCourse);
+                }
             }
+        }
+
+        
+        private void Announcements_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new AnnouncementPage((DataContext as UpdateCourseViewModel).curCourse);
         }
     }
 }

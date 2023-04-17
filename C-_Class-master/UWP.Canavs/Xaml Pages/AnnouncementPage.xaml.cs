@@ -1,7 +1,6 @@
 ﻿using Objects.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,30 +22,29 @@ namespace UWP.Canavs.Xaml_Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class StaffViewGrades : Page
+    public sealed partial class AnnouncementPage : Page
     {
-        public StaffViewGrades(Course c)
+        public AnnouncementPage(Course c)
         {
             this.InitializeComponent();
-            DataContext = new StaffViewGradesViewModel(c);
+            DataContext = new AnnouncementViewModel(c);
         }
 
-
-
-        private void GradeEnter_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void AddAnnouncement_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                (DataContext as StaffViewGradesViewModel).AddGrade((sender as TextBox).Text);
-            }
-
+            (DataContext as AnnouncementViewModel).AddAnnouncement();
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             UpdateCoursePage ucp = new UpdateCoursePage();
-            ucp.DataContext = new UpdateCourseViewModel((DataContext as StaffViewGradesViewModel).curCourse);
+            ucp.DataContext = new UpdateCourseViewModel((DataContext as AnnouncementViewModel).curCourse);
             this.Content = ucp;
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

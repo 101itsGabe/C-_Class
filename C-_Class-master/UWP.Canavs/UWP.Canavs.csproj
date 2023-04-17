@@ -119,6 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddAnnouncementDialog.xaml.cs">
+      <DependentUpon>AddAnnouncementDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AddAssignmentDialog.xaml.cs">
       <DependentUpon>AddAssignmentDialog.xaml</DependentUpon>
     </Compile>
@@ -134,10 +137,12 @@
     <Compile Include="Dialogs\RosterViewDialog.xaml.cs">
       <DependentUpon>RosterViewDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AddAnnouncementViewModel.cs" />
     <Compile Include="ViewModels\AddAssignmentGroupViewModel.cs" />
     <Compile Include="ViewModels\AddAssignmentViewModel.cs" />
     <Compile Include="ViewModels\AddPersonViewModel.cs" />
     <Compile Include="ViewModels\AddStudentToRosterViewModel.cs" />
+    <Compile Include="ViewModels\AnnouncementViewModel.cs" />
     <Compile Include="ViewModels\AssignmentGroupViewModel.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\CourseGradingViewModel.cs" />
@@ -146,6 +151,9 @@
     <Compile Include="ViewModels\StaffViewGradesViewModel.cs" />
     <Compile Include="ViewModels\StudentGradesListViewModel.cs" />
     <Compile Include="ViewModels\UpdateCourseViewModel.cs" />
+    <Compile Include="Xaml Pages\AnnouncementPage.xaml.cs">
+      <DependentUpon>AnnouncementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xaml Pages\AssignmentGroupsPage.xaml.cs">
       <DependentUpon>AssignmentGroupsPage.xaml</DependentUpon>
     </Compile>
@@ -213,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AddAnnouncementDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\AddAssignmentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -230,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\RosterViewDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml Pages\AnnouncementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

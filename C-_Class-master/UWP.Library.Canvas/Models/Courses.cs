@@ -2,11 +2,13 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UWP.Library.Canvas.Models;
 
 namespace Objects.Models
 {
     public class Course : Item
     {
+        public CourseSemester Semester { get; set; }
         public string classCode { get; set; }
         public List<Person> Roster { get; set; }
 
@@ -18,6 +20,8 @@ namespace Objects.Models
 
         public List<Announcement> Announcements { get; set; }
         public int creditHours {get; set; }
+        public int courseYear { get; set; }
+        public int roomLocation { get; set; }
 
         public Course()
         {
@@ -34,7 +38,7 @@ namespace Objects.Models
 
         public override string ToString()
         {
-            return $"{Name} - {classCode}";
+            return $"{Name} - {classCode}: {Semester} - {courseYear}";
         }
 
         public string DetailDisplay
@@ -44,6 +48,46 @@ namespace Objects.Models
                 return $"{ToString()}\n{Description}" +
                        $"\n\nRoster:\n{string.Join("\n", Roster.Select(s => s.ToString()).ToArray())} \n\n" +
                        $"Assignments:\n{string.Join("\n", Assignments.Select(a => a.ToString()).ToArray())}";
+            }
+        }
+
+        
+        public void AddPerson(Person curPerson)
+        {
+            if (curPerson != null && !Roster.Contains(curPerson))
+            {
+                Roster.Add(curPerson);
+                if (curPerson is Student)
+                {
+                    (curPerson as Student).Courses.Add(this);
+                    (curPerson as Student).Grades.Add(classCode, new List<Submission>());
+                    foreach (var a in Assignments)
+                    {
+                        var sub = new Submission();
+                        sub.Student = (curPerson as Student);
+                        sub.Assignment = a;
+                        if (!(curPerson as Student).Grades[classCode].Any(s => s.Assignment.Id == sub.Assignment.Id))
+                            (curPerson as Student).Grades[classCode].Add(sub);
+                    }
+
+                }
+                else if(curPerson is Instructor && !Roster.OfType<Instructor>().Any())
+                {
+                    (curPerson as Instructor).Courses.Add(this);
+                }
+                else if (curPerson is TeachingAssistant) 
+                {
+                    (curPerson as TeachingAssistant).Courses.Add(this);
+                }
+
+            }
+        }
+
+        public void RemovePerson(Person curPerson)
+        {
+            if (curPerson != null && Roster.Contains(curPerson))
+            {
+                Roster.Remove(curPerson);
             }
         }
 
@@ -95,4 +139,10 @@ namespace Objects.Models
 
         
     }
+}
+public enum CourseSemester
+{
+    Fall = 0,
+    Spring = 1,
+    Summer = 2,
 }

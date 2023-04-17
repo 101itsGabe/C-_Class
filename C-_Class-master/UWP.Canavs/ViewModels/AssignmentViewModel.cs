@@ -39,16 +39,24 @@ namespace UWP.Canavs.ViewModels
                 await dialog.ShowAsync();
            
             curCourse.Assignments = assignments.ToList();
-            foreach(var s in curCourse.Roster)
+            foreach(var student in curCourse.Roster)
             {
-                if (s.GetType() == typeof(Student))
+                if (student.GetType() == typeof(Student))
                 {
                     foreach (var a in curCourse.Assignments)
                     {
-                        var sub = new Submission();
-                        sub.Assignment = a;
-                        (s as Student).Grades[curCourse.classCode].Add(sub);
-                  }
+
+                        if ((student as Student).Grades.TryGetValue(curCourse.classCode, out List<Submission> studentSubs))
+                        {
+                            if (!studentSubs.Any(s => s.Assignment == a))
+                            {
+                                var sub = new Submission();
+                                sub.Assignment = a;
+                                sub.Student = (student as Student);
+                                (student as Student).Grades[curCourse.classCode].Add(sub);
+                            }
+                        }
+                    }
                 }
             }
             var index = courseService.Courses.FindIndex(c => c.classCode == curCourse.classCode);

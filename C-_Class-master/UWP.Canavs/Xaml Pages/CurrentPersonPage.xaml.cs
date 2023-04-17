@@ -51,5 +51,16 @@ namespace UWP.Canavs
         {
             this.Content = new StudentGradesListPage((DataContext as CurrentPersonModel).curPerson, (DataContext as CurrentPersonModel).curCourse);
         }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            (DataContext as CurrentPersonModel).setSem(rb.Name);
+        }
+
+        private void Seacrh_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CurrentPersonModel).SearchYear();
+        }
     }
 }

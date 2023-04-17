@@ -15,6 +15,29 @@ namespace UWP.Canavs.ViewModels
         public ObservableCollection<AssignmentGroup> assignmentGroups;
         public ObservableCollection<Assignment> assignments;
         public Person curPerson;
+
+        public string CourseName
+        { get { return curCourse.Name; } set { CourseName = value; } }
+        public string CourseSem
+        { get { return curCourse.Semester.ToString(); } set { CourseSem = value; } }
+        public string CourseRoom
+        { 
+            get 
+            {
+                string rstring = "Room " + curCourse.roomLocation.ToString();;
+                return rstring;
+            } 
+            set 
+            { 
+                CourseRoom = value; } 
+        }
+
+        public string CourseYear
+        {
+            get { return curCourse.courseYear.ToString(); }
+            set { CourseYear = value; }
+        }
+
         public UpdateCourseViewModel(Course c)
         {
             curCourse = c;

@@ -46,5 +46,17 @@ namespace UWP.Canavs.ViewModels
                 Roster.Add(p);
             }
         }
+
+        public void DeleteFromRoster()
+        {
+            if(curPerson.GetType() == typeof(Student))
+            {
+                (curPerson as Student).Courses.Remove(curCourse);
+                (curPerson as Student).Grades.Remove(curCourse.classCode);
+            }
+            curCourse.Roster.Remove(curPerson);
+            Roster.Clear();
+            curCourse.Roster.ForEach(p => { Roster.Add(p); });
+        }
     }
 }

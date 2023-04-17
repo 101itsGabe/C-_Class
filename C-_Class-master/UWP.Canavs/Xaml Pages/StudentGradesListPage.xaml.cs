@@ -33,6 +33,10 @@ namespace UWP.Canavs.Xaml_Pages
 
         }
 
-
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentPersonPage cpp = new CurrentPersonPage(new CurrentPersonModel((DataContext as StudentGradesListViewModel).curStudent));
+            this.Content = cpp;
+        }
     }
 }

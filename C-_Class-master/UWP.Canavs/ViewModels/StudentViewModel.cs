@@ -67,6 +67,18 @@ namespace UWP.Canavs.ViewModels
             allPeople.AddRange(People);
         }
 
+        public void DeletePerson()
+        {
+            foreach(var c in courseService.Courses)
+            {
+                if(c.Roster.Contains(curPerson))
+                    c.Roster.Remove(curPerson);
+            }
+            People.Remove(curPerson);
+            allPeople.Clear();
+            allPeople.AddRange(People);
+        }
+
        
 
         

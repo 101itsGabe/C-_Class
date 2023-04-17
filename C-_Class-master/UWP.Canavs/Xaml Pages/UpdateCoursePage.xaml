@@ -16,11 +16,24 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" FontSize="30" Content="Assignment Groups" HorizontalAlignment="Stretch" Height="100" Click="AddAssignmentGroup_Click"></Button>
-        <Button Grid.Row="1" FontSize="30" Content="Assignments" HorizontalAlignment="Stretch" Height="100" Click="Assignments_Click"></Button>
-        <Button Grid.Row="2" FontSize="30" Content="Roster" HorizontalAlignment="Stretch" Height="100" Click="Roster_Click"></Button>
-        <Grid Grid.Row ="3">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1" Text="{Binding CourseName, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Column="0" Text="{Binding CourseSem, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Column="2" Text="{Binding CourseRoom, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Column="3" Text="{Binding CourseYear, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Grid>
+        <Button Grid.Row="1" FontSize="30" Content="Assignment Groups" HorizontalAlignment="Stretch" Height="100" Click="AddAssignmentGroup_Click"></Button>
+        <Button Grid.Row="2" FontSize="30" Content="Assignments" HorizontalAlignment="Stretch" Height="100" Click="Assignments_Click"></Button>
+        <Button Grid.Row="3" FontSize="30" Content="Roster" HorizontalAlignment="Stretch" Height="100" Click="Roster_Click"></Button>
+        <Grid Grid.Row ="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -28,7 +41,7 @@
             <Button Grid.Column="0" FontSize="30" Content="Grades Select" HorizontalAlignment="Stretch" Height="100" Click="Grades_Click"></Button>
             <Button Grid.Column="1" FontSize="30" Content="Grades View" HorizontalAlignment="Stretch" Height="100" Click="ViewGradesPerson_Click"></Button>
         </Grid>
-        <Button Grid.Row="4" FontSize="30" Content="Announcements" HorizontalAlignment="Stretch" Height="100"></Button>
-        <Button Grid.Row="5" FontSize="30" Content="Back" HorizontalAlignment="Stretch" Height="100" Click="Back_Click"></Button>
+        <Button Grid.Row="5" FontSize="30" Content="Announcements" HorizontalAlignment="Stretch" Height="100" Click="Announcements_Click"></Button>
+        <Button Grid.Row="6" FontSize="30" Content="Back" HorizontalAlignment="Stretch" Height="100" Click="Back_Click"></Button>
     </Grid>
 </Page>

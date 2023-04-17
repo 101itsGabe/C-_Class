@@ -29,6 +29,12 @@ namespace UWP.Canavs.ViewModels
             set { curAssignment.totalPoints = (decimal)value; }
         }
 
+        public ObservableCollection<Assignment> Assignments 
+        { 
+            get { return assignments; } 
+            set { Assignments = value; }        
+        }
+
         public DateTime dueDate
         {
             get { return curAssignment.dueDate; }

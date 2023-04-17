@@ -32,7 +32,7 @@ namespace UWP.Canavs.Xaml_Pages
 
         private void AddStudentToRoster_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as RosterViewModel).AddToRoster();
+                (DataContext as RosterViewModel).AddToRoster();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -44,7 +44,7 @@ namespace UWP.Canavs.Xaml_Pages
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            (DataContext as RosterViewModel).DeleteFromRoster();
         }
     }
 }

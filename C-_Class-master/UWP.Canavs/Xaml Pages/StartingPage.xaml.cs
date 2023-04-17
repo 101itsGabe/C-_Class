@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP.Canavs.ViewModels;
 using UWP.Canavs.Xaml_Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -35,7 +36,6 @@ namespace UWP.Canavs
 
         private void StudentView_Click(object sender, RoutedEventArgs e)
         {
-            UpdateCoursePage ap;
             this.Content = new StudentView();
         }
     }

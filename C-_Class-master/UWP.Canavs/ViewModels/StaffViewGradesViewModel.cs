@@ -61,7 +61,7 @@ namespace UWP.Canavs.ViewModels
         public void AddGrade(string n)
         {
 
-            if (decimal.TryParse(n, out decimal p))
+            if (decimal.TryParse(n, out decimal p) && CurSubmission != null)
             {
                 (CurPerson as Student).Grades[curCourse.classCode].FirstOrDefault(s => s.Assignment.Id == CurSubmission.Assignment.Id).Grade = p;
             }

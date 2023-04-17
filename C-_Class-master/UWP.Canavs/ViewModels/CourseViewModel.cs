@@ -27,6 +27,18 @@ namespace UWP.Canavs.ViewModels
             set { course.classCode = value; }
         }
 
+        public int RoomLocation
+        {
+            get { return course.roomLocation; }
+            set { course.roomLocation = value; }
+        }
+
+        public int CourseYear
+        {
+            get { return course.courseYear; }
+            set { course.courseYear = value; }
+        }
+
         public CourseViewModel(ObservableCollection<Course> courses)
         {
             if(course == null)
@@ -37,6 +49,23 @@ namespace UWP.Canavs.ViewModels
         public void AddCourse()
         {
             courses.Add(course);
+        }
+
+        public void setSem(string n)
+        {
+                switch (n)
+                {
+                    case "F":
+                        course.Semester = CourseSemester.Fall;
+                        break;
+                    case "S":
+                        course.Semester = CourseSemester.Spring;
+                        break;
+                    case "Sum":
+                        course.Semester = CourseSemester.Summer;
+                        break;
+                    default: break;
+                }
         }
 
         

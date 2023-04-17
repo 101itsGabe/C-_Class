@@ -14,7 +14,7 @@ namespace Objects.Models
         public override string ToString()
         {
            
-            return $"{Description}";
+            return $"{Name} - {Description}";
 
         }
     }

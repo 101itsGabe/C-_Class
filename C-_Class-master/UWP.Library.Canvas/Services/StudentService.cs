@@ -11,20 +11,53 @@ namespace Objects.Services
 		public List<Person> personList;
 		private static StudentService _instance;
         private List<Person> persons;
-
-		public StudentService()
+        Random rand = new Random();
+        public StudentService()
 		{
 			personList = new List<Person>();
             _cs = CourseService.Current;
             persons = new List<Person>();
-            for(int i = 0; i < 30; i++) 
+            for (int i = 0; i < 60; i++)
             {
-                persons.Add(new Student { Name = $"S{i + 1}", Classification=PersonClassification.Freshman });
+                var rInt = rand.Next(0,6);
+                switch (rInt)
+                {
+                    case 0:
+                        persons.Add(new Student { Name = $"S{i + 1}", Classification = PersonClassification.Freshman });
+                        break;
+                    case 1:
+                        persons.Add(new Student { Name = $"S{i + 1}", Classification = PersonClassification.Sophmore });
+                        break;
+                    case 2:
+                        persons.Add(new Student { Name = $"S{i + 1}", Classification = PersonClassification.Junior });
+                        break;
+                    case 3:
+                        persons.Add(new Student { Name = $"S{i + 1}", Classification = PersonClassification.Senior });
+                        break;
+                    case 4:
+                        persons.Add(new Instructor { Name = $"I{i + 1}" });
+                        break;
+                    case 5:
+                        persons.Add(new TeachingAssistant { Name = $"T{i + 1}" });
+                        break;
+                }
             }
 
             persons.Add(new Student { Name = "Gabe", Classification= PersonClassification.Senior });
             persons.Add(new Instructor { Name = "Swiffer" });
-            
+
+
+            foreach(var p in persons)
+            {
+                var rcInt = rand.Next(0, 6);
+                if (p.GetType() == typeof(Instructor))
+                {
+                    if(!_cs.Courses[rcInt].Roster.OfType<Instructor>().Any())
+                        _cs.Courses[rcInt].AddPerson(p);
+                }
+                else
+                    _cs.Courses[rcInt].AddPerson(p);
+            }
         }
 
         
@@ -84,14 +117,14 @@ namespace Objects.Services
             return assign.Select(a => a);
         }
         */
-
+        /*
         public void AddCourseGrade(string sn, string cCode, decimal grade)
         {
             Student curStudent = (Student)GetStudent(sn);
             if(curStudent != null) 
                 curStudent.CourseGrade.Add(cCode, grade);
         }
-
+        */
         public void UpdateCourseGrade(string sn, string cCode, decimal grade)
         {
             Student curStudent = (Student)GetStudent(sn);

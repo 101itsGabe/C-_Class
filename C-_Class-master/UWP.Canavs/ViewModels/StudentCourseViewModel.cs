@@ -15,18 +15,29 @@ namespace UWP.Canavs.ViewModels
     {
         private ObservableCollection<Course> courses;
         public Course curCourse { get; set; }
-
+        public CourseService cs;
         public Student curStudent { get; set; }
         
-        public StudentCourseViewModel(List<Course> courses,Person p)
+        public StudentCourseViewModel(List<Course> inputCourses,Person p)
         {
-            this.courses = new ObservableCollection<Course>(courses);
             curStudent = p as Student;
+
+            courses = new ObservableCollection<Course>();
+            foreach(var c in inputCourses) 
+            {
+                if(!c.Roster.Contains(curStudent))
+                    courses.Add(c);
+            }
+
+            
         }
 
         public ObservableCollection<Course> Courses
         {
-            get { return courses; }
+            get 
+            {
+                return courses; 
+            }
             private set
             { Courses = value; }
         }

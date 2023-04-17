@@ -16,14 +16,42 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition Height="5.5*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Click="Back_Click" Grid.Column="0" Content ="Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
         <TextBlock Grid.Row="1" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding curPerson}"></TextBlock>
-        <ListBox Grid.Row="2"
-            ItemsSource="{Binding StudentCourses, Mode=TwoWay}" SelectedItem="{Binding curCourse, Mode=TwoWay}"></ListBox>
-        <Button Grid.Row="3" Margin="5" HorizontalAlignment="Stretch" Content="Add" Click="AddNew_Click"></Button> 
-        <Button Grid.Row="4" Margin="5" HorizontalAlignment="Stretch" Content="View Grades" Click="ViewGrades_Click"></Button> 
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Query, Mode=TwoWay}"></TextBox>
+            <Button Click="Seacrh_Click" Grid.Column="2" Content="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <RadioButton Grid.Column="0" Name="F" Content="Fall" HorizontalAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton Grid.Column="1" Name="SP" Content="Srping" HorizontalAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton Grid.Column="2" Name="S" Content="Summer" HorizontalAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
+            <RadioButton Grid.Column="3" Name="A" Content="All Courses" HorizontalAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
+        </Grid>
+        <ListBox Grid.Row="4"
+            ItemsSource="{Binding StudentCourses, Mode=TwoWay}" SelectedItem="{Binding curCourse, Mode=TwoWay}">
+        </ListBox>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="5" HorizontalAlignment="Stretch" Content="Add" Click="AddNew_Click"></Button>
+            <Button Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" Content="View Grades" Click="ViewGrades_Click"></Button>
+        </Grid>
     </Grid>
 </Page>

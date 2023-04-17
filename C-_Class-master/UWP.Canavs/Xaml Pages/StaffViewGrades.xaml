@@ -24,19 +24,18 @@
                     <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2.5*"/>
-                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4.5*"/>
+                                <ColumnDefinition Width="8*"/>
                                 <ColumnDefinition Width="5*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="{Binding Assignment.Name, Mode=TwoWay}"></TextBlock>
-                            <TextBox Grid.Column="1" Name =" GradeString" Text="{Binding  GradeString, Mode=TwoWay}" KeyDown="GradeEnter_KeyDown" ></TextBox>
+                            <TextBox Grid.Column="1" Name =" GradeString" Text="{Binding  GradeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="GradeEnter_KeyDown" ></TextBox>
                             <TextBlock Grid.Column="2" Text="{Binding Assignment.totalPoints}"></TextBlock>
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Row="1" HorizontalAlignment="Stretch" Content="Refresh" Click="RefreshPage_Click"></Button>
-        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Refresh" Click="AddGrade_Click"></Button>
+        <Button Grid.Row="1" HorizontalAlignment="Stretch" Content="Back" Click="BackButton_Click"></Button>
     </Grid>
 </Page>

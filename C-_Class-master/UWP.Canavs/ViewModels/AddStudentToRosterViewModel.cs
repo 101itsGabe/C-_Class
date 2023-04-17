@@ -22,7 +22,12 @@ namespace UWP.Canavs.ViewModels
         {
             curCourse = c;
             studentService = StudentService.Current;
-            allPeople = new ObservableCollection<Person>(studentService.People);
+            allPeople = new ObservableCollection<Person>();
+            foreach (var p in studentService.People)
+            {
+                if(!curCourse.Roster.Contains(p))
+                    allPeople.Add(p);
+            }
         }
 
         public ObservableCollection<Person> AllPeople
@@ -33,20 +38,7 @@ namespace UWP.Canavs.ViewModels
 
         public void AddPerson()
         {
-            curCourse.Roster.Add(curPerson);
-            if (curPerson is Student)
-            {
-                (curPerson as Student).Courses.Add(curCourse);
-                (curPerson as Student).Grades.Add(curCourse.classCode, new List<Submission>());
-                foreach (var a in curCourse.Assignments)
-                {
-                    var sub = new Submission();
-                    sub.Assignment = a;
-                    if(!(curPerson as Student).Grades[curCourse.classCode].Any(s => s.Assignment.Id == sub.Assignment.Id))
-                        (curPerson as Student).Grades[curCourse.classCode].Add(sub);
-                }
-                
-            }
+            curCourse.AddPerson(curPerson);
         }
     }
 }

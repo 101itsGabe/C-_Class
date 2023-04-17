@@ -38,21 +38,28 @@ namespace Objects.Services
         {
 
             var ag = new AssignmentGroup { Name = "HW", weight = 25};
+            var ag2 = new AssignmentGroup { Name = "Exam", weight = 75};
             var assignment = new Assignment { Name = "HW1", totalPoints = 100, AssignedGroup = ag.Name };
             var assignment2 = new Assignment { Name = "HW2", totalPoints = 100, AssignedGroup = ag.Name };
+            var exam = new Assignment { Name = "Exam 1", totalPoints = 100, AssignedGroup = ag2.Name };
             ag.AddAssignment(assignment);
             courseList = new List<Course>();
             courses = new List<Course>
             {
-               new Course {Name = "Data Structres", classCode = "COP3330", Description = "C++" },
-               new Course {Name = "Meow 101", classCode = "CAT2000", Description = "Swiffer"},
-               new Course {Name = "Nesha", classCode = "NES5400", Description = "WEE"}
+               new Course {Name = "Data Structres", classCode = "COP3330", Description = "C++", roomLocation=1, Semester = CourseSemester.Fall, courseYear=2018 },
+               new Course {Name = "Chem 101", classCode = "CHM2000", Description = "Swiffer", roomLocation=2, Semester = CourseSemester.Spring, courseYear=2018},
+               new Course {Name = "Cooking w/ Advance Methods", classCode = "FOD2004", Description = "WEE", roomLocation=3, Semester = CourseSemester.Summer, courseYear=2018},
+               new Course {Name = "C# Full Stack", classCode = "COP4349", Description = "WEE", roomLocation=4, Semester = CourseSemester.Spring, courseYear=2023},
+               new Course {Name = "Biology", classCode = "BIO2001", Description = "WOO", roomLocation=1, Semester = CourseSemester.Fall, courseYear=2023},
+               new Course {Name = "PE", classCode = "FED1001", Description = "EXCERSIE", roomLocation=2, Semester = CourseSemester.Fall, courseYear=2023}
             };
             foreach (var c in courses)
             {
                 c.AssignmentGroups.Add(ag);
+                c.AssignmentGroups.Add(ag2);
                 c.Assignments.Add(assignment);
                 c.Assignments.Add(assignment2);
+                c.Assignments.Add(exam);
             }
         }
 
@@ -66,7 +73,7 @@ namespace Objects.Services
             courseList.Add(c);
         }
 
-      
+        
 
         public Course GetCourse(string id)
         {

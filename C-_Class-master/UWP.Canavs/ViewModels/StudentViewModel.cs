@@ -2,17 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Objects.Models;
 using Objects.Services;
 using UWP.Canavs.Dialogs;
+using UWP.Library.Canvas.Database;
+using UWP.Library.Canvas.DTO;
+using UWP.Library.Canvas.Util;
+using Windows.Data.Json;
 
 namespace UWP.Canavs.ViewModels
 {
-    public class StudentViewModel
+    public class StudentViewModel : INotifyPropertyChanged
     {
         public string Query { get; set; }
         public StudentService studentService;
@@ -20,8 +26,28 @@ namespace UWP.Canavs.ViewModels
         public Person person { get; set; }
         public ObservableCollection<Person> people;
         private List<Person> allPeople;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public Person curPerson { get; set; }
         
+
+        public IEnumerable<PersonDTOViewModel> peopleList
+        { 
+            get
+            {
+                //return DatabaseContext.Students.Select(s => new StudentDTO(s)).ToList();
+                //Contact with the server
+                var payload = new WebRequestHandler().Get("http://localhost:5084/Person").Result;
+                //Deseralizing DTO
+                var returnVal = JsonConvert.DeserializeObject<List<PersonDTO>>(payload).Select(d => new PersonDTOViewModel(d));
+                OnPropertyChanged();
+                return returnVal;
+            }
+        }
+
+
+   
 
         public string Name
         {
@@ -58,14 +84,6 @@ namespace UWP.Canavs.ViewModels
             { People.Add(person); }
         }
 
-        public async void AddPerson()
-        {
-            var dialog = new AddPerson(People);
-            if (dialog != null)
-                await dialog.ShowAsync();
-            allPeople.Clear();
-            allPeople.AddRange(People);
-        }
 
         public void DeletePerson()
         {
@@ -79,8 +97,11 @@ namespace UWP.Canavs.ViewModels
             allPeople.AddRange(People);
         }
 
-       
 
-        
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Objects.Models;
+﻿using Newtonsoft.Json;
+using Objects.Models;
 using Objects.Services;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP.Library.Canvas.DTO;
+using UWP.Library.Canvas.Util;
 
 namespace UWP.Canavs.ViewModels
 {
@@ -14,12 +17,13 @@ namespace UWP.Canavs.ViewModels
         public Person curPerson { get; set; }
         public StudentService studentService;
         public ObservableCollection<Person> People;
-
+        public PersonDTO Dto { get; set; }
         public AddPersonViewModel(ObservableCollection<Person> p)
         {
             studentService = StudentService.Current;
-            curPerson= new Person();
+            //curPerson= new Person();
             People = p;
+            Dto = new PersonDTO();
         }
 
         public string Name {
@@ -27,11 +31,17 @@ namespace UWP.Canavs.ViewModels
             set { curPerson.Name = value; }
         }
 
-        public void AddPerson()
+        public AddPersonViewModel(PersonDTO dto)
         {
-            People.Add(curPerson);
-            studentService.People.Add(curPerson);
-            //studentService.personList.Add(curPerson);
+            Dto = dto;
+        }
+
+        public async Task<PersonDTO> AddPerson()
+        {
+            var handler = new WebRequestHandler();
+            var returnVal = await handler.Post("http://localhost:5084/Person", Dto);
+            var deserializedReturn = JsonConvert.DeserializeObject<PersonDTO>(returnVal);
+            return deserializedReturn;
         }
         
         public void setPerson(string n)

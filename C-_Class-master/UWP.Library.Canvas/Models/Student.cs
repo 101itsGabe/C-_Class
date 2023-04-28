@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using UWP.Library.Canvas.DTO;
 using UWP.Library.Canvas.Models;
 
 namespace Objects.Models
@@ -11,7 +12,6 @@ namespace Objects.Models
     public class Student : Person
     {
         public PersonClassification Classification { get; set; }
-        //public List<Submission> Submissions { get; set; }
         public Dictionary<string, List<Submission>> Grades { get; set; }
         public Dictionary<string, decimal> CourseGrade { get; set; }
         public List<Course> Courses { get; set; }
@@ -23,6 +23,12 @@ namespace Objects.Models
             Courses = new List<Course>();
             CourseGrade = new Dictionary<string, decimal>();
 
+        }
+
+        public Student(PersonDTO dto)
+        {
+            Id= dto.Id;
+            Name= dto.Name;
         }
 
         public Student(Person p)

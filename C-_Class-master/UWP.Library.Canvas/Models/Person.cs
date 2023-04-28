@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP.Library.Canvas.DTO;
 
 namespace Objects.Models
 {
@@ -14,6 +15,12 @@ namespace Objects.Models
         public int Id
         {
             get; protected set;
+        }
+
+        public Person(PersonDTO dto)
+        {
+            Id = dto.Id;
+            Name = dto.Name;
         }
         public Person()
         {

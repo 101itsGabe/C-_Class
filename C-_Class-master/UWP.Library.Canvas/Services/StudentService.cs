@@ -17,6 +17,7 @@ namespace Objects.Services
 			personList = new List<Person>();
             _cs = CourseService.Current;
             persons = new List<Person>();
+            /*
             for (int i = 0; i < 60; i++)
             {
                 var rInt = rand.Next(0,6);
@@ -58,6 +59,7 @@ namespace Objects.Services
                 else
                     _cs.Courses[rcInt].AddPerson(p);
             }
+            */
         }
 
         

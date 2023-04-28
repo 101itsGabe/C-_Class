@@ -27,7 +27,14 @@
         </Grid>
 
         <ListBox Grid.Row="1"
-            ItemsSource="{Binding People,Mode=TwoWay}" SelectedItem="{Binding curPerson, Mode=TwoWay}">
+            ItemsSource="{Binding peopleList,Mode=TwoWay}" SelectedItem="{Binding curPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding Display}"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

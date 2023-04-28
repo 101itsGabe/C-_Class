@@ -149,6 +149,7 @@
     <Compile Include="ViewModels\RosterViewModel.cs" />
     <Compile Include="ViewModels\RosterViewViewModel.cs" />
     <Compile Include="ViewModels\StaffViewGradesViewModel.cs" />
+    <Compile Include="ViewModels\PersonDTOViewModel.cs" />
     <Compile Include="ViewModels\StudentGradesListViewModel.cs" />
     <Compile Include="ViewModels\UpdateCourseViewModel.cs" />
     <Compile Include="Xaml Pages\AnnouncementPage.xaml.cs">
@@ -305,6 +306,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

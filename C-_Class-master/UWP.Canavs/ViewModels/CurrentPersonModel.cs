@@ -115,7 +115,6 @@ namespace UWP.Canavs.ViewModels
                 studentCourses.Clear();
                 allCourses.ForEach(c => { studentCourses.Add(c); });
             }
-                
         }
 
         public async void AddStudentCourse()
@@ -130,21 +129,12 @@ namespace UWP.Canavs.ViewModels
                 if(!c.Roster.Contains(curPerson))
                     c.Roster.Add(curPerson);
             }
-            //OnPropertyChanged(nameof(StudentCourses));
+
             var index = studentService.People.FindIndex(s => s.Id == curPerson.Id || s.Equals(curPerson));
             if(index >-1)
                 studentService.People[index] = curPerson;
             
         }
-
-        /*
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        */
-
 
     }
 }

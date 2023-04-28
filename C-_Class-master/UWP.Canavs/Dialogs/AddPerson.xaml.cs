@@ -28,9 +28,10 @@ namespace UWP.Canavs.Dialogs
             DataContext = new AddPersonViewModel(p);
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            (DataContext as AddPersonViewModel).AddPerson();
+            var test = await (DataContext as AddPersonViewModel).AddPerson();
+            //(DataContext as AddPersonViewModel).AddPerson();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -39,8 +40,8 @@ namespace UWP.Canavs.Dialogs
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
-            (DataContext as AddPersonViewModel).setPerson(rb.Name);
+            //RadioButton rb = sender as RadioButton;
+            //(DataContext as AddPersonViewModel).setPerson(rb.Name);
         }
     }
 }

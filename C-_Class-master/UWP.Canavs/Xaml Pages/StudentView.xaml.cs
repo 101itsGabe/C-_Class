@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP.Canavs.Dialogs;
 using UWP.Canavs.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -39,9 +40,14 @@ namespace UWP.Canavs
             (DataContext as StudentViewModel).SearchStudent();
         }
 
-        private void AddNew_Click(object sender, RoutedEventArgs e)
+        private async void AddNew_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as StudentViewModel).AddPerson();
+
+            var dialog = new AddPerson((DataContext as StudentViewModel).People);
+            if (dialog != null)
+                await dialog.ShowAsync();
+            var hold = (DataContext as StudentViewModel).peopleList;
+
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
